@@ -1,11 +1,11 @@
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col, Form } from "react-bootstrap";
 import CardProducto from "./producto/CardProducto";
 
 const Inicio = () => {
   return (
-    <section className="mainSection w-100">
+    <section className="mainSection">
       <div className="relativeContainer w-100">
-        <h1 className="slogan text-white display-1 text-center">
+        <h1 className="slogan text-white display-1 text-center lead">
           Rolling Bistro <br />
           <span className="display-6">¡Sabores autenticos.!</span>
         </h1>
@@ -16,9 +16,12 @@ const Inicio = () => {
           alt="imagen banner"
         />
       </div>
-      <Container className='container'>
+      <Container className="container">
         <Row>
-          <Col md={6} className="p-lg-5 text-bg-light d-flex align-items-center lead">
+          <Col
+            md={6}
+            className="p-lg-5 text-bg-light d-flex align-items-center lead"
+          >
             Rolling bistro: Un restaurante moderno con cocina innovadora,
             ambiente acogedor y servicio excepcional. ideal para disfrutar de
             una experiencia gastronomica unica.
@@ -32,16 +35,21 @@ const Inicio = () => {
           </Col>
         </Row>
       </Container>
-       <Container className="mt-5">
+      <Container className="mt-5">
         <h2 className="display-4">Nuestros Productos</h2>
         <hr />
-          <Row>
-              <CardProducto/>  
-              <CardProducto/> 
-              <CardProducto/> 
-              <CardProducto/> 
-          </Row>
-        
+        <Form.Select aria-label="Default select example" className="mb-4 w-50 ">
+          <option>Categoria</option>
+          <option value="1">One</option>
+          <option value="2">Two</option>
+          <option value="3">Three</option>
+        </Form.Select>
+        <Row >
+          <CardProducto />
+          <CardProducto />
+          <CardProducto />
+          <CardProducto />
+        </Row>
       </Container>
     </section>
   );
