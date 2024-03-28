@@ -1,4 +1,4 @@
-import { Container, Row, Col, Form } from "react-bootstrap";
+import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import CardProducto from "./producto/CardProducto";
 
 const Inicio = () => {
@@ -8,6 +8,8 @@ const Inicio = () => {
         <h1 className="slogan text-white display-1 text-center lead">
           Rolling Bistro <br />
           <span className="display-6">¡Sabores autenticos.!</span>
+          <br />
+          <Button className="btn btn-success w-50 border border-light" href="#menu">Ver Menu</Button>
         </h1>
 
         <img
@@ -20,13 +22,13 @@ const Inicio = () => {
         <Row>
           <Col
             md={6}
-            className="p-lg-5 text-bg-light d-flex align-items-center lead"
+            className="p-lg-5 p-md-4 text-bg-light d-flex align-items-center lead text-dark-emphasis my-4"
           >
             Rolling bistro: Un restaurante moderno con cocina innovadora,
             ambiente acogedor y servicio excepcional. ideal para disfrutar de
             una experiencia gastronomica unica.
           </Col>
-          <Col md={6} className="p-lg-5">
+          <Col md={6} className="p-lg-5 p-md-4">
             <img
               src="https://static.wixstatic.com/media/46dc18_3487b934a84548e090e13f5ce1bf08ad~mv2.jpg/v1/fill/w_555,h_800,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/46dc18_3487b934a84548e090e13f5ce1bf08ad~mv2.jpg"
               alt=""
@@ -35,14 +37,16 @@ const Inicio = () => {
           </Col>
         </Row>
       </Container>
-      <Container className="mt-5">
+      <Container className="mt-5" id='menu'>
         <h2 className="display-4">Nuestros Productos</h2>
         <hr />
         <Form.Select aria-label="Default select example" className="mb-4 w-50 ">
           <option>Categoria</option>
-          <option value="1">One</option>
-          <option value="2">Two</option>
-          <option value="3">Three</option>
+          <option value="Italiana">Italiana</option>
+          <option value="Vegetariana">Vegetariana</option>
+          <option value="Carnes">Carnes a la Parrilla</option>
+          <option value="Postres">Postres</option>
+          <option value="Americana">Americana</option>
         </Form.Select>
         <Row >
           <CardProducto />
