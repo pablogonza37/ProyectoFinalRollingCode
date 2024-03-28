@@ -1,4 +1,5 @@
 import { Container, Row, Col } from "react-bootstrap";
+import CardProducto from "./producto/CardProducto";
 
 const Inicio = () => {
   return (
@@ -30,6 +31,17 @@ const Inicio = () => {
             />
           </Col>
         </Row>
+      </Container>
+       <Container className="mt-5">
+        <h2 className="display-4">Nuestros Productos</h2>
+        <hr />
+          <Row>
+              <CardProducto/>  
+              <CardProducto/> 
+              <CardProducto/> 
+              <CardProducto/> 
+          </Row>
+        
       </Container>
     </section>
   );
