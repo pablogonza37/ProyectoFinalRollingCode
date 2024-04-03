@@ -24,7 +24,7 @@ const Menu = ({ openLoginModal }) => {
           </Nav>
           <Nav>
             <Nav.Link href="#deets" className="text-white">Registro</Nav.Link>
-            <Nav.Link eventKey={2} href="#memes" className="text-white" onClick={openLoginModal}>
+            <Nav.Link eventKey={2} href="" className="text-white" onClick={openLoginModal}>
               Login
             </Nav.Link>
           </Nav>
