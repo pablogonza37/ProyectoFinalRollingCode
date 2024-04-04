@@ -1,8 +1,13 @@
 import { Nav, Navbar, Container, Button } from "react-bootstrap";
 import logo from "../../assets/logoRollingBistro.png";
 import NavDropdown from "react-bootstrap/NavDropdown";
+import { Link } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
+
 
 const Menu = () => {
+  const navigate = useNavigate();
+
   return (
 
     <Navbar collapseOnSelect expand="lg" className="nav text-white">
@@ -25,7 +30,7 @@ const Menu = () => {
             </Nav.Link>
         </Nav>
         <Nav>
-          <Nav.Link href="#deets" className="text-white">Registro</Nav.Link>
+        <Nav.Link onClick={() => navigate('/Registro')} className="text-white">Registro</Nav.Link>
           <Nav.Link eventKey={2} href="#memes" className="text-white">
             Login
           </Nav.Link>
