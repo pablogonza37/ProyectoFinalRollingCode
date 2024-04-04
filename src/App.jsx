@@ -27,8 +27,8 @@ function App() {
       <LoginModal modalIsOpen={modalIsOpen} closeModal={closeModal} />
       {/*<Inicio></Inicio>*/}
       {/*<DetalleProducto></DetalleProducto>*/}
-      {/*<Administrador></Administrador>*/}
-      <FormularioProducto></FormularioProducto>
+      <Administrador></Administrador>
+      {/*<FormularioProducto></FormularioProducto>*/}
       <Footer></Footer>
     </>
   );

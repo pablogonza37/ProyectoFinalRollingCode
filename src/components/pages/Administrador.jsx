@@ -2,16 +2,13 @@ import { Table, Spinner, Button } from "react-bootstrap";
 import ItemProducto from "./producto/ItemProducto";
 import ItemUsuario from "./usuario/ItemUsuario";
 import { useEffect, useState } from "react";
-import React from 'react';
+import React from "react";
 
-const Administrador = () => { 
+const Administrador = () => {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
-const [tipo, setTipo] = useState('usuarios')
- 
-
- 
+  const [tipo, setTipo] = useState("productos");
 
   const mostrarComponente = isLoading ? (
     <div className="my-4 text-center">
@@ -28,15 +25,9 @@ const [tipo, setTipo] = useState('usuarios')
         </tr>
       </thead>
       <tbody>
-    
-          <React.Fragment>
-            {tipo === "usuarios" ? (
-              <ItemUsuario />
-            ) : (
-              <ItemProducto />
-            )}
-          </React.Fragment>
-        
+        <React.Fragment>
+          {tipo === "usuarios" ? <ItemUsuario /> : <ItemProducto />}
+        </React.Fragment>
       </tbody>
     </Table>
   );
@@ -45,8 +36,9 @@ const [tipo, setTipo] = useState('usuarios')
     <section className="container mainSection">
       <div className="d-flex justify-content-between align-items-center mt-5">
         <h1 className="display-4">{`Gestión de ${tipo}`}</h1>
-        <Button className="btn btn-primary">
-          <i className="bi bi-file-earmark-plus"></i> Crear {tipo === "usuarios" ? "Usuario" : "Producto"}
+        <Button variant="success">
+          <i className="bi bi-file-earmark-plus"></i> Crear{" "}
+          {tipo === "usuarios" ? "Usuario" : "Producto"}
         </Button>
       </div>
       <hr />
