@@ -28,7 +28,7 @@ function Registro() {
       <Form onSubmit={handleSubmit}>
         <Form.Group className="mb-3">
           <Form.Label>Nombre de usuario</Form.Label>
-          <Form.Control type="text" placeholder="Ingresa tu nombre de usuario" value={username} onChange={handleUsernameChange} />
+          <Form.Control type="text" placeholder="Ingresa tu nombre de usuario" value={username} onChange={handleUsernameChange}  />
         </Form.Group>
 
         <Form.Group className="mb-3">
