@@ -1,12 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import Modal from 'react-modal';
+import { Button, Form } from "react-bootstrap";
+import { useForm } from "react-hook-form";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom"; 
 import '../../App.css';
+import { login } from '../../helpers/queries';
 
 Modal.setAppElement('#root');
 
-const LoginModal = ({ modalIsOpen, closeModal }) => {
+const LoginModal = ({ modalIsOpen, closeModal, setUsuarioLogueado }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [errors, setErrors] = useState({});
+  
+  const { register, handleSubmit, formState: { errors: formErrors } } = useForm();
+  const navegacion = useNavigate();
 
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
@@ -16,12 +25,25 @@ const LoginModal = ({ modalIsOpen, closeModal }) => {
     setPassword(event.target.value);
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    // Aquí puedes manejar la lógica de inicio de sesión
-    console.log(`Username: ${username}, Password: ${password}`);
-    closeModal();
+  const onSubmit = async (usuario) => {
+    if (login(usuario)) {
+      Swal.fire({
+        title: "Usuario logueado",
+        text: `Bienvenido "${usuario.mail}"`,
+        icon: "success",
+      });
+      navegacion('/administrador/productos');
+      setUsuarioLogueado(usuario.mail);
+      closeModal();
+    } else {
+      setErrors({ message: "El usuario o la contraseña son incorrectos" });
+    }
   };
+
+  const cerrarModal = ()=>{
+    navegacion('/');
+    closeModal();
+  }
 
   return (
     <div className='mainSection bg-dark'>
@@ -29,31 +51,57 @@ const LoginModal = ({ modalIsOpen, closeModal }) => {
         isOpen={modalIsOpen}
         className={'unstyle'}
         onRequestClose={closeModal}
-        style={{ overlay: {}, content: {} }} // Objeto de estilos vacío
+        style={{ overlay: {}, content: {} }} 
         contentLabel="Modal de inicio de sesión"
-          >
+      >
         <h2>Iniciar sesión</h2>
-        <form onSubmit={handleSubmit}>
-          <label>
-            Nombre de usuario:
-            <input type="text" value={username} onChange={handleUsernameChange} maxLength={25} />
-          </label>
-          {username.length < 3 || username.length > 20 ? (
-            <p style={{ color: 'red' }}>El nombre de usuario debe tener entre 3 y 20 caracteres</p>
-          ) : null}
-          <label>
-            Contraseña:
-            <input type="password" value={password} onChange={handlePasswordChange} minLength={8} maxLength={16} />
-          </label>
-          {password.length < 6 || password.length > 16 ? (
-            <p style={{ color: 'red' }}>La contraseña debe tener entre 6 y 16 caracteres</p>
-          ) : null}
-          <input type="submit" value="Iniciar sesión" />
-        </form>
-        <button onClick={closeModal}>Cerrar</button>
-          </Modal>
-        </div>
-    );
+        <Form onSubmit={handleSubmit(onSubmit)}>
+          <Form.Group className="mb-3" controlId="formBasicEmail">
+            <Form.Label>Email:</Form.Label>
+            <Form.Control
+              type="email"
+              placeholder="name@example.com"
+              {...register("mail", {
+                required: "Email es requerido",
+                pattern: {
+                  value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                  message: "Email inválido",
+                },
+              })}
+            />
+            <Form.Text className="text-danger">
+              {formErrors.mail?.message}
+            </Form.Text>
+          </Form.Group>
+
+          <Form.Group className="mb-3" controlId="formBasicPassword">
+            <Form.Label>Password:</Form.Label>
+            <Form.Control
+              type="password"
+              placeholder="Password"
+              {...register("password", {
+                required: "Contraseña es requerida",
+                minLength: {
+                  value: 6,
+                  message: "La contraseña debe tener al menos 6 caracteres",
+                },
+              })}
+            />
+            <Form.Text className="text-danger">
+              {formErrors.password?.message}
+            </Form.Text>
+          </Form.Group>
+
+          {errors.message && <p style={{ color: 'red' }}>{errors.message}</p>}
+
+          <Button variant="primary" type="submit">
+            Iniciar sesión
+          </Button>
+        </Form>
+        <button onClick={cerrarModal} className="btn btn-light">Cerrar</button>
+      </Modal>
+    </div>
+  );
 }
 
 export default LoginModal;

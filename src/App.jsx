@@ -15,12 +15,11 @@ import RutasAdmin from "./components/routes/RutasAdmin";
 
 function App() {
   const usuario = JSON.parse(sessionStorage.getItem("usuarioRollingBistro")) || "";
-  const [usuarioLogueado, setUsuarioLogueado] = useState('usuario');
+  const [usuarioLogueado, setUsuarioLogueado] = useState(usuario);
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const openModal = () => {
     setModalIsOpen(true);
-    console.log('desde modal')
   };
 
   const closeModal = () => {
