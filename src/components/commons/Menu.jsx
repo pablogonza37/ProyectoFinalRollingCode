@@ -1,32 +1,83 @@
 import { Nav, Navbar, Container, Button } from "react-bootstrap";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import logo from "../../assets/logoRollingBistro.png";
 import NavDropdown from "react-bootstrap/NavDropdown";
 
-const Menu = ({ openLoginModal }) => {
+const Menu = ({ openLoginModal, usuarioLogueado, setUsuarioLogueado }) => {
+  const navegacion = useNavigate();
+  const logout = () => {
+    sessionStorage.removeItem("usuarioRollingBistro");
+    setUsuarioLogueado("");
+    navegacion("/");
+  };
+
   return (
     <Navbar collapseOnSelect expand="lg" className="nav text-white">
       <Container>
-        <Navbar.Brand href="#home"><img src={logo} alt="logo" className="img-fluid" width={200} /></Navbar.Brand>
-        <Navbar.Toggle aria-controls="responsive-navbar-nav" className="custom-toggler"/>
+        <Navbar.Brand href="#home">
+          <img src={logo} alt="logo" className="img-fluid" width={200} />
+        </Navbar.Brand>
+        <Navbar.Toggle
+          aria-controls="responsive-navbar-nav"
+          className="custom-toggler"
+        />
         <Navbar.Collapse id="responsive-navbar-nav" className="text-white">
           <Nav className="m-auto ">
-            <Nav.Link href="#features" className="text-white">Inicio</Nav.Link>
-            <Nav.Link href="#pricing" className="text-white">Acerca de</Nav.Link>
-            <NavDropdown title="Administrador" id="collapsible-nav-dropdown" >
-              <NavDropdown.Item href="#action/3.1">Productos</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2">
-                Usuarios
-              </NavDropdown.Item>
-            </NavDropdown>
-            <Nav.Link href="#" className="text-white">
-                Pedidos
-              </Nav.Link>
-          </Nav>
-          <Nav>
-            <Nav.Link href="#deets" className="text-white">Registro</Nav.Link>
-            <Nav.Link eventKey={2} href="" className="text-white" onClick={openLoginModal}>
-              Login
-            </Nav.Link>
+            <NavLink end className="text-white nav-link" to="/">
+              Inicio
+            </NavLink>
+            <NavLink end className="text-white nav-link" to="/acerca">
+              Acerca de
+            </NavLink>
+            <NavLink end className="text-white nav-link" to="/pedidos">
+              Pedidos
+            </NavLink>
+
+            {usuarioLogueado !== "" ? (
+              <>
+                <NavDropdown
+                  title="Administrador"
+                  id="collapsible-nav-dropdown"
+                >
+                  <NavLink
+                    end
+                    className="nav-link"
+                    to="/administrador/productos"
+                  >
+                    Productos
+                  </NavLink>
+                  <NavLink
+                    end
+                    className="nav-link"
+                    to="/administrador/usuarios"
+                  >
+                    Usuarios
+                  </NavLink>
+                </NavDropdown>
+
+                <Button
+                  className="nav-link text-start text-white"
+                  variant="link"
+                  onClick={logout}
+                >
+                  logout
+                </Button>
+              </>
+            ) : (
+              <>
+                <NavLink end className="text-white nav-link" to="/registro">
+                  Registro
+                </NavLink>
+                <NavLink
+                  className="text-white nav-link text-start"
+                  variant="link"
+                  onClick={openLoginModal}
+                  to="/login"
+                >
+                  Login
+                </NavLink>
+              </>
+            )}
           </Nav>
         </Navbar.Collapse>
       </Container>

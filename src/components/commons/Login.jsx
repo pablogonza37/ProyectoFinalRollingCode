@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Modal from 'react-modal';
 import '../../App.css';
 
@@ -24,7 +24,7 @@ const LoginModal = ({ modalIsOpen, closeModal }) => {
   };
 
   return (
-    <div>
+    <div className='mainSection bg-dark'>
       <Modal
         isOpen={modalIsOpen}
         className={'unstyle'}
