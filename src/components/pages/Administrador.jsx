@@ -4,6 +4,7 @@ import ItemUsuario from "./usuario/ItemUsuario";
 import { useEffect, useState } from "react";
 import React from "react";
 import { leerProductosAPI } from "../../helpers/queries";
+import { Link } from "react-router-dom";
 
 const Administrador = ({ tipo }) => {
   const [data, setData] = useState([]);
@@ -65,10 +66,10 @@ const Administrador = ({ tipo }) => {
     <section className="container mainSection">
       <div className="d-flex justify-content-between align-items-center mt-5">
         <h1 className="display-4">{`Gestión de ${tipo}`}</h1>
-        <Button variant="success">
+        <Link className="btn btn-success" to={`/administrador/${tipo}/crear`}>
           <i className="bi bi-file-earmark-plus"></i> Crear{" "}
           {tipo === "usuarios" ? "Usuario" : "Producto"}
-        </Button>
+        </Link>
       </div>
       <hr />
       {mostrarComponente}

@@ -1,22 +1,22 @@
 import { Col, Card, Button } from "react-bootstrap";
 
-const CardProducto = () => {
+const CardProducto = ({ producto }) => {
   return (
     <Col md={4} lg={3} className="mb-3">
       <Card className="h-100">
         <div>
           <img
-            src="https://images.pexels.com/photos/70497/pexels-photo-70497.jpeg"
+            src={producto.imagen}
             alt="Hamburguesa"
             className="card-img-top-nueva"
           />
         </div>
         <Card.Body>
-          <Card.Title className="primary-font">Hamburguesa</Card.Title>
+          <Card.Title className="primary-font">{producto.nombreProducto}</Card.Title>
           <Card.Text>
-            Descripción: hfjhasjkhjkashfjkhasfjkhskjhfkjash.{" "}
+            Descripción: {producto.descripcionBreve}.{" "}
             <br className="mb-2" />
-            <span className="fw-bold">Precio: $5000</span>
+            <span className="fw-bold">{producto.precio}</span>
           </Card.Text>
         </Card.Body>
         <Card.Footer className="text-end">

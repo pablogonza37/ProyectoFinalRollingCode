@@ -1,7 +1,11 @@
 import { Form, Button } from "react-bootstrap";
 import { useForm } from "react-hook-form";
+import { crearProductoAPI, editarProductoAPI } from "../../../helpers/queries";
+import Swal from "sweetalert2";
+import { useParams, useNavigate } from "react-router";
+import { useEffect } from "react";
 
-const FormularioProducto = () => {
+const FormularioProducto = ({ titulo, editar }) => {
     const {
         register,
         handleSubmit,
@@ -10,11 +14,48 @@ const FormularioProducto = () => {
         setValue,
       } = useForm();
 
+
+      const productoValidado = async (producto) => {
+        if (editar) {
+          const respuesta = await editarProductoAPI(producto, id);
+          if (respuesta.status === 200) {
+            Swal.fire({
+              title: "Producto modificado",
+              text: `El producto "${producto.nombreProducto}" fue modificado correctamente`,
+              icon: "success",
+            });
+            navegacion("/administrador/productos");
+          } else {
+            Swal.fire({
+              title: "Ocurrio un error",
+              text: `El producto "${producto.nombreProducto}" no pudo ser modificado. Intente esta operación en unos minutos`,
+              icon: "error",
+            });
+          }
+        } else {
+          const resp = await crearProductoAPI(producto);
+          if (resp.status === 201) {
+            Swal.fire({
+              title: "Producto creado",
+              text: `El producto de "${producto.nombreProducto}" fue creado correctamente`,
+              icon: "success",
+            });
+            reset();
+          } else {
+            Swal.fire({
+              title: "Ocurrio un error",
+              text: `El producto "${producto.nombreProducto}" no pudo ser creado. Intente esta operación en unos minutos`,
+              icon: "error",
+            });
+          }
+        }
+      };
+
     return (
         <section className="container mainSection mb-3">
-      <h1 className="display-4 mt-5">Crear Producto</h1>
+      <h1 className="display-4 mt-5">{titulo}</h1>
       <hr />
-      <Form className="my-4 shadow p-3">
+      <Form className="my-4 shadow p-3" onSubmit={handleSubmit(productoValidado)}>
         <Form.Group className="mb-3" controlId="formNombreProdcuto">
           <Form.Label>Producto*</Form.Label>
           <Form.Control
