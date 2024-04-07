@@ -1,4 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Edu+NSW+ACT+Foundation:wght@400..700&display=swap");
+.unstyle {
+  all: unset;
+}
 
 #root {
   display: flex;
@@ -29,7 +32,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: 1;
+  z-index: 0;
   text-shadow: 1px 1px 2px black;
   font-family: "Edu NSW ACT Foundation", cursive;
   font-optical-sizing: auto;
@@ -66,4 +69,40 @@
 
 .custom-toggler .navbar-toggler-icon {
   background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg' width='30' height='30'%3E%3Cpath stroke='%23fff' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+}
+
+.ReactModal__Overlay {
+  background-color: rgba(0, 0, 0, 0.75) !important;
+}
+
+.ReactModal__Content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  right: auto; 
+  bottom: auto;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  background: white;
+  width: 300px;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.ReactModal__Content input{
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.ReactModal__Content button{
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  background: #007bff;
+  color: white;
 }
