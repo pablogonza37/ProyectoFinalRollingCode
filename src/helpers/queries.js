@@ -90,7 +90,31 @@ export const crearUsuarioAPI = async (usuarioNuevo) => {
   }
 };
 
+export const borrarUsuarioAPI = async (id) => {
+  try {
+    const resp = await fetch(`${URL_Usuarios}/${id}`, {
+      method: "DELETE",
+    });
+    return resp;
+  } catch (error) {
+    console.log(error);
+  }
+};
 
+export const inhabilitarUsuarioAPI = async (id) => {
+  try {
+    const resp = await fetch(`${URL_Usuarios}/${id}/disable`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    return resp;
+  } catch (error) {
+    console.log(error);
+    throw new Error('Error al inhabilitar el usuario desde la API: ' + error.message);
+  }
+};
 
 const userAdmin = {
     mail: "admin@rollingbistro.com",
