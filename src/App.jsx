@@ -48,7 +48,7 @@ function App() {
           <Route
             exact
             path="/registro"
-            element={<Registro tituloRegistro='Registro'></Registro>}
+            element={<Registro tituloRegistro='Registro' rol={false}></Registro>}
           ></Route>
           <Route
             exact

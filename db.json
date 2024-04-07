@@ -42,6 +42,22 @@
       "email": "pabkjj@gmail.com",
       "password": "111111",
       "confirmarContraseña": "111111"
+    },
+    {
+      "id": "c6eb",
+      "nombre": "pablo",
+      "email": "pedro@example.com",
+      "rol": "administrador",
+      "password": "222222",
+      "confirmarContraseña": "222222"
+    },
+    {
+      "id": "7f2f",
+      "nombre": "pablo",
+      "email": "pedro@example.com",
+      "rol": "administrador",
+      "password": "222222",
+      "confirmarContraseña": "222222"
     }
   ]
 }
