@@ -4,11 +4,10 @@ import ItemUsuario from "./usuario/ItemUsuario";
 import { useEffect, useState } from "react";
 import React from "react";
 
-const Administrador = () => {
+const Administrador = ({ tipo }) => {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [tipo, setTipo] = useState("productos");
 
   const mostrarComponente = isLoading ? (
     <div className="my-4 text-center">

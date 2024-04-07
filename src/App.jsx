@@ -5,12 +5,17 @@ import Inicio from "./components/pages/Inicio";
 import Menu from "./components/commons/Menu";
 import { useState } from "react";
 import Footer from "./components/commons/Footer";
-import LoginModal from './components/commons/Login';
+import LoginModal from "./components/commons/Login";
 import DetalleProducto from "./components/pages/producto/DetalleProducto";
 import Administrador from "./components/pages/Administrador";
 import FormularioProducto from "./components/pages/producto/FormularioProducto";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import RutasProtegidas from "./components/routes/RutasProtegidas";
+import RutasAdmin from "./components/routes/RutasAdmin";
 
 function App() {
+  const usuario = JSON.parse(sessionStorage.getItem("usuarioRollingBistro")) || "";
+  const [usuarioLogueado, setUsuarioLogueado] = useState(usuario);
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const openModal = () => {
@@ -23,13 +28,40 @@ function App() {
 
   return (
     <>
-      <Menu openLoginModal={openModal} />
-      <LoginModal modalIsOpen={modalIsOpen} closeModal={closeModal} />
-      {/*<Inicio></Inicio>*/}
-      {/*<DetalleProducto></DetalleProducto>*/}
-      <Administrador></Administrador>
-      {/*<FormularioProducto></FormularioProducto>*/}
-      <Footer></Footer>
+      <BrowserRouter>
+        <Menu openLoginModal={openModal} usuarioLogueado={usuarioLogueado} setUsuarioLogueado={setUsuarioLogueado}/>
+        <Routes>
+          <Route exact path="/" element={<Inicio></Inicio>}></Route>
+          <Route
+            exact
+            path="/detalle/:id"
+            element={<DetalleProducto></DetalleProducto>}
+          ></Route>
+           <Route
+            exact
+            path="/administrador/*"
+            element={
+              <RutasProtegidas>
+                <RutasAdmin usuarioLogueado={usuarioLogueado}></RutasAdmin>
+              </RutasProtegidas>
+            }
+          ></Route>
+          <Route
+            exact
+            path="/"
+            element={<FormularioProducto></FormularioProducto>}
+          ></Route>
+          <Route
+            exact
+            path="/login"
+            element={
+              <LoginModal modalIsOpen={modalIsOpen} closeModal={closeModal} setUsuarioLogueado={setUsuarioLogueado}/>
+            }
+          ></Route>
+          {/*<Route path="*" element={<Error404></Error404>}></Route>*/}
+        </Routes>
+        <Footer></Footer>
+      </BrowserRouter>
     </>
   );
 }
