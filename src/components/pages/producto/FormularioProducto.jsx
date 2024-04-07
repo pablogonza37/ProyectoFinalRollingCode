@@ -1,61 +1,93 @@
 import { Form, Button } from "react-bootstrap";
 import { useForm } from "react-hook-form";
-import { crearProductoAPI, editarProductoAPI } from "../../../helpers/queries";
+import {
+  crearProductoAPI,
+  editarProductoAPI,
+  obtenerProductoAPI,
+} from "../../../helpers/queries";
 import Swal from "sweetalert2";
 import { useParams, useNavigate } from "react-router";
 import { useEffect } from "react";
 
 const FormularioProducto = ({ titulo, editar }) => {
-    const {
-        register,
-        handleSubmit,
-        formState: { errors },
-        reset,
-        setValue,
-      } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+    setValue,
+  } = useForm();
 
+  const { id } = useParams();
+  const navegacion = useNavigate();
 
-      const productoValidado = async (producto) => {
-        if (editar) {
-          const respuesta = await editarProductoAPI(producto, id);
-          if (respuesta.status === 200) {
-            Swal.fire({
-              title: "Producto modificado",
-              text: `El producto "${producto.nombreProducto}" fue modificado correctamente`,
-              icon: "success",
-            });
-            navegacion("/administrador/productos");
-          } else {
-            Swal.fire({
-              title: "Ocurrio un error",
-              text: `El producto "${producto.nombreProducto}" no pudo ser modificado. Intente esta operación en unos minutos`,
-              icon: "error",
-            });
-          }
-        } else {
-          const resp = await crearProductoAPI(producto);
-          if (resp.status === 201) {
-            Swal.fire({
-              title: "Producto creado",
-              text: `El producto de "${producto.nombreProducto}" fue creado correctamente`,
-              icon: "success",
-            });
-            reset();
-          } else {
-            Swal.fire({
-              title: "Ocurrio un error",
-              text: `El producto "${producto.nombreProducto}" no pudo ser creado. Intente esta operación en unos minutos`,
-              icon: "error",
-            });
-          }
-        }
-      };
+  useEffect(() => {
+    if (editar) {
+      cargarDatosReceta();
+    }
+  }, []);
 
-    return (
-        <section className="container mainSection mb-3">
+  const cargarDatosReceta = async () => {
+    try {
+      const respuesta = await obtenerProductoAPI(id);
+      if (respuesta.status === 200) {
+        const productoEncontrado = await respuesta.json();
+        setValue("nombreProducto", productoEncontrado.nombreProducto);
+        setValue("precio", productoEncontrado.precio);
+        setValue("imagen", productoEncontrado.imagen);
+        setValue("categoria", productoEncontrado.categoria);
+        setValue("descripcionBreve", productoEncontrado.descripcionBreve);
+        setValue("descripcionAmplia", productoEncontrado.descripcionAmplia);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const productoValidado = async (producto) => {
+    if (editar) {
+      const respuesta = await editarProductoAPI(producto, id);
+      if (respuesta.status === 200) {
+        Swal.fire({
+          title: "Producto modificado",
+          text: `El producto "${producto.nombreProducto}" fue modificado correctamente`,
+          icon: "success",
+        });
+        navegacion("/administrador/productos");
+      } else {
+        Swal.fire({
+          title: "Ocurrio un error",
+          text: `El producto "${producto.nombreProducto}" no pudo ser modificado. Intente esta operación en unos minutos`,
+          icon: "error",
+        });
+      }
+    } else {
+      const resp = await crearProductoAPI(producto);
+      if (resp.status === 201) {
+        Swal.fire({
+          title: "Producto creado",
+          text: `El producto de "${producto.nombreProducto}" fue creado correctamente`,
+          icon: "success",
+        });
+        reset();
+      } else {
+        Swal.fire({
+          title: "Ocurrio un error",
+          text: `El producto "${producto.nombreProducto}" no pudo ser creado. Intente esta operación en unos minutos`,
+          icon: "error",
+        });
+      }
+    }
+  };
+
+  return (
+    <section className="container mainSection mb-3">
       <h1 className="display-4 mt-5">{titulo}</h1>
       <hr />
-      <Form className="my-4 shadow p-3" onSubmit={handleSubmit(productoValidado)}>
+      <Form
+        className="my-4 shadow p-3"
+        onSubmit={handleSubmit(productoValidado)}
+      >
         <Form.Group className="mb-3" controlId="formNombreProdcuto">
           <Form.Label>Producto*</Form.Label>
           <Form.Control
@@ -129,10 +161,11 @@ const FormularioProducto = ({ titulo, editar }) => {
             })}
           >
             <option value="">Seleccione una opcion</option>
-            <option value="Infusiones">Hamburguesas</option>
-            <option value="Batidos">Sandwitches</option>
-            <option value="Dulce">Postres</option>
-            <option value="Salado">Carne asada</option>
+            <option value="Hamburguesas">Hamburguesas</option>
+            <option value="Pastas">Pastas</option>
+            <option value="Postres">Postres</option>
+            <option value="Carne asada">Carne asada</option>
+            <option value="Milanesas">Milanesas</option>
           </Form.Select>
           <Form.Text className="text-danger">
             {errors.categoria?.message}
@@ -191,7 +224,7 @@ const FormularioProducto = ({ titulo, editar }) => {
         </Button>
       </Form>
     </section>
-    );
+  );
 };
 
 export default FormularioProducto;

@@ -1,7 +1,7 @@
 {
   "productos": [
     {
-      "nombreProducto": "capuchino",
+      "nombreProducto": "Milanesa",
       "precio": "1500",
       "imagen": "https://images.pexels.com/photos/2638019/pexels-photo-2638019.jpeg",
       "categoria": "Hamburguesas",
