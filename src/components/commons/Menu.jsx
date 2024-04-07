@@ -14,7 +14,7 @@ const Menu = ({ openLoginModal, usuarioLogueado, setUsuarioLogueado }) => {
   return (
     <Navbar collapseOnSelect expand="lg" className="nav text-white">
       <Container>
-        <Navbar.Brand href="#home">
+        <Navbar.Brand as={Link} to="/">
           <img src={logo} alt="logo" className="img-fluid" width={200} />
         </Navbar.Brand>
         <Navbar.Toggle
