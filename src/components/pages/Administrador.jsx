@@ -3,7 +3,7 @@ import ItemProducto from "./producto/ItemProducto";
 import ItemUsuario from "./usuario/ItemUsuario";
 import { useEffect, useState } from "react";
 import React from "react";
-import { leerProductosAPI } from "../../helpers/queries";
+import { leerProductosAPI, leerUsuariosAPI } from "../../helpers/queries";
 import { Link } from "react-router-dom";
 
 const Administrador = ({ tipo }) => {

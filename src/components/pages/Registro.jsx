@@ -3,8 +3,11 @@ import { Form, Button } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import Swal from 'sweetalert2';
 import { crearUsuarioAPI } from '../../helpers/queries';
+import { useState, useEffect } from "react";
 
-const Registro = ({ tituloRegistro }) => {
+const Registro = ({ tituloRegistro, rol }) => {
+  const [rolPorDefecto, setRolPorDefecto] = useState("usuario");
+  const [rolVisible, setRolVisible] = useState( rol );
   const {
     register,
     handleSubmit,
@@ -17,15 +20,13 @@ const Registro = ({ tituloRegistro }) => {
     const usuario = {
       nombre: data.nombre,
       email: data.email,
+      rol: data.rol || rolPorDefecto,
       password: data.password,
       confirmarContraseña: data.confirmarContraseña,
     };
 
     const respuesta = await crearUsuarioAPI(usuario);
     if (respuesta.status === 201) {
-      setTimeout(() => {
-        reset();
-      }, 2000);
       Swal.fire({
         title: "Usuario registrado",
         text: `El usuario "${usuario.nombre}" fue registrado correctamente`,
@@ -85,6 +86,24 @@ const Registro = ({ tituloRegistro }) => {
             <p style={{ color: 'red' }}>{errors.email.message}</p>
           )}
         </Form.Group>
+
+        {rolVisible && (
+          <Form.Group className="mb-3" controlId="formcategoria">
+            <Form.Label>Rol*</Form.Label>
+            <Form.Select
+              {...register("rol", {
+                required: " es obligatorio",
+              })}
+            >
+              <option value="usuario">Usuario</option>
+              <option value="administrador">Administrador</option>
+            </Form.Select>
+            <Form.Text className="text-danger">
+              {errors.rol?.message}
+            </Form.Text>
+          </Form.Group>
+        )}
+
 
         <Form.Group className="mb-3">
           <Form.Label>Contraseña*</Form.Label>

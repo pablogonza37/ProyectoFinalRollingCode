@@ -1,12 +1,12 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
 
-const ItemUsuario = () => {
+const ItemUsuario = ({ usuario, setData }) => {
     return (
         <tr>
-      <td>Juan</td>
-      <td>juan@gmail.com</td>
-      <td>admin</td>
+      <td>{usuario.nombre}</td>
+      <td>{usuario.email}</td>
+      <td>{usuario.rol}</td>
       <td className="text-center">
         <Button
           className="btn btn-secondary me-1"
