@@ -2,10 +2,6 @@ import { Nav, Navbar, Container, Button } from "react-bootstrap";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import logo from "../../assets/logoRollingBistro.png";
 import NavDropdown from "react-bootstrap/NavDropdown";
-import { Link } from "react-router-dom";
-import { useNavigate } from 'react-router-dom';
-
-
 
 const Menu = ({ openLoginModal, usuarioLogueado, setUsuarioLogueado }) => {
   const navegacion = useNavigate();

@@ -1,17 +1,17 @@
 import { Button } from "react-bootstrap";
 
-const ItemProducto = () => {
+const ItemProducto = ({ producto }) => {
     return (
         <tr>
-        <td>Hamburgueasa</td>
+        <td>{producto.nombreProducto}</td>
         <td className="text-center">
           <img
-            src="https://images.pexels.com/photos/70497/pexels-photo-70497.jpeg"
+            src={producto.imagen}
             className="img-thumbnail"
-            alt=""
+            alt="imagen del producto"
           ></img>
         </td>
-        <td>Hamburguesas</td>
+        <td>{producto.categoria}</td>
         <td className="text-center">
           <Button
             className="btn btn-warning me-1"
