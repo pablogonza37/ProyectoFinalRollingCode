@@ -2,7 +2,7 @@ import { Routes, Route } from "react-router";
 import Administrador from "../pages/Administrador";
 import FormularioRegistro from "../pages/usuario/FormularioRegistro";
 import FormularioProducto from "../pages/producto/FormularioProducto";
-
+import Registro from "../pages/Registro";
 
 const RutasAdmin = ({usuarioLogueado}) => {
   return (
@@ -29,7 +29,7 @@ const RutasAdmin = ({usuarioLogueado}) => {
             ></FormularioProducto>
           }
         ></Route>
-        <Route
+     {/*}   <Route
           exact
           path="usuarios/editar/:id"
           element={
@@ -39,7 +39,7 @@ const RutasAdmin = ({usuarioLogueado}) => {
               rol=""
             ></FormularioRegistro>
           }
-        ></Route>
+        ></Route>*/}
         <Route
           exact
           path="/usuarios"
@@ -54,12 +54,11 @@ const RutasAdmin = ({usuarioLogueado}) => {
             exact
             path="/usuarios/crear"
             element={
-              <FormularioRegistro
-                editar={false}
+              <Registro
                 rol={true}
-                titulo="Crear usuario"
+                tituloRegistro="Crear usuario"
                 usuarioLogueado={usuarioLogueado}
-              ></FormularioRegistro>
+              ></Registro>
             }
           ></Route>
       </Routes>

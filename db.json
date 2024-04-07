@@ -27,5 +27,21 @@
       "descripcionAmplia": "fghfghjogifhjiofjhiofjgihjgfihjijfgihjiogfhiojiogfhjifjiogjofgijhiofghjijfgiohjifjhijfgiohjiofhjfigjhiofgfg",
       "id": "43b5"
     }
+  ],
+  "usuarios": [
+    {
+      "id": "df29",
+      "nombre": "pablo",
+      "email": "pab.pg92@gmail.com",
+      "password": "123456",
+      "confirmarContraseña": "123456"
+    },
+    {
+      "id": "c6e0",
+      "nombre": "Simon",
+      "email": "pabkjj@gmail.com",
+      "password": "111111",
+      "confirmarContraseña": "111111"
+    }
   ]
 }
