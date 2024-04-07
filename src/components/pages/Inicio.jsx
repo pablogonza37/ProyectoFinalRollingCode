@@ -2,6 +2,7 @@ import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import CardProducto from "./producto/CardProducto";
 
 const Inicio = () => {
+  
   return (
     <section className="mainSection">
       <div className="relativeContainer w-100">
@@ -49,10 +50,7 @@ const Inicio = () => {
           <option value="Americana">Americana</option>
         </Form.Select>
         <Row >
-          <CardProducto />
-          <CardProducto />
-          <CardProducto />
-          <CardProducto />
+          
         </Row>
       </Container>
     </section>

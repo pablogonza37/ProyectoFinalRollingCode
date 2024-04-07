@@ -3,11 +3,35 @@ import ItemProducto from "./producto/ItemProducto";
 import ItemUsuario from "./usuario/ItemUsuario";
 import { useEffect, useState } from "react";
 import React from "react";
+import { leerProductosAPI } from "../../helpers/queries";
 
 const Administrador = ({ tipo }) => {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+
+  useEffect(() => {
+    consultarAPI();
+  }, [tipo]);
+
+  const consultarAPI = async () => {
+    try {
+      setIsLoading(true);
+      let resp;
+      if (tipo === "usuarios") {
+        resp = await leerUsuariosAPI();
+      } else if (tipo === "productos") {
+        resp = await leerProductosAPI();
+      }
+      setData(resp);
+      setIsLoading(false);
+      setError(null);
+    } catch (error) {
+      console.log(error);
+      setError("Error al cargar los datos desde la API");
+      setIsLoading(false);
+    }
+  };
 
   const mostrarComponente = isLoading ? (
     <div className="my-4 text-center">
@@ -24,9 +48,15 @@ const Administrador = ({ tipo }) => {
         </tr>
       </thead>
       <tbody>
-        <React.Fragment>
-          {tipo === "usuarios" ? <ItemUsuario /> : <ItemProducto />}
+      {data.map((item) => (
+        <React.Fragment key={item.id}>
+        {tipo === "usuarios" ? (
+              <ItemUsuario usuario={item} setData={setData} />
+            ) : (
+              <ItemProducto producto={item} setData={setData} />
+            )}
         </React.Fragment>
+        ))}
       </tbody>
     </Table>
   );

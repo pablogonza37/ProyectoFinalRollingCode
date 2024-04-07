@@ -1,0 +1,22 @@
+{
+"productos": [
+    {
+      "nombreProducto": "capuchino",
+      "precio": "1500",
+      "imagen": "https://images.pexels.com/photos/2638019/pexels-photo-2638019.jpeg",
+      "categoria": "Infusiones",
+      "descripcionBreve": "Café espresso con una capa de espuma de leche.",
+      "descripcionAmplia": "El cappuccino es una mezcla equilibrada de espresso, leche vaporizada y espuma de leche, presentando una combinación armoniosa de sabores y texturas. Con una capa de espuma cremosa en la parte superior y un toque de cocoa en polvo, el cappuccino es una opción popular para aquellos que buscan una experiencia de café indulgente con un ligero toque de dulzura.",
+      "id": "d758"
+    },
+    {
+      "id": "e29c",
+      "nombreProducto": "Espresso",
+      "precio": "1300",
+      "imagen": "https://images.pexels.com/photos/685527/pexels-photo-685527.jpeg",
+      "categoria": "Infusiones",
+      "descripcionBreve": "Un shot de café intenso y concentrado.",
+      "descripcionAmplia": " Un shot de café espresso es una pequeña porción de café altamente concentrado y fuerte, elaborado al forzar agua caliente a través de granos de café finamente molidos. Su sabor es intenso y rico, con un cuerpo robusto y un toque de amargura que lo hace popular entre los amantes del café fuerte."
+    }
+]
+}
