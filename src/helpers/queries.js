@@ -25,8 +25,30 @@ export const crearProductoAPI = async (productoNuevo) => {
   }
 };
 
+export const obtenerProductoAPI = async (id) => {
+  try {
+    const resp = await fetch(URL_Productos + "/" + id);
+    return resp;
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 
+export const editarProductoAPI = async (productoModificado, id) => {
+  try {
+    const respuesta = await fetch(`${URL_Productos}/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(productoModificado),
+    });
+    return respuesta;
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 
 

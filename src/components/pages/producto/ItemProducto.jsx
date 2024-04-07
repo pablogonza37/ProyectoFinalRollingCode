@@ -1,4 +1,6 @@
 import { Button } from "react-bootstrap";
+import Swal from "sweetalert2";
+import { Link } from "react-router-dom";
 
 const ItemProducto = ({ producto }) => {
     return (
@@ -13,11 +15,12 @@ const ItemProducto = ({ producto }) => {
         </td>
         <td>{producto.categoria}</td>
         <td className="text-center">
-          <Button
-            className="btn btn-warning me-1"
-          >
-            <i className="bi bi-pencil-square"></i>
-          </Button>
+        <Link
+          className="btn btn-warning me-1"
+          to={"/administrador/productos/editar/" + producto.id}
+        >
+          <i className="bi bi-pencil-square"></i>
+        </Link>
           <Button variant="danger" >
             <i className="bi bi-trash"></i>
           </Button>
