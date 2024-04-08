@@ -11,6 +11,7 @@ import RutasProtegidas from "./components/routes/RutasProtegidas";
 import RutasAdmin from "./components/routes/RutasAdmin";
 import { useState } from "react";
 import Registro from "./components/pages/Registro";
+import Pedidos from "./components/pages/pedidos/Pedidos";
 
 function App() {
   const usuario = JSON.parse(sessionStorage.getItem("usuarioRollingBistro")) || "";
@@ -49,6 +50,11 @@ function App() {
             exact
             path="/registro"
             element={<Registro tituloRegistro='Registro' rol={false}></Registro>}
+          ></Route>
+          <Route
+            exact
+            path="/pedidos"
+            element={<Pedidos></Pedidos>}
           ></Route>
           <Route
             exact
