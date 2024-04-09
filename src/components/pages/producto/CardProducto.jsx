@@ -10,7 +10,8 @@ const CardProducto = ({ producto }) => {
       id: producto.id,
       nombreProducto: producto.nombreProducto,
       imagen: producto.imagen,
-      precio: producto.precio
+      precio: producto.precio,
+      estado: "pendiente"
     };
     
     const resp = await crearPedidoAPI(pedido);
@@ -44,7 +45,7 @@ const CardProducto = ({ producto }) => {
           <Card.Text>
             Descripción: {producto.descripcionBreve}.{" "}
             <br className="mb-2" />
-            <span className="fw-bold">{producto.precio}</span>
+            <span className="fw-bold">${producto.precio}</span>
           </Card.Text>
         </Card.Body>
         <Card.Footer className="text-end">

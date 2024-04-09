@@ -132,6 +132,17 @@ export const crearPedidoAPI = async (pedidoNuevo) => {
   }
 };
 
+export const obtenerPedidosAPI = async () => {
+  try {
+    const resp = await fetch(URL_Pedidos); 
+    const pedidos = await resp.json();
+    return pedidos;
+  } catch (error) {
+    console.log(error);
+    throw new Error('Error al obtener los pedidos'); 
+  }
+};
+
 
 const userAdmin = {
     mail: "admin@rollingbistro.com",

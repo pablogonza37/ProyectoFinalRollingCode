@@ -1,24 +1,19 @@
 import { Button } from "react-bootstrap";
 
-const ItemPedido = () => {
+const ItemPedido = ({ pedido, setPedidos }) => {
     return (
         <tr>
-        <td>pedido</td>
+        <td>{pedido.nombreProducto}</td>
         <td className="text-center">
           <img
-            src=""
+            src={pedido.imagen}
             className="img-thumbnail"
             alt="imagen del producto"
           ></img>
         </td>
-        <td>$500</td>
-        <td>pendiente</td>
+        <td>${pedido.precio}</td>
+        <td>{pedido.estado}</td>
         <td className="text-center">
-        <Button
-          className="btn btn-warning me-1"
-        >
-          <i className="bi bi-pencil-square"></i>
-        </Button>
           <Button variant="danger">
             <i className="bi bi-trash"></i>
           </Button>

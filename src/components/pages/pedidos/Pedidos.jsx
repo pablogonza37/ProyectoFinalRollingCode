@@ -1,7 +1,38 @@
 import { Container, Row, Col, Table, Button, Card } from "react-bootstrap";
 import ItemPedido from "./ItemPedido";
-
+import { useEffect, useState } from "react";
+import { obtenerPedidosAPI } from "../../../helpers/queries";
 const Pedidos = () => {
+  const [pedidos, setPedidos] = useState([]);
+  const [total, setTotal] = useState();
+
+  useEffect(() => {
+    cargarDatosPedidos();
+  }, []);
+
+  useEffect(() => {
+    calcularTotal();
+  }, [pedidos]);
+
+
+  const cargarDatosPedidos = async () => {
+    try {
+      const respuesta = await obtenerPedidosAPI();
+      setPedidos(respuesta);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const calcularTotal = () => {
+    let totalPrecio = 0;
+    pedidos.forEach((pedido) => {
+      totalPrecio += parseFloat(pedido.precio);
+    });
+    setTotal(totalPrecio);
+  };
+
+
   return (
     <Container className="mainSection my-4">
       <Row>
@@ -19,11 +50,13 @@ const Pedidos = () => {
               </tr>
             </thead>
             <tbody>
-              
+              {pedidos.map((pedido) => (
                 <ItemPedido
-                 
+                  key={pedido.id}
+                  pedido={pedido}
+                  setPedidos={setPedidos}
                 ></ItemPedido>
-              
+              ))}
             </tbody>
           </Table>
         </Col>
@@ -31,11 +64,11 @@ const Pedidos = () => {
           <Card>
             <Card.Header className="text-bg-dark">Estado de pedido</Card.Header>
             <Card.Body>
-              <Card.Text>
+              <div>
                 Envio: <span className="text-warning">gratis</span> <hr />
-                Total: $10000
-              </Card.Text>
-              <Button variant="primary">Confirmar Pedido</Button>
+                Total: ${total}
+              </div>
+              <Button variant="success" className="mt-2">Confirmar Pedido</Button>
             </Card.Body>
           </Card>
         </Col>
