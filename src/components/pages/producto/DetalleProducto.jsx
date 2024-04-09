@@ -1,13 +1,15 @@
-import { Container, Card, Spinner } from "react-bootstrap";
+import { Container, Card, Spinner, Button } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { obtenerProductoAPI } from "../../../helpers/queries";
-import { Link } from "react-router-dom";
+import { obtenerProductoAPI, crearPedidoAPI } from "../../../helpers/queries";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
-const DetalleProducto = () => {
+const DetalleProducto = ({ usuarioLogueado, openLoginModal }) => {
   const [productoSelecionado, setProductoSelecionado] = useState([]);
   const [spinnerDetalle, setSpinnerDetalle] = useState(true);
   const [error, setError] = useState(null);
+  const navegacion = useNavigate();
 
   const { id } = useParams();
   useEffect(() => {
@@ -30,6 +32,35 @@ const DetalleProducto = () => {
       setSpinnerDetalle(false);
     }
   };
+
+  const hacerPedido = async () => {
+    if (usuarioLogueado){
+    const pedido = {
+      nombreProducto: productoSelecionado.nombreProducto,
+      imagen: productoSelecionado.imagen,
+      precio: productoSelecionado.precio,
+      estado: "pendiente"
+    };
+    
+    const resp = await crearPedidoAPI(pedido);
+    if (resp.status === 201) {
+      Swal.fire({
+        title: "Pedido realizado",
+        text: `El pedido de "${productoSelecionado.nombreProducto}" fue realizado correctamente`,
+        icon: "success",
+      });
+    } else {
+      Swal.fire({
+        title: "Ocurrio un error",
+        text: `El pedido de "${productoSelecionado.nombreProducto}" no pudo ser realizado. Intente esta operación en unos minutos`,
+        icon: "error",
+      });
+    }
+  }else {
+    navegacion('/login');
+    openLoginModal();
+  }
+  }
 
   const mostrarComponente = spinnerDetalle ? (
     <div className="my-4 text-center">
@@ -54,7 +85,7 @@ const DetalleProducto = () => {
         <strong> Precio: ${productoSelecionado.precio} </strong>
       </Card.Body>
       <Card.Footer className="text-end">
-        <Link className="btn btn-primary">Hacer pedido</Link>
+        <Button className="btn btn-primary" onClick={hacerPedido}>Hacer pedido</Button>
       </Card.Footer>
     </Card>
   );
