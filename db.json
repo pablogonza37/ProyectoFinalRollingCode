@@ -45,5 +45,49 @@
       "password": "111111",
       "confirmarContraseña": "111111"
     }
+  ],
+  "pedidos": [
+    {
+      "id": "876d",
+      "nombreProducto": "Hamburguessas con papas",
+      "imagen": "https://images.pexels.com/photos/4109243/pexels-photo-4109243.jpeg",
+      "precio": "5000"
+    },
+    {
+      "id": "876d",
+      "nombreProducto": "Hamburguessas con papas",
+      "imagen": "https://images.pexels.com/photos/4109243/pexels-photo-4109243.jpeg",
+      "precio": "5000"
+    },
+    {
+      "id": "34b5",
+      "nombreProducto": "Hamburguessas con papas",
+      "imagen": "https://images.pexels.com/photos/4109243/pexels-photo-4109243.jpeg",
+      "precio": "5000"
+    },
+    {
+      "id": "34b5",
+      "nombreProducto": "Hamburguessas con papas",
+      "imagen": "https://images.pexels.com/photos/4109243/pexels-photo-4109243.jpeg",
+      "precio": "5000"
+    },
+    {
+      "id": "43b5",
+      "nombreProducto": "Hamburguessas con papas",
+      "imagen": "https://images.pexels.com/photos/4109243/pexels-photo-4109243.jpeg",
+      "precio": "5000"
+    },
+    {
+      "id": "43b5",
+      "nombreProducto": "Hamburguessas con papas",
+      "imagen": "https://images.pexels.com/photos/4109243/pexels-photo-4109243.jpeg",
+      "precio": "5000"
+    },
+    {
+      "id": "876d",
+      "nombreProducto": "Hamburguessas con papas",
+      "imagen": "https://images.pexels.com/photos/4109243/pexels-photo-4109243.jpeg",
+      "precio": "5000"
+    }
   ]
 }
