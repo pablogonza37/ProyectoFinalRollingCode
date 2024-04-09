@@ -1,5 +1,6 @@
 const URL_Productos = import.meta.env.VITE_API_PRODUCTOS;
 const URL_Usuarios = import.meta.env.VITE_API_USUARIOS;
+const URL_Pedidos = import.meta.env.VITE_API_PEDIDOS;
 
 export const leerProductosAPI = async () => {
   try {
@@ -115,6 +116,60 @@ export const inhabilitarUsuarioAPI = async (id) => {
     throw new Error('Error al inhabilitar el usuario desde la API: ' + error.message);
   }
 };
+
+export const crearPedidoAPI = async (pedidoNuevo) => {
+  try {
+    const resp = await fetch(URL_Pedidos, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(pedidoNuevo),
+    });
+    return resp;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const obtenerPedidosAPI = async () => {
+  try {
+    const resp = await fetch(URL_Pedidos); 
+    const pedidos = await resp.json();
+    return pedidos;
+  } catch (error) {
+    console.log(error);
+    throw new Error('Error al obtener los pedidos'); 
+  }
+};
+
+export const actualizarEstadoPedidosAPI = async (pedidoModificado, id) => {
+  try {
+    const respuesta = await fetch(`${URL_Pedidos}/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(pedidoModificado),
+    });
+    return respuesta;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+
+export const borrarPedidoAPI = async (id) => {
+  try {
+    const resp = await fetch(`${URL_Pedidos}/${id}`, {
+      method: "DELETE",
+    });
+    return resp;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 
 const userAdmin = {
     mail: "admin@rollingbistro.com",

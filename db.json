@@ -1,22 +1,18 @@
 {
   "productos": [
     {
+      "id": "876d",
       "nombreProducto": "Hamburguessas con papas",
-      "precio": "5000",
       "imagen": "https://images.pexels.com/photos/4109243/pexels-photo-4109243.jpeg",
-      "categoria": "Hamburguesas",
-      "descripcionBreve": "jdfhdhksfkdhfksdhfjsdhjkfjhsjkdfhsdfsd",
-      "descripcionAmplia": "sdfsdoijfisdjfisdjfiojoijijsidjfoijsdoijfisdjfoijoisjdifjsidjfsdijfoisjfosijdfiosdjfoijsdiojfis",
-      "id": "876d"
+      "precio": "5000",
+      "estado": "entrega"
     },
     {
+      "id": "34b5",
       "nombreProducto": "Hamburguessas con papas",
-      "precio": "5000",
       "imagen": "https://images.pexels.com/photos/4109243/pexels-photo-4109243.jpeg",
-      "categoria": "Pastas",
-      "descripcionBreve": "jdfhdhksfkdhfksdhfjsdhjkfjhsjkdfhsdfsd",
-      "descripcionAmplia": "sdfsdoijfisdjfisdjfiojoijijsidjfoijsdoijfisdjfoijoisjdifjsidjfsdijfoisjfosijdfiosdjfoijsdiojfis",
-      "id": "34b5"
+      "precio": "5000",
+      "estado": "entrega"
     },
     {
       "nombreProducto": "Hamburguessas con papas",
@@ -44,6 +40,15 @@
       "rol": "usuario",
       "password": "111111",
       "confirmarContraseña": "111111"
+    }
+  ],
+  "pedidos": [
+    {
+      "id": "43b5",
+      "nombreProducto": "Hamburguessas con papas",
+      "imagen": "https://images.pexels.com/photos/4109243/pexels-photo-4109243.jpeg",
+      "precio": "5000",
+      "estado": "entrega"
     }
   ]
 }
