@@ -1,7 +1,9 @@
 import { Container, Row, Col, Table, Button, Card } from "react-bootstrap";
 import ItemPedido from "./ItemPedido";
 import { useEffect, useState } from "react";
-import { obtenerPedidosAPI } from "../../../helpers/queries";
+import { obtenerPedidosAPI, actualizarEstadoPedidosAPI } from "../../../helpers/queries";
+import Swal from "sweetalert2";
+
 const Pedidos = () => {
   const [pedidos, setPedidos] = useState([]);
   const [total, setTotal] = useState();
@@ -32,6 +34,40 @@ const Pedidos = () => {
     setTotal(totalPrecio);
   };
 
+  const confirmarPedido = async () => {
+    try {
+      const pedidosActualizados = await Promise.all(
+        pedidos.map(async (pedido) => {
+          const pedidoModificado = {
+            id: pedido.id,
+            nombreProducto: pedido.nombreProducto,
+            imagen: pedido.imagen,
+            precio: pedido.precio,
+            estado: "entrega"
+          };
+          await actualizarEstadoPedidosAPI(pedidoModificado, pedido.id);
+          return pedidoModificado;
+        })
+      );
+
+      setPedidos(pedidosActualizados);
+
+      Swal.fire({
+        icon: 'success',
+        title: 'Pedidos confirmados',
+        text: 'Los pedidos han sido confirmados y marcados como entregados.',
+        showConfirmButton: false,
+        timer: 2000
+      });
+    } catch (error) {
+      console.log(error);
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Hubo un error al confirmar los pedidos. Por favor, inténtalo de nuevo.',
+      });
+    }
+  };
 
   return (
     <Container className="mainSection my-4">
@@ -68,7 +104,7 @@ const Pedidos = () => {
                 Envio: <span className="text-warning">gratis</span> <hr />
                 Total: ${total}
               </div>
-              <Button variant="success" className="mt-2">Confirmar Pedido</Button>
+              <Button variant="success" className="mt-2" onClick={confirmarPedido}>Confirmar Pedido</Button>
             </Card.Body>
           </Card>
         </Col>

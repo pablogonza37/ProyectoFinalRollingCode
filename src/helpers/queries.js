@@ -143,6 +143,33 @@ export const obtenerPedidosAPI = async () => {
   }
 };
 
+export const actualizarEstadoPedidosAPI = async (pedidoModificado, id) => {
+  try {
+    const respuesta = await fetch(`${URL_Pedidos}/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(pedidoModificado),
+    });
+    return respuesta;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+
+export const borrarPedidoAPI = async (id) => {
+  try {
+    const resp = await fetch(`${URL_Pedidos}/${id}`, {
+      method: "DELETE",
+    });
+    return resp;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 
 const userAdmin = {
     mail: "admin@rollingbistro.com",
