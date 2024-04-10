@@ -36,25 +36,37 @@ const ItemPedido = ({ pedido, setPedidos }) => {
     });
   };
 
-    return (
-        <tr>
-        <td>{pedido.nombreProducto}</td>
-        <td className="text-center">
-          <img
-            src={pedido.imagen}
-            className="img-thumbnail"
-            alt="imagen del producto"
-          ></img>
-        </td>
-        <td>${pedido.precio}</td>
-        <td>{pedido.estado}</td>
-        <td className="text-center">
-          <Button variant="danger" onClick={borrarPedido}>
-            <i className="bi bi-trash"></i>
-          </Button>
-        </td>
-      </tr>
-    );
+  const obtenerFechaDeHoy = () => {
+    const fecha = new Date();
+    const dia = fecha.getDate();
+    const mes = fecha.getMonth() + 1;
+    const año = fecha.getFullYear();
+
+    const fechaFormateada = `${dia}/${mes}/${año}`;
+
+    return fechaFormateada;
+  };
+
+  return (
+    <tr>
+      <td>{obtenerFechaDeHoy()}</td>
+      <td>{pedido.nombreProducto}</td>
+      <td className="text-center">
+        <img
+          src={pedido.imagen}
+          className="img-thumbnail"
+          alt="imagen del producto"
+        ></img>
+      </td>
+      <td>${pedido.precio}</td>
+      <td>{pedido.estado}</td>
+      <td className="text-center">
+        <Button variant="danger" onClick={borrarPedido}>
+          <i className="bi bi-trash"></i>
+        </Button>
+      </td>
+    </tr>
+  );
 };
 
 export default ItemPedido;

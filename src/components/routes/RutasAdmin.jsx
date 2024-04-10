@@ -3,6 +3,8 @@ import Administrador from "../pages/Administrador";
 import FormularioRegistro from "../pages/usuario/FormularioRegistro";
 import FormularioProducto from "../pages/producto/FormularioProducto";
 import Registro from "../pages/Registro";
+import Pedidos from "../pages/pedidos/Pedidos";
+
 
 const RutasAdmin = ({usuarioLogueado}) => {
   return (

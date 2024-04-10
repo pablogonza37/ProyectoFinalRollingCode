@@ -31,11 +31,11 @@ function App() {
       <BrowserRouter>
         <Menu openLoginModal={openModal} usuarioLogueado={usuarioLogueado} setUsuarioLogueado={setUsuarioLogueado}/>
         <Routes>
-          <Route exact path="/" element={<Inicio></Inicio>}></Route>
+          <Route exact path="/" element={<Inicio usuarioLogueado={usuarioLogueado} openLoginModal={openModal}></Inicio>}></Route>
           <Route
             exact
             path="/detalle/:id"
-            element={<DetalleProducto></DetalleProducto>}
+            element={<DetalleProducto usuarioLogueado={usuarioLogueado} openLoginModal={openModal}></DetalleProducto>}
           ></Route>
            <Route
             exact
@@ -54,7 +54,7 @@ function App() {
           <Route
             exact
             path="/pedidos"
-            element={<Pedidos></Pedidos>}
+            element={<Pedidos usuarioLogueado={usuarioLogueado} openLoginModal={openModal}></Pedidos>}
           ></Route>
           <Route
             exact

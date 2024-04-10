@@ -2,12 +2,13 @@ import { Col, Card, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { crearPedidoAPI } from "../../../helpers/queries";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
-const CardProducto = ({ producto }) => {
-
+const CardProducto = ({ producto, usuarioLogueado, openLoginModal}) => {
+  const navegacion = useNavigate();
   const hacerPedido = async () => {
+    if (usuarioLogueado){
     const pedido = {
-      id: producto.id,
       nombreProducto: producto.nombreProducto,
       imagen: producto.imagen,
       precio: producto.precio,
@@ -28,6 +29,10 @@ const CardProducto = ({ producto }) => {
         icon: "error",
       });
     }
+  }else {
+    navegacion('/login');
+    openLoginModal();
+  }
   }
 
   return (

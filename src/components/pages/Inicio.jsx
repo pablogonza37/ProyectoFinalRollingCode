@@ -1,14 +1,16 @@
+import React, { useEffect, useState } from "react";
 import { Container, Row, Col, Form, Button, Spinner } from "react-bootstrap";
 import CardProducto from "./producto/CardProducto";
 import { leerProductosAPI } from "../../helpers/queries";
-import { useEffect, useState } from "react";
 
-const Inicio = () => {
+const Inicio = ({ openLoginModal, usuarioLogueado }) => {
   const [productosInicio, setProductosInicio] = useState([]);
   const [productosFiltrados, setProductosFiltrados] = useState([]);
   const [spinnerInicio, setSpinnerInicio] = useState(true);
   const [error, setError] = useState(null);
   const [categoriaSeleccionada, setCategoriaSeleccionada] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [productosPorPagina] = useState(12);
 
   useEffect(() => {
     consultarAPI();
@@ -42,8 +44,18 @@ const Inicio = () => {
   };
 
   const handleCategoriaChange = (e) => {
+    setCurrentPage(1);
     setCategoriaSeleccionada(e.target.value);
   };
+
+  const indexOfLastProducto = currentPage * productosPorPagina;
+  const indexOfFirstProducto = indexOfLastProducto - productosPorPagina;
+  const currentProductos = productosFiltrados.slice(
+    indexOfFirstProducto,
+    indexOfLastProducto
+  );
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
     <section className="mainSection">
@@ -52,7 +64,12 @@ const Inicio = () => {
           Rolling Bistro <br />
           <span className="display-6">¡Sabores autenticos.!</span>
           <br />
-          <Button className="btn btn-success w-50 border border-light" href="#menu">Ver Menu</Button>
+          <Button
+            className="btn btn-success w-50 border border-light"
+            href="#menu"
+          >
+            Ver Menu
+          </Button>
         </h1>
 
         <img
@@ -80,10 +97,14 @@ const Inicio = () => {
           </Col>
         </Row>
       </Container>
-      <Container className="mt-5" id='menu'>
+      <Container className="mt-5" id="menu">
         <h2 className="display-4">Nuestros Productos</h2>
         <hr />
-        <Form.Select aria-label="Default select example" className="mb-4 w-50 " onChange={handleCategoriaChange}>
+        <Form.Select
+          aria-label="Default select example"
+          className="mb-4 w-50 "
+          onChange={handleCategoriaChange}
+        >
           <option value="">Categoria</option>
           <option value="Hamburguesas">Hamburguesas</option>
           <option value="Pastas">Pastas</option>
@@ -96,20 +117,42 @@ const Inicio = () => {
             <Spinner animation="border" variant="dark" />
           </div>
         )}
-        {error && (
-          <div className="alert alert-danger mt-3">
-            {error}
-          </div>
-        )}
+        {error && <div className="alert alert-danger mt-3">{error}</div>}
         {!spinnerInicio && !error && productosFiltrados.length === 0 && (
           <div className="alert alert-info mt-3">No hay productos.</div>
         )}
-        {!spinnerInicio && !error && productosFiltrados.length > 0 && (
-        <Row >
-          {productosFiltrados.map((producto) => (
-              <CardProducto key={producto.id} producto={producto} />
+        {!spinnerInicio && !error && currentProductos.length > 0 && (
+          <Row>
+            {currentProductos.map((producto) => (
+              <CardProducto
+                key={producto.id}
+                producto={producto}
+                openLoginModal={openLoginModal}
+                usuarioLogueado={usuarioLogueado}
+              />
             ))}
-        </Row>
+          </Row>
+        )}
+        {productosFiltrados.length > productosPorPagina && (
+          <ul className="pagination justify-content-center mt-4">
+            {Array.from({
+              length: Math.ceil(productosFiltrados.length / productosPorPagina),
+            }).map((_, index) => (
+              <li
+                key={index}
+                className={`page-item ${
+                  index + 1 === currentPage ? "active" : ""
+                }`}
+              >
+                <button
+                  onClick={() => paginate(index + 1)}
+                  className="page-link"
+                >
+                  {index + 1}
+                </button>
+              </li>
+            ))}
+          </ul>
         )}
       </Container>
     </section>
