@@ -1,19 +1,19 @@
-import React from 'react';
-import { Form, Button } from 'react-bootstrap';
-import { useForm } from 'react-hook-form';
-import Swal from 'sweetalert2';
-import { crearUsuarioAPI } from '../../helpers/queries';
+import React from "react";
+import { Form, Button } from "react-bootstrap";
+import { useForm } from "react-hook-form";
+import Swal from "sweetalert2";
+import { crearUsuarioAPI } from "../../helpers/queries";
 import { useState, useEffect } from "react";
 
 const Registro = ({ tituloRegistro, rol }) => {
   const [rolPorDefecto, setRolPorDefecto] = useState("usuario");
-  const [rolVisible, setRolVisible] = useState( rol );
+  const [rolVisible, setRolVisible] = useState(rol);
   const {
     register,
     handleSubmit,
     formState: { errors },
     watch,
-    reset
+    reset,
   } = useForm();
 
   const onSubmit = async (data) => {
@@ -22,7 +22,6 @@ const Registro = ({ tituloRegistro, rol }) => {
       email: data.email,
       rol: data.rol || rolPorDefecto,
       password: data.password,
-      confirmarContraseña: data.confirmarContraseña,
     };
 
     const respuesta = await crearUsuarioAPI(usuario);
@@ -56,16 +55,18 @@ const Registro = ({ tituloRegistro, rol }) => {
               required: "El nombre de usuario es obligatorio",
               minLength: {
                 value: 3,
-                message: "El nombre de usuario debe tener al menos 3 caracteres"
+                message:
+                  "El nombre de usuario debe tener al menos 3 caracteres",
               },
               maxLength: {
                 value: 20,
-                message: "El nombre de usuario no puede tener más de 20 caracteres"
-              }
+                message:
+                  "El nombre de usuario no puede tener más de 20 caracteres",
+              },
             })}
           />
           {errors.nombre && (
-            <p style={{ color: 'red' }}>{errors.nombre.message}</p>
+            <p style={{ color: "red" }}>{errors.nombre.message}</p>
           )}
         </Form.Group>
 
@@ -77,13 +78,14 @@ const Registro = ({ tituloRegistro, rol }) => {
             {...register("email", {
               required: "El correo electrónico es obligatorio",
               pattern: {
-                value: /^\S+@\S+$/i,
-                message: "El correo electrónico ingresado no es válido"
-              }
+                value:
+                  /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/i,
+                message: "El correo electrónico ingresado no es válido",
+              },
             })}
           />
           {errors.email && (
-            <p style={{ color: 'red' }}>{errors.email.message}</p>
+            <p style={{ color: "red" }}>{errors.email.message}</p>
           )}
         </Form.Group>
 
@@ -98,12 +100,9 @@ const Registro = ({ tituloRegistro, rol }) => {
               <option value="usuario">Usuario</option>
               <option value="administrador">Administrador</option>
             </Form.Select>
-            <Form.Text className="text-danger">
-              {errors.rol?.message}
-            </Form.Text>
+            <Form.Text className="text-danger">{errors.rol?.message}</Form.Text>
           </Form.Group>
         )}
-
 
         <Form.Group className="mb-3">
           <Form.Label>Contraseña*</Form.Label>
@@ -114,12 +113,12 @@ const Registro = ({ tituloRegistro, rol }) => {
               required: "La contraseña es obligatoria",
               minLength: {
                 value: 6,
-                message: "La contraseña debe tener al menos 6 caracteres"
-              }
+                message: "La contraseña debe tener al menos 6 caracteres",
+              },
             })}
           />
           {errors.password && (
-            <p style={{ color: 'red' }}>{errors.password.message}</p>
+            <p style={{ color: "red" }}>{errors.password.message}</p>
           )}
         </Form.Group>
 
@@ -129,12 +128,12 @@ const Registro = ({ tituloRegistro, rol }) => {
             type="password"
             placeholder="Confirma tu contraseña"
             {...register("confirmarContraseña", {
-              validate: value =>
-                value === password || "Las contraseñas no coinciden"
+              validate: (value) =>
+                value === password || "Las contraseñas no coinciden",
             })}
           />
           {errors.confirmarContraseña && (
-            <p style={{ color: 'red' }}>{errors.confirmarContraseña.message}</p>
+            <p style={{ color: "red" }}>{errors.confirmarContraseña.message}</p>
           )}
         </Form.Group>
 
@@ -144,6 +143,6 @@ const Registro = ({ tituloRegistro, rol }) => {
       </Form>
     </div>
   );
-}
+};
 
 export default Registro;
