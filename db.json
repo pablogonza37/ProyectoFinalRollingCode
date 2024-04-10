@@ -42,27 +42,5 @@
       "confirmarContraseña": "111111"
     }
   ],
-  "pedidos": [
-    {
-      "id": "e70d",
-      "nombreProducto": "Hamburguessas con papas",
-      "imagen": "https://images.pexels.com/photos/4109243/pexels-photo-4109243.jpeg",
-      "precio": "5000",
-      "estado": "pendiente"
-    },
-    {
-      "id": "37d9",
-      "nombreProducto": "Hamburguessas con papas",
-      "imagen": "https://images.pexels.com/photos/4109243/pexels-photo-4109243.jpeg",
-      "precio": "5000",
-      "estado": "pendiente"
-    },
-    {
-      "id": "a990",
-      "nombreProducto": "Hamburguessas con papas",
-      "imagen": "https://images.pexels.com/photos/4109243/pexels-photo-4109243.jpeg",
-      "precio": "5000",
-      "estado": "pendiente"
-    }
-  ]
+  "pedidos": []
 }

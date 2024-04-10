@@ -54,7 +54,7 @@ function App() {
           <Route
             exact
             path="/pedidos"
-            element={<Pedidos></Pedidos>}
+            element={<Pedidos usuarioLogueado={usuarioLogueado} openLoginModal={openModal}></Pedidos>}
           ></Route>
           <Route
             exact

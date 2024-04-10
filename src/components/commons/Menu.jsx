@@ -31,11 +31,9 @@ const Menu = ({ openLoginModal, usuarioLogueado, setUsuarioLogueado }) => {
             </NavLink>
             <NavLink end className="text-white nav-link" to="/pedidos">
               Pedidos
-
             </NavLink>
-
             {usuarioLogueado !== "" ? (
-              <>
+              <>         
                 <NavDropdown
                   title="Administrador"
                   id="collapsible-nav-dropdown"
