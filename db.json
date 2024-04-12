@@ -26,20 +26,20 @@
   ],
   "usuarios": [
     {
-      "id": "7f2f",
-      "nombre": "pablo",
-      "email": "pedro@example.com",
-      "rol": "administrador",
-      "password": "222222",
-      "confirmarContraseña": "222222"
-    },
-    {
-      "id": "8780",
-      "nombre": "Simon",
-      "email": "pabkjj@gmail.com",
+      "id": "a413",
+      "nombreUsuario": "pablo",
+      "email": "tomas@hotmaail.com",
       "rol": "usuario",
       "password": "111111",
-      "confirmarContraseña": "111111"
+      "suspendido": false
+    },
+    {
+      "id": "5bbb",
+      "nombreUsuario": "tomas",
+      "email": "tomas@hotmaail.com",
+      "rol": "usuario",
+      "password": "222222",
+      "suspendido": false
     }
   ],
   "pedidos": []

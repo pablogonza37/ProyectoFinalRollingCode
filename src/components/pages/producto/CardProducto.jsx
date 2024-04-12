@@ -31,7 +31,6 @@ const CardProducto = ({ producto, usuarioLogueado, openLoginModal}) => {
     }
   }else {
     navegacion('/login');
-    openLoginModal();
   }
   }
 
@@ -55,7 +54,7 @@ const CardProducto = ({ producto, usuarioLogueado, openLoginModal}) => {
         </Card.Body>
         <Card.Footer className="text-end">
           <Button className="btn btn-primary me-2 mb-2" onClick={hacerPedido}>Hacer pedido</Button>
-          <Link className="btn btn-success me-2" to={"/detalle/" + producto.id}>
+          <Link className="btn btn-success me-2  mb-2" to={"/detalle/" + producto.id}>
             Ver más
           </Link>
         </Card.Footer>

@@ -76,9 +76,10 @@ const ItemUsuario = ({ usuario, setData }) => {
 
   return (
     <tr>
-      <td>{usuario.nombre}</td>
+      <td>{usuario.nombreUsuario}</td>
       <td>{usuario.email}</td>
       <td>{usuario.rol}</td>
+      <td>{usuario.suspendido.toString()}</td>
       <td className="text-center">
         <Button className="btn btn-secondary me-1" onClick={inhabilitarUsuario}>
           <i className="bi bi-dash-circle"></i>

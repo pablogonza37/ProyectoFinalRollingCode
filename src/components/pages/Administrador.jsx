@@ -45,7 +45,7 @@ const Administrador = ({ tipo }) => {
           <th>{tipo === "usuarios" ? "Nombre" : "Producto"}</th>
           <th>{tipo === "usuarios" ? "Email" : "URL de Imagen"}</th>
           <th>{tipo === "usuarios" ? "Rol" : "Categoria"}</th>
-          {tipo !== "usuarios" && <th>Precio</th>}
+          <th>{tipo === "usuarios" ? "Suspendido" : "Precio"}</th>
           <th>Opciones</th>
         </tr>
       </thead>

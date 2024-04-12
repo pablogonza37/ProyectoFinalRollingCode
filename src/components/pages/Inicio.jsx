@@ -74,7 +74,7 @@ const Inicio = ({ openLoginModal, usuarioLogueado }) => {
 
         <img
           className="banner shadow"
-          src="https://images.pexels.com/photos/1639557/pexels-photo-1639557.jpeg"
+          src=""
           alt="imagen banner"
         />
       </div>

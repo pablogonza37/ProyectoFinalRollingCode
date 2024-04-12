@@ -70,7 +70,6 @@ const Menu = ({ openLoginModal, usuarioLogueado, setUsuarioLogueado }) => {
                 <NavLink
                   className="text-white nav-link text-start"
                   variant="link"
-                  onClick={openLoginModal}
                   to="/login"
                 >
                   Login

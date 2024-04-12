@@ -18,23 +18,24 @@ const Registro = ({ tituloRegistro, rol }) => {
 
   const onSubmit = async (data) => {
     const usuario = {
-      nombre: data.nombre,
+      nombreUsuario: data.nombreUsuario,
       email: data.email,
       rol: data.rol || rolPorDefecto,
       password: data.password,
+      suspendido: false,
     };
 
     const respuesta = await crearUsuarioAPI(usuario);
     if (respuesta.status === 201) {
       Swal.fire({
         title: "Usuario registrado",
-        text: `El usuario "${usuario.nombre}" fue registrado correctamente`,
+        text: `El usuario "${usuario.nombreUsuario}" fue registrado correctamente`,
         icon: "success",
       });
     } else {
       Swal.fire({
         title: "Ocurrió un error",
-        text: `El usuario "${usuario.nombre}" no pudo ser registrado. Intente esta operación en unos minutos`,
+        text: `El usuario "${usuario.nombreUsuario}" no pudo ser registrado. Intente esta operación en unos minutos`,
         icon: "error",
       });
     }
@@ -51,7 +52,7 @@ const Registro = ({ tituloRegistro, rol }) => {
           <Form.Control
             type="text"
             placeholder="Ingresa tu nombre de usuario"
-            {...register("nombre", {
+            {...register("nombreUsuario", {
               required: "El nombre de usuario es obligatorio",
               minLength: {
                 value: 3,

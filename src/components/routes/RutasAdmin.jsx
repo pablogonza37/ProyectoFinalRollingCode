@@ -1,6 +1,5 @@
 import { Routes, Route } from "react-router";
 import Administrador from "../pages/Administrador";
-import FormularioRegistro from "../pages/usuario/FormularioRegistro";
 import FormularioProducto from "../pages/producto/FormularioProducto";
 import Registro from "../pages/Registro";
 import Pedidos from "../pages/pedidos/Pedidos";
@@ -31,17 +30,6 @@ const RutasAdmin = ({usuarioLogueado}) => {
             ></FormularioProducto>
           }
         ></Route>
-     {/*}   <Route
-          exact
-          path="usuarios/editar/:id"
-          element={
-            <FormularioRegistro
-              editar={true}
-              titulo="Editar Usuario"
-              rol=""
-            ></FormularioRegistro>
-          }
-        ></Route>*/}
         <Route
           exact
           path="/usuarios"
