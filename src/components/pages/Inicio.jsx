@@ -106,11 +106,11 @@ const Inicio = ({ openLoginModal, usuarioLogueado }) => {
           onChange={handleCategoriaChange}
         >
           <option value="">Categoria</option>
-          <option value="Hamburguesas">Hamburguesas</option>
-          <option value="Pastas">Pastas</option>
-          <option value="Carnes">Carnes a la Parrilla</option>
-          <option value="Postres">Postres</option>
-          <option value="Americana">Americana</option>
+            <option value="Hamburguesas">Hamburguesas</option>
+            <option value="Pastas">Pastas</option>
+            <option value="Postres">Postres</option>
+            <option value="Carne asada">Carne asada</option>
+            <option value="Milanesas">Milanesas</option>
         </Form.Select>
         {spinnerInicio && (
           <div className="my-4 text-center">

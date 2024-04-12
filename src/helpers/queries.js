@@ -103,6 +103,20 @@ export const borrarUsuarioAPI = async (id) => {
 };
 
 
+export const suspenderUsuarioAPI = async (usuarioSuspendido, id) => {
+  try {
+    const respuesta = await fetch(`${URL_Usuarios}/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(usuarioSuspendido),
+    });
+    return respuesta;
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 export const crearPedidoAPI = async (pedidoNuevo) => {
   try {
