@@ -13,6 +13,8 @@ import Registro from "./components/pages/Registro";
 import Pedidos from "./components/pages/pedidos/Pedidos";
 import Login from "./components/pages/Login";
 
+import Error404 from "./components/commons/Error404";
+
 function App() {
   const usuario = JSON.parse(sessionStorage.getItem("usuarioRollingBistro")) || "";
   const [usuarioLogueado, setUsuarioLogueado] = useState(usuario);
@@ -54,7 +56,7 @@ function App() {
               <Login setUsuarioLogueado={setUsuarioLogueado}/>
             }
           ></Route>
-          {/*<Route path="*" element={<Error404></Error404>}></Route>*/}
+          <Route exact path="/acercade" element={<Error404></Error404>}></Route> 
         </Routes>
         <Footer></Footer>
       </BrowserRouter>
