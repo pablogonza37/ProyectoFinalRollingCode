@@ -3,6 +3,7 @@ const URL_Usuarios = import.meta.env.VITE_API_USUARIOS;
 const URL_Pedidos = import.meta.env.VITE_API_PEDIDOS;
 const URL_Suspender=import.meta.env.VITE_API_SUSPENDER;
 const URL_Levantar=import.meta.env.VITE_API_LEVANTAR;
+const URL_Login=import.meta.env.VITE_API_LOGIN;
 
 export const leerProductosAPI = async () => {
   try {
@@ -196,22 +197,19 @@ export const levantarSuspensionUsuarioAPI = async (id) => {
 
 
 
-const userAdmin = {
-    mail: "admin@rollingbistro.com",
-    password: "prueba123",
-  };
-
-export const login = (usuario) => {
-    if (
-      usuario.mail === userAdmin.mail &&
-      usuario.password === userAdmin.password
-    ) {
-      sessionStorage.setItem(
-        "usuarioRollingBistro",
-        JSON.stringify(usuario.mail)
-      );
-      return true;
-    }else {
-      return false;
-    }
-  };
+export const login = async (usuario) =>{
+  try {
+    console.log(usuario);
+    const respuesta = await fetch(URL_Login, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(usuario),
+    });
+    return  respuesta
+  } catch (error) {
+    console.log("errores en el login");
+    return;
+  }
+}

@@ -18,7 +18,7 @@ return (
                         <div className="contant_box_404">
                             <h3 className="h2">Parece que te has perdido</h3>
 
-                            <p>La página que buscas no está disponible!</p>
+                            <p className="pageNotFound">La página que buscas no está disponible!</p>
 
                             <a href="/" className="link_404">
                                 Ir al Inicio
