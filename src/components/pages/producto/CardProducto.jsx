@@ -7,34 +7,43 @@ import { useState } from "react";
 
 const CardProducto = ({ producto, usuarioLogueado }) => {
   const navegacion = useNavigate();
+
   const hacerPedido = async () => {
-    if (usuarioLogueado){
-    const pedido = {
-      fecha: obtenerFechaDeHoy(),
-      nombreProducto: generarIdUnico(producto.nombreProducto),
-      imagen: producto.imagen,
-      precio: producto.precio,
-      estado: "pendiente"
-    };
-    
-    const resp = await crearPedidoAPI(pedido);
-    if (resp.status === 201) {
-      Swal.fire({
-        title: "Pedido realizado",
-        text: `El pedido de "${producto.nombreProducto}" fue realizado correctamente`,
-        icon: "success",
-      });
+    if (usuarioLogueado) {
+      if (usuarioLogueado.suspendido) {
+        Swal.fire({
+          title: "Usuario suspendido",
+          text: "Tu cuenta está suspendida. No puedes realizar pedidos.",
+          icon: "warning",
+        });
+        return;
+      }
+      const pedido = {
+        fecha: obtenerFechaDeHoy(),
+        nombreProducto: generarIdUnico(producto.nombreProducto),
+        imagen: producto.imagen,
+        precio: producto.precio,
+        estado: "pendiente"
+      };
+
+      const resp = await crearPedidoAPI(pedido);
+      if (resp.status === 201) {
+        Swal.fire({
+          title: "Pedido realizado",
+          text: `El pedido de "${producto.nombreProducto}" fue realizado correctamente`,
+          icon: "success",
+        });
+      } else {
+        Swal.fire({
+          title: "Ocurrió un error",
+          text: `El pedido de "${producto.nombreProducto}" no pudo ser realizado. Intente esta operación en unos minutos`,
+          icon: "error",
+        });
+      }
     } else {
-      Swal.fire({
-        title: "Ocurrio un error",
-        text: `El pedido de "${producto.nombreProducto}" no pudo ser realizado. Intente esta operación en unos minutos`,
-        icon: "error",
-      });
+      navegacion('/login');
     }
-  }else {
-    navegacion('/login');
-  }
-  }
+  };
 
   const generarIdUnico = (nombreProducto) => {
     return nombreProducto + "_" + Date.now();
