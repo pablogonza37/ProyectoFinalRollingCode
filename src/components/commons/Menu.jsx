@@ -3,7 +3,7 @@ import { Link, NavLink, useNavigate } from "react-router-dom";
 import logo from "../../assets/logoRollingBistro.png";
 import NavDropdown from "react-bootstrap/NavDropdown";
 
-const Menu = ({ openLoginModal, usuarioLogueado, setUsuarioLogueado }) => {
+const Menu = ({ usuarioLogueado, setUsuarioLogueado }) => {
   const navegacion = useNavigate();
   const logout = () => {
     sessionStorage.removeItem("usuarioRollingBistro");
@@ -33,33 +33,35 @@ const Menu = ({ openLoginModal, usuarioLogueado, setUsuarioLogueado }) => {
               Pedidos
             </NavLink>
             {usuarioLogueado !== "" ? (
-              <>         
-                <NavDropdown
-                  title="Administrador"
-                  id="collapsible-nav-dropdown"
-                >
-                  <NavLink
-                    end
-                    className="nav-link"
-                    to="/administrador/productos"
+              <>
+                {usuarioLogueado.rol === "admin" && ( // Verificar si el rol es admin
+                  <NavDropdown
+                    title="Administrador"
+                    id="collapsible-nav-dropdown"
                   >
-                    Productos
-                  </NavLink>
-                  <NavLink
-                    end
-                    className="nav-link"
-                    to="/administrador/usuarios"
-                  >
-                    Usuarios
-                  </NavLink>
-                </NavDropdown>
+                    <NavLink
+                      end
+                      className="nav-link"
+                      to="/administrador/productos"
+                    >
+                      Productos
+                    </NavLink>
+                    <NavLink
+                      end
+                      className="nav-link"
+                      to="/administrador/usuarios"
+                    >
+                      Usuarios
+                    </NavLink>
+                  </NavDropdown>
+                )}
 
                 <Button
                   className="nav-link text-start text-white"
                   variant="link"
                   onClick={logout}
                 >
-                  logout
+                  Logout
                 </Button>
               </>
             ) : (

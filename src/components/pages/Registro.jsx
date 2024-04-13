@@ -111,10 +111,19 @@ const Registro = ({ tituloRegistro, rol }) => {
             type="password"
             placeholder="Ingresa tu contraseña"
             {...register("password", {
-              required: "La contraseña es obligatoria",
+              required: "El password es obligatorio",
               minLength: {
-                value: 6,
-                message: "La contraseña debe tener al menos 6 caracteres",
+                value: 8,
+                message: "el minimo es de 8 caracteres",
+              },
+              maxLength: {
+                value: 12,
+                message: "el maximo es de 15 caracteres",
+              },
+              pattern: {
+                value: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/,
+                message:
+                  "El password debe contener al menos una letra mayúscula, una letra minúscula y un número",
               },
             })}
           />
