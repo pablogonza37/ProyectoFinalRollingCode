@@ -57,23 +57,6 @@ const Pedidos = ({ usuarioLogueado }) => {
       return;
     }
 
-    try {
-      const pedidosActualizados = await Promise.all(
-        pedidos.map(async (pedido) => {
-          const pedidoModificado = {
-            id: pedido.id,
-            nombreProducto: pedido.nombreProducto,
-            imagen: pedido.imagen,
-            precio: pedido.precio,
-            estado: "entrega",
-          };
-          await actualizarEstadoPedidosAPI(pedidoModificado, pedido.id);
-          return pedidoModificado;
-        })
-      );
-
-      setPedidos(pedidosActualizados);
-
       Swal.fire({
         icon: "success",
         title: "Pedidos confirmados",
@@ -81,15 +64,8 @@ const Pedidos = ({ usuarioLogueado }) => {
         showConfirmButton: false,
         timer: 2000,
       });
-    } catch (error) {
-      console.log(error);
-      Swal.fire({
-        icon: "error",
-        title: "Error",
-        text: "Hubo un error al confirmar los pedidos. Por favor, inténtalo de nuevo.",
-      });
-    }
   };
+  
 
   return (
     <Container className="mainSection my-4">
@@ -114,7 +90,7 @@ const Pedidos = ({ usuarioLogueado }) => {
               <tbody>
                 {pedidos.map((pedido) => (
                   <ItemPedido
-                    key={pedido.id}
+                    key={pedido._id}
                     pedido={pedido}
                     setPedidos={setPedidos}
                   ></ItemPedido>

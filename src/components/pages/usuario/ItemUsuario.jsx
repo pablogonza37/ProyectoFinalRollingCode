@@ -5,6 +5,7 @@ import {
   borrarUsuarioAPI,
   leerUsuariosAPI,
   suspenderUsuarioAPI,
+  levantarSuspensionUsuarioAPI, // Agregamos la importación de la función para levantar la suspensión del usuario
 } from "../../../helpers/queries";
 
 const ItemUsuario = ({ usuario, setData }) => {
@@ -20,7 +21,7 @@ const ItemUsuario = ({ usuario, setData }) => {
       cancelButtonText: "Cancelar",
     }).then(async (result) => {
       if (result.isConfirmed) {
-        const respuesta = await borrarUsuarioAPI(usuario.id);
+        const respuesta = await borrarUsuarioAPI(usuario._id);
         if (respuesta.status === 200) {
           Swal.fire({
             title: "Usuario Eliminado",
@@ -42,13 +43,6 @@ const ItemUsuario = ({ usuario, setData }) => {
   };
 
   const suspenderUsuario = async () => {
-    const usuarioSuspendido = {
-      nombreUsuario: usuario.nombreUsuario,
-      email: usuario.email,
-      rol: usuario.rol,
-      password: usuario.password,
-      suspendido: !usuario.suspendido, 
-    };
     const confirmText = usuario.suspendido ? "Habilitar" : "Suspender"; 
     const icon = usuario.suspendido ? "bi bi-plus-circle" : "bi bi-dash-circle";
     Swal.fire({
@@ -62,7 +56,12 @@ const ItemUsuario = ({ usuario, setData }) => {
       cancelButtonText: "Cancelar",
     }).then(async (result) => {
       if (result.isConfirmed) {
-        const respuesta = await suspenderUsuarioAPI(usuarioSuspendido, usuario.id);
+        let respuesta;
+        if (usuario.suspendido) {
+          respuesta = await levantarSuspensionUsuarioAPI(usuario._id);
+        } else {
+          respuesta = await suspenderUsuarioAPI(usuario._id);
+        }
         if (respuesta.status === 200) {
           Swal.fire({
             title: "Usuario Actualizado",
@@ -88,7 +87,7 @@ const ItemUsuario = ({ usuario, setData }) => {
       <td>{usuario.nombreUsuario}</td>
       <td>{usuario.email}</td>
       <td>{usuario.rol}</td>
-      <td>{usuario.suspendido.toString()}</td>
+      <td>{`${usuario.suspendido}`}</td>
       <td className="text-center">
         <Button className="btn btn-secondary me-1" onClick={suspenderUsuario}>
           <i className={usuario.suspendido ? "bi bi-plus-circle" : "bi bi-dash-circle"}></i>

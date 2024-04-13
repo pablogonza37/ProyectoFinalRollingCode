@@ -16,7 +16,7 @@ const ItemProducto = ({ producto, setData }) => {
       cancelButtonText: "Cancelar",
     }).then(async (result) => {
       if (result.isConfirmed) {
-        const respuesta = await borrarProductoAPI(producto.id);
+        const respuesta = await borrarProductoAPI(producto._id);
         if (respuesta.status === 200) {
           Swal.fire({
             title: "Producto eliminado",
@@ -52,7 +52,7 @@ const ItemProducto = ({ producto, setData }) => {
         <td className="text-center">
         <Link
           className="btn btn-warning me-1"
-          to={"/administrador/productos/editar/" + producto.id}
+          to={"/administrador/productos/editar/" + producto._id}
         >
           <i className="bi bi-pencil-square"></i>
         </Link>
