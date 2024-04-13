@@ -208,7 +208,6 @@ export const levantarSuspensionUsuarioAPI = async (id) => {
 
 export const login = async (usuario) =>{
   try {
-    console.log(usuario);
     const respuesta = await fetch(URL_Login, {
       method: "POST",
       headers: {

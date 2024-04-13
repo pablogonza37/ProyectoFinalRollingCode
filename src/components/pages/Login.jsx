@@ -1,13 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Container, Form, Card } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import "../../App.css";
 import { login } from "../../helpers/queries";
+import { Link } from "react-router-dom";
 
 const Login = ({ setUsuarioLogueado }) => {
   const [errors, setErrors] = useState({});
+  const [loading, setLoading] = useState(false);
 
   const {
     register,
@@ -17,16 +19,23 @@ const Login = ({ setUsuarioLogueado }) => {
   const navegacion = useNavigate();
 
   const onSubmit = async (usuario) => {
+    setLoading(true);
     const respuesta = await login(usuario);
+    setLoading(false);
     if (respuesta.status === 200) {
-      Swal.fire("¡Bienvenido!", "Has iniciado sesión correctamente", "success");
       const datos = await respuesta.json();
       sessionStorage.setItem(
         "usuarioRollingBistro",
         JSON.stringify({ email: datos.email, token: datos.token, rol:datos.rol, suspendido:datos.suspendido })
       );
       setUsuarioLogueado(datos);
-      navegacion("/administrador/productos");
+      if (datos.rol === 'admin') {
+        Swal.fire("¡Bienvenido!", "Has iniciado sesión correctamente", "success");
+        navegacion("/administrador/productos");
+      } else {
+        Swal.fire("¡Bienvenido!", "Has iniciado sesión correctamente", "success");
+        navegacion("/");
+      }
     } else {
       Swal.fire("Ocurrió un error", "Correo o contraseña incorrectos", "error");
     }
@@ -86,10 +95,11 @@ const Login = ({ setUsuarioLogueado }) => {
 
             {errors.message && <p style={{ color: "red" }}>{errors.message}</p>}
             <hr />
-            <Button variant="primary" type="submit">
-              Iniciar sesión
+            <Button variant="primary" type="submit" disabled={loading}>
+              {loading ? "Cargando..." : "Iniciar sesión"}
             </Button>
           </Form>
+          <p className="mt-3">¿No tienes una cuenta? <Link to="/registro">Regístrate aquí</Link></p>
         </Card.Body>
       </Card>
     </Container>

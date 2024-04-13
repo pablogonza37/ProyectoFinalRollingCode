@@ -3,6 +3,7 @@ import { Container, Row, Col } from "react-bootstrap";
 import "./Footer";
 import "./Menu";
 import "./style404.css";
+import { Link } from "react-router-dom";
 
 const Error404 = () => {
 return (
@@ -20,9 +21,9 @@ return (
 
                             <p className="pageNotFound">La página que buscas no está disponible!</p>
 
-                            <a href="/" className="link_404">
+                            <Link className="link_404" to="/">
                                 Ir al Inicio
-                            </a>
+                            </Link>
                         </div>
                     </div>
                 </div>
