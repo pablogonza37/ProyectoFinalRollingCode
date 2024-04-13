@@ -131,18 +131,26 @@ export const obtenerPedidosAPI = async () => {
   }
 };
 
-export const actualizarEstadoPedidosAPI = async (pedidoModificado, id) => {
+export const cambiarEstadoPedidoAPI = async (id) => {
   try {
-    const respuesta = await fetch(`${URL_Pedidos}/${id}`, {
+    const resp = await fetch(`${URL_Pedidos}/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(pedidoModificado),
+      body: JSON.stringify({ estado: "realizado" }),
     });
-    return respuesta;
+
+    if (!resp.ok) {
+      throw new Error("Error al actualizar el estado del pedido");
+    }
+
+    const pedidoActualizado = await resp.json();
+
+    return pedidoActualizado;
   } catch (error) {
-    console.log(error);
+    console.error(error);
+    throw new Error("Ocurrió un error al intentar actualizar el estado del pedido");
   }
 };
 
