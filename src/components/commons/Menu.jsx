@@ -26,7 +26,7 @@ const Menu = ({ openLoginModal, usuarioLogueado, setUsuarioLogueado }) => {
             <NavLink end className="text-white nav-link" to="/">
               Inicio
             </NavLink>
-            <NavLink end className="text-white nav-link" to="/acerca">
+            <NavLink end className="text-white nav-link" to="/acercade">
               Acerca de
             </NavLink>
             <NavLink end className="text-white nav-link" to="/pedidos">
