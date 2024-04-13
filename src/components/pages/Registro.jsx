@@ -6,7 +6,7 @@ import { crearUsuarioAPI } from "../../helpers/queries";
 import { useState, useEffect } from "react";
 
 const Registro = ({ tituloRegistro, rol }) => {
-  const [rolPorDefecto, setRolPorDefecto] = useState("admin");
+  const [rolPorDefecto, setRolPorDefecto] = useState("usuario");
   const [rolVisible, setRolVisible] = useState(rol);
   const {
     register,
