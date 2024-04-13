@@ -21,6 +21,7 @@ export const crearProductoAPI = async (productoNuevo) => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        'x-token': JSON.parse(sessionStorage.getItem('usuarioRollingBistro')).token
       },
       body: JSON.stringify(productoNuevo),
     });
@@ -46,6 +47,7 @@ export const editarProductoAPI = async (productoModificado, id) => {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
+        'x-token': JSON.parse(sessionStorage.getItem('usuarioRollingBistro')).token
       },
       body: JSON.stringify(productoModificado),
     });
@@ -59,6 +61,9 @@ export const borrarProductoAPI = async (id) => {
   try {
     const resp = await fetch(`${URL_Productos}/${id}`, {
       method: "DELETE",
+      headers: {
+        'x-token': JSON.parse(sessionStorage.getItem('usuarioRollingBistro')).token
+        }
     });
     return resp;
   } catch (error) {
@@ -98,6 +103,10 @@ export const borrarUsuarioAPI = async (id) => {
   try {
     const resp = await fetch(`${URL_Usuarios}/${id}`, {
       method: "DELETE",
+      headers: {
+        'x-token': JSON.parse(sessionStorage.getItem('usuarioRollingBistro')).token
+        }
+
     });
     return resp;
   } catch (error) {
