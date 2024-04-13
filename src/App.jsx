@@ -12,6 +12,7 @@ import { useState } from "react";
 import Registro from "./components/pages/Registro";
 import Pedidos from "./components/pages/pedidos/Pedidos";
 import Login from "./components/pages/Login";
+import AcercaDe from "./components/commons/Acercade";
 
 import Error404 from "./components/commons/Error404";
 
@@ -57,7 +58,7 @@ function App() {
             }
           ></Route>
 
-          <Route exact path="/acercade"></Route>
+          <Route exact path="/acercade" element={<AcercaDe></AcercaDe>}></Route>
           <Route path="*" element={<Error404></Error404>}></Route>
 
         </Routes>
