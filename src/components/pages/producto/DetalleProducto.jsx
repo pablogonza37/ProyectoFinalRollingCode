@@ -5,7 +5,7 @@ import { obtenerProductoAPI, crearPedidoAPI } from "../../../helpers/queries";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 
-const DetalleProducto = ({ usuarioLogueado, openLoginModal }) => {
+const DetalleProducto = ({ usuarioLogueado }) => {
   const [productoSelecionado, setProductoSelecionado] = useState([]);
   const [spinnerDetalle, setSpinnerDetalle] = useState(true);
   const [error, setError] = useState(null);
@@ -36,12 +36,13 @@ const DetalleProducto = ({ usuarioLogueado, openLoginModal }) => {
   const hacerPedido = async () => {
     if (usuarioLogueado){
     const pedido = {
+      fecha: obtenerFechaDeHoy(),
       nombreProducto: productoSelecionado.nombreProducto,
       imagen: productoSelecionado.imagen,
       precio: productoSelecionado.precio,
       estado: "pendiente"
     };
-    
+     console.log(pedido)
     const resp = await crearPedidoAPI(pedido);
     if (resp.status === 201) {
       Swal.fire({
@@ -60,6 +61,17 @@ const DetalleProducto = ({ usuarioLogueado, openLoginModal }) => {
     navegacion('/login');
   }
   }
+
+  const obtenerFechaDeHoy = () => {
+    const fecha = new Date();
+    const dia = fecha.getDate();
+    const mes = fecha.getMonth() + 1;
+    const año = fecha.getFullYear();
+
+    const fechaFormateada = `${dia}/${mes}/${año}`;
+
+    return fechaFormateada;
+  };
 
   const mostrarComponente = spinnerDetalle ? (
     <div className="my-4 text-center">

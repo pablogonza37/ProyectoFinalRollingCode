@@ -99,7 +99,7 @@ const Registro = ({ tituloRegistro, rol }) => {
               })}
             >
               <option value="usuario">Usuario</option>
-              <option value="administrador">Administrador</option>
+              <option value="admin">Admin</option>
             </Form.Select>
             <Form.Text className="text-danger">{errors.rol?.message}</Form.Text>
           </Form.Group>

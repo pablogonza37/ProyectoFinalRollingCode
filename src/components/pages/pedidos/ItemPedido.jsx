@@ -15,7 +15,7 @@ const ItemPedido = ({ pedido, setPedidos }) => {
       cancelButtonText: "Cancelar",
     }).then(async (result) => {
       if (result.isConfirmed) {
-        const respuesta = await borrarPedidoAPI(pedido.id);
+        const respuesta = await borrarPedidoAPI(pedido._id);
         if (respuesta.status === 200) {
           Swal.fire({
             title: "Pedido Eliminado",
@@ -36,20 +36,10 @@ const ItemPedido = ({ pedido, setPedidos }) => {
     });
   };
 
-  const obtenerFechaDeHoy = () => {
-    const fecha = new Date();
-    const dia = fecha.getDate();
-    const mes = fecha.getMonth() + 1;
-    const año = fecha.getFullYear();
-
-    const fechaFormateada = `${dia}/${mes}/${año}`;
-
-    return fechaFormateada;
-  };
 
   return (
     <tr>
-      <td>{obtenerFechaDeHoy()}</td>
+      <td>{pedido.fecha}</td>
       <td>{pedido.nombreProducto}</td>
       <td className="text-center">
         <img

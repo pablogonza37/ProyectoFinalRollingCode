@@ -1,10 +1,7 @@
 import { Container, Row, Col, Table, Button, Card } from "react-bootstrap";
 import ItemPedido from "./ItemPedido";
 import { useEffect, useState } from "react";
-import {
-  obtenerPedidosAPI,
-  actualizarEstadoPedidosAPI,
-} from "../../../helpers/queries";
+import { obtenerPedidosAPI, cambiarEstadoPedidoAPI } from "../../../helpers/queries";
 import Swal from "sweetalert2";
 
 const Pedidos = ({ usuarioLogueado }) => {
@@ -41,7 +38,7 @@ const Pedidos = ({ usuarioLogueado }) => {
       Swal.fire({
         icon: "error",
         title: "No hay pedidos",
-        text: "debe realizar un pedido.",
+        text: "Debe realizar un pedido.",
       });
       return;
     }
@@ -56,24 +53,17 @@ const Pedidos = ({ usuarioLogueado }) => {
       });
       return;
     }
-
+  
     try {
-      const pedidosActualizados = await Promise.all(
-        pedidos.map(async (pedido) => {
-          const pedidoModificado = {
-            id: pedido.id,
-            nombreProducto: pedido.nombreProducto,
-            imagen: pedido.imagen,
-            precio: pedido.precio,
-            estado: "entrega",
-          };
-          await actualizarEstadoPedidosAPI(pedidoModificado, pedido.id);
-          return pedidoModificado;
-        })
-      );
-
-      setPedidos(pedidosActualizados);
-
+      await Promise.all(pedidos.map(async (pedido) => {
+        if (pedido.estado === "pendiente") {
+          await cambiarEstadoPedidoAPI(pedido._id);
+          setPedidos(prevPedidos => prevPedidos.map(prevPedido => 
+            prevPedido._id === pedido._id ? {...prevPedido, estado: "realizado"} : prevPedido
+          ));
+        }
+      }));
+  
       Swal.fire({
         icon: "success",
         title: "Pedidos confirmados",
@@ -82,11 +72,11 @@ const Pedidos = ({ usuarioLogueado }) => {
         timer: 2000,
       });
     } catch (error) {
-      console.log(error);
+      console.error(error);
       Swal.fire({
         icon: "error",
-        title: "Error",
-        text: "Hubo un error al confirmar los pedidos. Por favor, inténtalo de nuevo.",
+        title: "Error al confirmar pedidos",
+        text: "Hubo un error al confirmar los pedidos.",
       });
     }
   };
@@ -114,7 +104,7 @@ const Pedidos = ({ usuarioLogueado }) => {
               <tbody>
                 {pedidos.map((pedido) => (
                   <ItemPedido
-                    key={pedido.id}
+                    key={pedido._id}
                     pedido={pedido}
                     setPedidos={setPedidos}
                   ></ItemPedido>

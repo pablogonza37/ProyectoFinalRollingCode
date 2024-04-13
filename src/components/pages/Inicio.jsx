@@ -125,7 +125,7 @@ const Inicio = ({ openLoginModal, usuarioLogueado }) => {
           <Row>
             {currentProductos.map((producto) => (
               <CardProducto
-                key={producto.id}
+                key={producto._id}
                 producto={producto}
                 openLoginModal={openLoginModal}
                 usuarioLogueado={usuarioLogueado}

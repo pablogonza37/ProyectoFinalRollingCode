@@ -1,6 +1,8 @@
 const URL_Productos = import.meta.env.VITE_API_PRODUCTOS;
 const URL_Usuarios = import.meta.env.VITE_API_USUARIOS;
 const URL_Pedidos = import.meta.env.VITE_API_PEDIDOS;
+const URL_Suspender=import.meta.env.VITE_API_SUSPENDER;
+const URL_Levantar=import.meta.env.VITE_API_LEVANTAR;
 
 export const leerProductosAPI = async () => {
   try {
@@ -103,21 +105,6 @@ export const borrarUsuarioAPI = async (id) => {
 };
 
 
-export const suspenderUsuarioAPI = async (usuarioSuspendido, id) => {
-  try {
-    const respuesta = await fetch(`${URL_Usuarios}/${id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(usuarioSuspendido),
-    });
-    return respuesta;
-  } catch (error) {
-    console.log(error);
-  }
-};
-
 export const crearPedidoAPI = async (pedidoNuevo) => {
   try {
     const resp = await fetch(URL_Pedidos, {
@@ -144,18 +131,26 @@ export const obtenerPedidosAPI = async () => {
   }
 };
 
-export const actualizarEstadoPedidosAPI = async (pedidoModificado, id) => {
+export const cambiarEstadoPedidoAPI = async (id) => {
   try {
-    const respuesta = await fetch(`${URL_Pedidos}/${id}`, {
+    const resp = await fetch(`${URL_Pedidos}/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(pedidoModificado),
+      body: JSON.stringify({ estado: "realizado" }),
     });
-    return respuesta;
+
+    if (!resp.ok) {
+      throw new Error("Error al actualizar el estado del pedido");
+    }
+
+    const pedidoActualizado = await resp.json();
+
+    return pedidoActualizado;
   } catch (error) {
-    console.log(error);
+    console.error(error);
+    throw new Error("Ocurrió un error al intentar actualizar el estado del pedido");
   }
 };
 
@@ -170,6 +165,35 @@ export const borrarPedidoAPI = async (id) => {
     console.log(error);
   }
 };
+
+export const suspenderUsuarioAPI = async (id) => {
+  try {
+    const resp = await fetch(`${URL_Suspender}/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    return resp;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const levantarSuspensionUsuarioAPI = async (id) => {
+  try {
+    const resp = await fetch(`${URL_Levantar}/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    return resp;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 
 
 const userAdmin = {

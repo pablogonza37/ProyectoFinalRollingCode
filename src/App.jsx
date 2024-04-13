@@ -16,33 +16,21 @@ import Login from "./components/pages/Login";
 import Error404 from "./components/commons/Error404";
 
 function App() {
-  const usuario =
-    JSON.parse(sessionStorage.getItem("usuarioRollingBistro")) || "";
+  const usuario = JSON.parse(sessionStorage.getItem("usuarioRollingBistro")) || "";
   const [usuarioLogueado, setUsuarioLogueado] = useState(usuario);
 
   return (
     <>
       <BrowserRouter>
-        <Menu
-          usuarioLogueado={usuarioLogueado}
-          setUsuarioLogueado={setUsuarioLogueado}
-        />
+        <Menu usuarioLogueado={usuarioLogueado} setUsuarioLogueado={setUsuarioLogueado}/>
         <Routes>
-          <Route
-            exact
-            path="/"
-            element={<Inicio usuarioLogueado={usuarioLogueado}></Inicio>}
-          ></Route>
+          <Route exact path="/" element={<Inicio usuarioLogueado={usuarioLogueado}></Inicio>}></Route>
           <Route
             exact
             path="/detalle/:id"
-            element={
-              <DetalleProducto
-                usuarioLogueado={usuarioLogueado}
-              ></DetalleProducto>
-            }
+            element={<DetalleProducto usuarioLogueado={usuarioLogueado}></DetalleProducto>}
           ></Route>
-          <Route
+           <Route
             exact
             path="/administrador/*"
             element={
@@ -54,9 +42,7 @@ function App() {
           <Route
             exact
             path="/registro"
-            element={
-              <Registro tituloRegistro="Registro" rol={false}></Registro>
-            }
+            element={<Registro tituloRegistro='Registro' rol={false}></Registro>}
           ></Route>
           <Route
             exact
@@ -66,10 +52,14 @@ function App() {
           <Route
             exact
             path="/login"
-            element={<Login setUsuarioLogueado={setUsuarioLogueado} />}
+            element={
+              <Login setUsuarioLogueado={setUsuarioLogueado}/>
+            }
           ></Route>
+
           <Route exact path="/acercade"></Route>
           <Route path="*" element={<Error404></Error404>}></Route>
+
         </Routes>
         <Footer></Footer>
       </BrowserRouter>

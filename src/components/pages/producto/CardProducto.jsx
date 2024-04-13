@@ -3,13 +3,15 @@ import { Link } from "react-router-dom";
 import { crearPedidoAPI } from "../../../helpers/queries";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
-const CardProducto = ({ producto, usuarioLogueado, openLoginModal}) => {
+const CardProducto = ({ producto, usuarioLogueado }) => {
   const navegacion = useNavigate();
   const hacerPedido = async () => {
     if (usuarioLogueado){
     const pedido = {
-      nombreProducto: producto.nombreProducto,
+      fecha: obtenerFechaDeHoy(),
+      nombreProducto: generarIdUnico(producto.nombreProducto),
       imagen: producto.imagen,
       precio: producto.precio,
       estado: "pendiente"
@@ -34,6 +36,21 @@ const CardProducto = ({ producto, usuarioLogueado, openLoginModal}) => {
   }
   }
 
+  const generarIdUnico = (nombreProducto) => {
+    return nombreProducto + "_" + Date.now();
+  };
+
+  const obtenerFechaDeHoy = () => {
+    const fecha = new Date();
+    const dia = fecha.getDate();
+    const mes = fecha.getMonth() + 1;
+    const año = fecha.getFullYear();
+
+    const fechaFormateada = `${dia}/${mes}/${año}`;
+
+    return fechaFormateada;
+  };
+
   return (
     <Col md={4} lg={3} className="mb-3">
       <Card className="h-100">
@@ -54,7 +71,7 @@ const CardProducto = ({ producto, usuarioLogueado, openLoginModal}) => {
         </Card.Body>
         <Card.Footer className="text-end">
           <Button className="btn btn-primary me-2 mb-2" onClick={hacerPedido}>Hacer pedido</Button>
-          <Link className="btn btn-success me-2  mb-2" to={"/detalle/" + producto.id}>
+          <Link className="btn btn-success me-2  mb-2" to={"/detalle/" + producto._id}>
             Ver más
           </Link>
         </Card.Footer>
