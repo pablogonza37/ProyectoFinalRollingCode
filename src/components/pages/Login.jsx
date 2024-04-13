@@ -1,16 +1,15 @@
-import React, { useEffect, useState } from "react";
-import Modal from "react-modal";
+import React, { useState, useEffect } from "react";
 import { Button, Container, Form, Card } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import "../../App.css";
 import { login } from "../../helpers/queries";
-
+import { Link } from "react-router-dom";
 
 const Login = ({ setUsuarioLogueado }) => {
-
   const [errors, setErrors] = useState({});
+  const [loading, setLoading] = useState(false);
 
   const {
     register,
@@ -19,21 +18,28 @@ const Login = ({ setUsuarioLogueado }) => {
   } = useForm();
   const navegacion = useNavigate();
 
-
   const onSubmit = async (usuario) => {
-    if (login(usuario)) {
-      Swal.fire({
-        title: "Usuario logueado",
-        text: `Bienvenido "${usuario.mail}"`,
-        icon: "success",
-      });
-      navegacion("/administrador/productos");
-      setUsuarioLogueado(usuario.mail);
+    setLoading(true);
+    const respuesta = await login(usuario);
+    setLoading(false);
+    if (respuesta.status === 200) {
+      const datos = await respuesta.json();
+      sessionStorage.setItem(
+        "usuarioRollingBistro",
+        JSON.stringify({ email: datos.email, token: datos.token, rol:datos.rol, suspendido:datos.suspendido })
+      );
+      setUsuarioLogueado(datos);
+      if (datos.rol === 'admin') {
+        Swal.fire("¡Bienvenido!", "Has iniciado sesión correctamente", "success");
+        navegacion("/administrador/productos");
+      } else {
+        Swal.fire("¡Bienvenido!", "Has iniciado sesión correctamente", "success");
+        navegacion("/");
+      }
     } else {
-      setErrors({ message: "El usuario o la contraseña son incorrectos" });
+      Swal.fire("Ocurrió un error", "Correo o contraseña incorrectos", "error");
     }
   };
-
 
   return (
     <Container className="mainSection my-4 d-flex justify-content-center">
@@ -47,16 +53,16 @@ const Login = ({ setUsuarioLogueado }) => {
               <Form.Control
                 type="email"
                 placeholder="name@example.com"
-                {...register("mail", {
+                {...register("email", {
                   required: "Email es requerido",
                   pattern: {
-                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                    value: /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/i,
                     message: "Email inválido",
                   },
                 })}
               />
               <Form.Text className="text-danger">
-                {formErrors.mail?.message}
+                {formErrors.email?.message}
               </Form.Text>
             </Form.Group>
 
@@ -66,10 +72,19 @@ const Login = ({ setUsuarioLogueado }) => {
                 type="password"
                 placeholder="Password"
                 {...register("password", {
-                  required: "Contraseña es requerida",
+                  required: "El password es obligatorio",
                   minLength: {
-                    value: 6,
-                    message: "La contraseña debe tener al menos 6 caracteres",
+                    value: 8,
+                    message: "el minimo es de 8 caracteres",
+                  },
+                  maxLength: {
+                    value: 12,
+                    message: "el maximo es de 15 caracteres",
+                  },
+                  pattern: {
+                    value: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/,
+                    message:
+                      "El password debe contener al menos una letra mayúscula, una letra minúscula y un número",
                   },
                 })}
               />
@@ -80,10 +95,11 @@ const Login = ({ setUsuarioLogueado }) => {
 
             {errors.message && <p style={{ color: "red" }}>{errors.message}</p>}
             <hr />
-            <Button variant="primary" type="submit">
-              Iniciar sesión
+            <Button variant="primary" type="submit" disabled={loading}>
+              {loading ? "Cargando..." : "Iniciar sesión"}
             </Button>
           </Form>
+          <p className="mt-3">¿No tienes una cuenta? <Link to="/registro">Regístrate aquí</Link></p>
         </Card.Body>
       </Card>
     </Container>

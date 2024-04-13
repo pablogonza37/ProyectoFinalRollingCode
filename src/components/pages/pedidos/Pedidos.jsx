@@ -3,13 +3,19 @@ import ItemPedido from "./ItemPedido";
 import { useEffect, useState } from "react";
 import { obtenerPedidosAPI, cambiarEstadoPedidoAPI } from "../../../helpers/queries";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 const Pedidos = ({ usuarioLogueado }) => {
   const [pedidos, setPedidos] = useState([]);
   const [total, setTotal] = useState();
+  const navegacion = useNavigate();
 
   useEffect(() => {
-    cargarDatosPedidos();
+    if (!usuarioLogueado) {
+      navegacion("/login");
+    } else {
+      cargarDatosPedidos();
+    }
   }, []);
 
   useEffect(() => {
