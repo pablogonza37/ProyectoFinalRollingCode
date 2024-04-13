@@ -56,7 +56,10 @@ function App() {
               <Login setUsuarioLogueado={setUsuarioLogueado}/>
             }
           ></Route>
-          <Route exact path="/acercade" element={<Error404></Error404>}></Route> 
+
+          <Route exact path="/acercade"></Route>
+          <Route path="*" element={<Error404></Error404>}></Route>
+
         </Routes>
         <Footer></Footer>
       </BrowserRouter>
