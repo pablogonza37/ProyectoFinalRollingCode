@@ -58,7 +58,6 @@ const DetalleProducto = ({ usuarioLogueado, openLoginModal }) => {
     }
   }else {
     navegacion('/login');
-    openLoginModal();
   }
   }
 

@@ -102,18 +102,19 @@ export const borrarUsuarioAPI = async (id) => {
   }
 };
 
-export const inhabilitarUsuarioAPI = async (id) => {
+
+export const suspenderUsuarioAPI = async (usuarioSuspendido, id) => {
   try {
-    const resp = await fetch(`${URL_Usuarios}/${id}/disable`, {
-      method: "POST",
+    const respuesta = await fetch(`${URL_Usuarios}/${id}`, {
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
+      body: JSON.stringify(usuarioSuspendido),
     });
-    return resp;
+    return respuesta;
   } catch (error) {
     console.log(error);
-    throw new Error('Error al inhabilitar el usuario desde la API: ' + error.message);
   }
 };
 

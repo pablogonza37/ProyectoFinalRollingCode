@@ -1,24 +1,10 @@
 {
   "productos": [
     {
-      "id": "876d",
-      "nombreProducto": "Hamburguessas con papas",
-      "imagen": "https://images.pexels.com/photos/4109243/pexels-photo-4109243.jpeg",
-      "precio": "5000",
-      "estado": "entrega"
-    },
-    {
-      "id": "34b5",
-      "nombreProducto": "Hamburguessas con papas",
-      "imagen": "https://images.pexels.com/photos/4109243/pexels-photo-4109243.jpeg",
-      "precio": "5000",
-      "estado": "entrega"
-    },
-    {
       "nombreProducto": "Hamburguessas con papas",
       "precio": "5000",
       "imagen": "https://images.pexels.com/photos/4109243/pexels-photo-4109243.jpeg",
-      "categoria": "Milanesas",
+      "categoria": "Hamburguesas",
       "descripcionBreve": "hfghgfhfghfghgfhgfhfgihjifghjjfgoihjoifghjijfg",
       "descripcionAmplia": "fghfghjogifhjiofjhiofjgihjgfihjijfgihjiogfhiojiogfhjifjiogjofgijhiofghjijfgiohjifjhijfgiohjiofhjfigjhiofgfg",
       "id": "43b5"
@@ -26,21 +12,28 @@
   ],
   "usuarios": [
     {
-      "id": "7f2f",
-      "nombre": "pablo",
-      "email": "pedro@example.com",
-      "rol": "administrador",
-      "password": "222222",
-      "confirmarContraseña": "222222"
-    },
-    {
-      "id": "8780",
-      "nombre": "Simon",
-      "email": "pabkjj@gmail.com",
+      "nombreUsuario": "tomas",
+      "email": "tomas@hotmaail.com",
       "rol": "usuario",
-      "password": "111111",
-      "confirmarContraseña": "111111"
+      "password": "222222",
+      "suspendido": false,
+      "id": "5bbb"
     }
   ],
-  "pedidos": []
+  "pedidos": [
+    {
+      "id": "b843",
+      "nombreProducto": "Hamburguessas con papas",
+      "imagen": "https://images.pexels.com/photos/4109243/pexels-photo-4109243.jpeg",
+      "precio": "5000",
+      "estado": "pendiente"
+    },
+    {
+      "id": "7fea",
+      "nombreProducto": "Hamburguessas con papas",
+      "imagen": "https://images.pexels.com/photos/4109243/pexels-photo-4109243.jpeg",
+      "precio": "5000",
+      "estado": "pendiente"
+    }
+  ]
 }
