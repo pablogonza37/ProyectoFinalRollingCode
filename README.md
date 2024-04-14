@@ -19,16 +19,16 @@ Este proyecto utiliza las siguientes dependencias:
 
 ### Dependencias de Producción
 
-- bootstrap: ^5.3.3
-- bootstrap-icons: ^1.11.3
-- nodemailer: ^6.9.13
+- bootstrap: 5.3.3
+- bootstrap-icons: 1.11.3
+- nodemailer: 6.9.13
 - react: ^18.2.0
-- react-bootstrap: ^2.10.2
-- react-dom: ^18.2.0
-- react-hook-form: ^7.51.2
-- react-modal: ^3.16.1
-- react-router-dom: ^6.22.3
-- react-sweetalert2: ^0.6.0
+- react-bootstrap: 2.10.2
+- react-dom: 18.2.0
+- react-hook-form: 7.51.2
+- react-modal: 3.16.1
+- react-router-dom: 6.22.3
+- react-sweetalert2: 0.6.0
 
 ## Instalación y Ejecución
 
