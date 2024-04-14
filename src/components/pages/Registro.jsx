@@ -34,7 +34,7 @@ const Registro = ({ tituloRegistro, rol }) => {
         text: `El usuario "${usuario.nombreUsuario}" fue registrado correctamente`,
         icon: "success",
       });
-      navegaciion('/login')
+      navegacion('/login')
     } else {
       Swal.fire({
         title: "Ocurrió un error",
