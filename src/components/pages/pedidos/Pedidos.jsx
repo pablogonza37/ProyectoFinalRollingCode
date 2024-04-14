@@ -13,6 +13,14 @@ const Pedidos = ({ usuarioLogueado }) => {
   useEffect(() => {
     if (!usuarioLogueado) {
       navegacion("/login");
+    } else if (usuarioLogueado.suspendido) {
+      Swal.fire({
+        icon: "warning",
+        title: "Cuenta suspendida",
+        text: "Su cuenta ha sido suspendida. Por favor, contacte al soporte para más información."
+      }).then(() => {
+        navegacion("/");
+      });
     } else {
       cargarDatosPedidos();
     }
