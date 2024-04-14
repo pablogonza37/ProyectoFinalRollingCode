@@ -95,8 +95,8 @@ const Login = ({ setUsuarioLogueado }) => {
 
             {errors.message && <p style={{ color: "red" }}>{errors.message}</p>}
             <hr />
-            <Button variant="primary" type="submit" disabled={loading}>
-              {loading ? "Cargando..." : "Iniciar sesión"}
+            <Button variant="primary" type="submit" >
+              Iniciar sesión
             </Button>
           </Form>
           <p className="mt-3">¿No tienes una cuenta? <Link to="/registro">Regístrate aquí</Link></p>

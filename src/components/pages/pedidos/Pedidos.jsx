@@ -1,13 +1,15 @@
 import { Container, Row, Col, Table, Button, Card } from "react-bootstrap";
 import ItemPedido from "./ItemPedido";
 import { useEffect, useState } from "react";
-import { obtenerPedidosAPI, cambiarEstadoPedidoAPI } from "../../../helpers/queries";
+import { obtenerPedidosAPI, cambiarEstadoPedidoAPI, leerUsuariosAPI } from "../../../helpers/queries";
 import Swal from "sweetalert2";
 import { Link, useNavigate } from "react-router-dom";
 
 const Pedidos = ({ usuarioLogueado }) => {
   const [pedidos, setPedidos] = useState([]);
   const [total, setTotal] = useState();
+  const [usuarios, setUsuarios] = useState([]);
+  const [filtroUsuario, setFiltroUsuario] = useState("");
   const navegacion = useNavigate();
 
   useEffect(() => {
@@ -23,6 +25,9 @@ const Pedidos = ({ usuarioLogueado }) => {
       });
     } else {
       cargarDatosPedidos();
+      if (usuarioLogueado.rol === 'admin') {
+        cargarUsuariosRegistrados();
+      }
     }
   }, []);
 
@@ -31,18 +36,26 @@ const Pedidos = ({ usuarioLogueado }) => {
   }, [pedidos]);
 
   const cargarDatosPedidos = async () => {
-    if(usuarioLogueado.rol === 'admin'){
-      const respuesta = await obtenerPedidosAPI();
-      setPedidos(respuesta);
-    }else{
     try {
       const respuesta = await obtenerPedidosAPI();
-      const pedidosFiltrados = respuesta.filter(pedido => pedido.usuario === usuarioLogueado.email);
-      setPedidos(pedidosFiltrados);
+      if (usuarioLogueado.rol === 'admin') {
+        setPedidos(respuesta);
+      } else {
+        const pedidosFiltrados = respuesta.filter(pedido => pedido.usuario === usuarioLogueado.email);
+        setPedidos(pedidosFiltrados);
+      }
     } catch (error) {
       console.log(error);
     }
-  }
+  };
+
+  const cargarUsuariosRegistrados = async () => {
+    try {
+      const usuariosRegistrados = await leerUsuariosAPI();
+      setUsuarios(usuariosRegistrados);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const calcularTotal = () => {
@@ -101,19 +114,39 @@ const Pedidos = ({ usuarioLogueado }) => {
     }
   };
 
+  const handleFiltroUsuarioChange = (e) => {
+    setFiltroUsuario(e.target.value);
+  };
+
   return (
     <Container className="mainSection my-4">
       <Row>
         <h2 className="display-4">Pedidos</h2>
         <hr />
         <Col md={9}>
+          {usuarioLogueado.rol === 'admin' && (
+            <div className="mb-3">
+              <label htmlFor="filtroUsuario" className="form-label">Filtrar por usuario:</label>
+              <select
+                id="filtroUsuario"
+                className="form-select"
+                value={filtroUsuario}
+                onChange={handleFiltroUsuarioChange}
+              >
+                <option value="">Todos los usuarios</option>
+                {usuarios.map((usuario) => (
+                  <option key={usuario._id} value={usuario.email}>{usuario.email}</option>
+                ))}
+              </select>
+            </div>
+          )}
           {pedidos.length === 0 ? (
             <p className="alert alert-danger">No hay pedidos disponibles.</p>
           ) : (
             <Table responsive striped bordered hover className="shadow">
               <thead className="table-dark">
                 <tr>
-                {usuarioLogueado.rol === 'admin' && <th>Usuario</th>}
+                  {usuarioLogueado.rol === 'admin' && <th>Usuario</th>}
                   <th>Fecha</th>
                   <th>Nombre</th>
                   <th>Imagen</th>
@@ -123,15 +156,20 @@ const Pedidos = ({ usuarioLogueado }) => {
                 </tr>
               </thead>
               <tbody>
-                {pedidos.map((pedido) => (
-                  <ItemPedido
-                  usuarioLogueado={usuarioLogueado}
-                  usuario={pedido.usuario}
-                    key={pedido._id}
-                    pedido={pedido}
-                    setPedidos={setPedidos}
-                  ></ItemPedido>
-                ))}
+                {pedidos
+                  .filter((pedido) => {
+                    if (filtroUsuario === "") return true;
+                    return pedido.usuario === filtroUsuario;
+                  })
+                  .map((pedido) => (
+                    <ItemPedido
+                      usuarioLogueado={usuarioLogueado}
+                      usuario={pedido.usuario}
+                      key={pedido._id}
+                      pedido={pedido}
+                      setPedidos={setPedidos}
+                    ></ItemPedido>
+                  ))}
               </tbody>
             </Table>        
           )}
