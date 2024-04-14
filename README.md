@@ -9,10 +9,10 @@ Este proyecto es una aplicación web llamada Rolling Bistro. El objetivo princip
 
 Este proyecto ha sido desarrollado utilizando las siguientes tecnologías:
 
-- React
-- Vite 5.2.7
+- React 18.2
+- Vite 5.2.7 (https://vitejs.dev/)
 - JavaScript
-- Bootstrap for React
+- React Bootstrap (https://react-bootstrap.netlify.app/)
 - HTML
 - CSS
 
@@ -36,6 +36,9 @@ Este proyecto utiliza las siguientes dependencias:
 ## Instalación y Ejecución
 
 # Instalación
+### Requisitos
+
+- Node.js (v20.0.0 o superior)
 
 Para instalar este proyecto en tu entorno local, sigue estos pasos:
 
@@ -81,8 +84,7 @@ Si deseas contribuir a este proyecto, puedes comunicarte con el dueño del repos
 
 ## Contribuyentes
 Este proyecto ha sido desarrollado por:
-
-- Ramiro Adrián Velásquez Barrozo
 - Pablo Gaston González
+- José Eugenio Navarro Bovi
+- Ramiro Adrián Velásquez Barrozo
 - Cristian Julian Aballay
-- José Eugenio Navarro Bov
