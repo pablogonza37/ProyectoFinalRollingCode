@@ -5,7 +5,7 @@ import {
   borrarUsuarioAPI,
   leerUsuariosAPI,
   suspenderUsuarioAPI,
-  levantarSuspensionUsuarioAPI, // Agregamos la importación de la función para levantar la suspensión del usuario
+  levantarSuspensionUsuarioAPI,
 } from "../../../helpers/queries";
 
 const ItemUsuario = ({ usuario, setData }) => {
@@ -89,10 +89,10 @@ const ItemUsuario = ({ usuario, setData }) => {
       <td>{usuario.rol}</td>
       <td>{`${usuario.suspendido}`}</td>
       <td className="text-center">
-        <Button className="btn btn-secondary me-1" onClick={suspenderUsuario}>
+        <Button className="btn btn-secondary" onClick={suspenderUsuario}>
           <i className={usuario.suspendido ? "bi bi-plus-circle" : "bi bi-dash-circle"}></i>
         </Button>
-        <Button variant="danger" onClick={borrarUsuario}>
+        <Button variant="danger" onClick={borrarUsuario} className='ms-lg-1 mt-lg-0'>
           <i className="bi bi-trash"></i>
         </Button>
       </td>

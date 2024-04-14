@@ -51,12 +51,12 @@ const ItemProducto = ({ producto, setData }) => {
         <td>$ {producto.precio}</td>
         <td className="text-center">
         <Link
-          className="btn btn-warning me-1"
+          className="btn btn-warning"
           to={"/administrador/productos/editar/" + producto._id}
         >
           <i className="bi bi-pencil-square"></i>
         </Link>
-          <Button variant="danger" onClick={borrarProducto}>
+          <Button variant="danger" onClick={borrarProducto} className='ms-lg-1 mt-lg-0 mt-1'>
             <i className="bi bi-trash"></i>
           </Button>
         </td>

@@ -105,6 +105,7 @@ const Pedidos = ({ usuarioLogueado }) => {
             <Table responsive striped bordered hover className="shadow">
               <thead className="table-dark">
                 <tr>
+                {usuarioLogueado.rol === 'admin' && <th>Usuario</th>}
                   <th>Fecha</th>
                   <th>Nombre</th>
                   <th>Imagen</th>
@@ -116,6 +117,8 @@ const Pedidos = ({ usuarioLogueado }) => {
               <tbody>
                 {pedidos.map((pedido) => (
                   <ItemPedido
+                  usuarioLogueado={usuarioLogueado}
+                  usuario={pedido.usuario}
                     key={pedido._id}
                     pedido={pedido}
                     setPedidos={setPedidos}
