@@ -74,6 +74,12 @@ productos del menú y pedidos solicitados, además podrá realizar las siguiente
 - Listar los pedidos
 - Modificar el estado de los pedidos de pendientes a realizados
 
+Para poder realizar todas estas acciones, necesitaras estas credenciales (puedes modificarlas desde el lado del backend si deseas):
+- Usuario: Admin@rollingbistro.com
+- Contraseña:Prueba123
+
+También puedes utilizar esta aplicación como un usuario que realizara pedidos creando tus propias credenciales.
+
 Además este proyecto contiene la información de los desarrolladores en una página llamada Acerca De.
 
 Por último y no menos importante, cuenta con una página de error 404 a la cual se accede en el caso de que una ruta no sea encontrada o una funcionalidad no este disponible.
