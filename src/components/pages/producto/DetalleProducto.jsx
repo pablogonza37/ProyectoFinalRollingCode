@@ -44,6 +44,7 @@ const DetalleProducto = ({ usuarioLogueado }) => {
         return;
       }
       const pedido = {
+        usuario: usuarioLogueado.email,
         fecha: obtenerFechaDeHoy(),
         nombreProducto: generarIdUnico(productoSelecionado.nombreProducto),
         imagen: productoSelecionado.imagen,

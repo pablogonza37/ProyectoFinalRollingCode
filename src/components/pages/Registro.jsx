@@ -4,10 +4,12 @@ import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import { crearUsuarioAPI } from "../../helpers/queries";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Registro = ({ tituloRegistro, rol }) => {
   const [rolPorDefecto, setRolPorDefecto] = useState("usuario");
   const [rolVisible, setRolVisible] = useState(rol);
+  const navegacion = useNavigate();
   const {
     register,
     handleSubmit,
@@ -32,6 +34,7 @@ const Registro = ({ tituloRegistro, rol }) => {
         text: `El usuario "${usuario.nombreUsuario}" fue registrado correctamente`,
         icon: "success",
       });
+      navegaciion('/login')
     } else {
       Swal.fire({
         title: "Ocurrió un error",

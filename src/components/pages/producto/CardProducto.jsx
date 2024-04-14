@@ -19,6 +19,7 @@ const CardProducto = ({ producto, usuarioLogueado }) => {
         return;
       }
       const pedido = {
+        usuario: usuarioLogueado.email,
         fecha: obtenerFechaDeHoy(),
         nombreProducto: generarIdUnico(producto.nombreProducto),
         imagen: producto.imagen,

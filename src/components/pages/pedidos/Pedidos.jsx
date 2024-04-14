@@ -23,12 +23,18 @@ const Pedidos = ({ usuarioLogueado }) => {
   }, [pedidos]);
 
   const cargarDatosPedidos = async () => {
-    try {
+    if(usuarioLogueado.rol === 'admin'){
       const respuesta = await obtenerPedidosAPI();
       setPedidos(respuesta);
+    }else{
+    try {
+      const respuesta = await obtenerPedidosAPI();
+      const pedidosFiltrados = respuesta.filter(pedido => pedido.usuario === usuarioLogueado.email);
+      setPedidos(pedidosFiltrados);
     } catch (error) {
       console.log(error);
     }
+  }
   };
 
   const calcularTotal = () => {
