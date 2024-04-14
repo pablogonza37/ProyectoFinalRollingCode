@@ -32,7 +32,7 @@ const AcercaDe = () => {
       <Row>
         {developers.map((developer, index) => (
           <Col md={3} key={index} className="mb-3">
-            <Card className="mb-3 h-100">
+            <Card className="mb-3 h-100 shadow">
               <Card.Img variant="top" src={developer.image} />
               <Card.Body className="d-flex flex-column">
                 <Card.Title className="text-center text-black-90" >{developer.name}</Card.Title>

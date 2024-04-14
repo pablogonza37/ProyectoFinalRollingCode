@@ -62,7 +62,7 @@ const CardProducto = ({ producto, usuarioLogueado }) => {
 
   return (
     <Col md={4} lg={3} className="mb-3">
-      <Card className="h-100">
+      <Card className="h-100 shadow">
         <div>
           <img
             src={producto.imagen}
@@ -75,7 +75,7 @@ const CardProducto = ({ producto, usuarioLogueado }) => {
           <Card.Text>
             Descripción: {producto.descripcionBreve}.{" "}
             <br className="mb-2" />
-            <span className="fw-bold">${producto.precio}</span>
+            <span className="fw-bold lead">${producto.precio}</span>
           </Card.Text>
         </Card.Body>
         <Card.Footer className="text-end">

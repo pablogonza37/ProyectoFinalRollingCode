@@ -13,6 +13,7 @@ import Registro from "./components/pages/Registro";
 import Pedidos from "./components/pages/pedidos/Pedidos";
 import AcercaDe from "./components/commons/Acercade";
 import Error404 from "./components/commons/Error404";
+import Login from "./components/pages/Login";
 
 function App() {
   const usuario = JSON.parse(sessionStorage.getItem("usuarioRollingBistro")) || "";
