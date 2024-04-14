@@ -3,7 +3,7 @@ import ItemPedido from "./ItemPedido";
 import { useEffect, useState } from "react";
 import { obtenerPedidosAPI, cambiarEstadoPedidoAPI } from "../../../helpers/queries";
 import Swal from "sweetalert2";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Pedidos = ({ usuarioLogueado }) => {
   const [pedidos, setPedidos] = useState([]);
@@ -116,8 +116,15 @@ const Pedidos = ({ usuarioLogueado }) => {
                   ></ItemPedido>
                 ))}
               </tbody>
-            </Table>
+            </Table>        
           )}
+          <Link
+            variant="success"
+            className="my-2 btn btn-success"
+            to='/#menu'
+          >
+            Volver al menu
+          </Link>
         </Col>
         <Col md={3}>
           <Card className="mt-3 mt-lg-0 mt-md-0 shadow">

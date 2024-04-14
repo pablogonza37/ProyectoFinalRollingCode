@@ -75,7 +75,7 @@ const CardProducto = ({ producto, usuarioLogueado }) => {
           <Card.Text>
             Descripción: {producto.descripcionBreve}.{" "}
             <br className="mb-2" />
-            <span className="fw-bold">${producto.precio}</span>
+            <span className="fw-bold lead">${producto.precio}</span>
           </Card.Text>
         </Card.Body>
         <Card.Footer className="text-end">

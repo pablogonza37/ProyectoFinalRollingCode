@@ -1,6 +1,7 @@
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -34,7 +35,7 @@ const Footer = () => {
             {" "}
             <div>
               <h3>Contáctanos</h3>
-              <p><a className="text-white">info@rollingbistro.com</a></p>
+              <p><Link className="text-white" to='*'>info@rollingbistro.com</Link></p>
               <p>+54-0381-12345678</p>
             </div>
           </Col>
