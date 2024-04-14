@@ -9,7 +9,7 @@ Este proyecto es una aplicación web llamada Rolling Bistro. El objetivo princip
 
 Este proyecto ha sido desarrollado utilizando las siguientes tecnologías:
 
-- React 18.2
+- React 18.2.0
 - Vite 5.2.7 (https://vitejs.dev/)
 - JavaScript
 - React Bootstrap (https://react-bootstrap.netlify.app/)
