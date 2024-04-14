@@ -48,7 +48,7 @@ const Administrador = ({ tipo }) => {
       {tipo === "productos" && (
         <div className="mb-3">
           <label htmlFor="categoryFilter" className="mr-2">Filtrar por Categoría: </label>
-          <select id="categoryFilter" value={filtrarCategoria} onChange={handleCategoryChange}>
+          <select id="categoryFilter" className="form-select w-50" value={filtrarCategoria} onChange={handleCategoryChange}>
             <option value="">Todas</option>
             <option value="Hamburguesas">Hamburguesas</option>
             <option value="Pastas">Pastas</option>
