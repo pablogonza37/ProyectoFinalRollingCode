@@ -35,6 +35,10 @@ const Pedidos = ({ usuarioLogueado }) => {
     calcularTotal();
   }, [pedidos]);
 
+  useEffect(() => {
+    calcularTotal();
+  }, [filtroUsuario]);
+
   const cargarDatosPedidos = async () => {
     try {
       const respuesta = await obtenerPedidosAPI();
@@ -60,7 +64,11 @@ const Pedidos = ({ usuarioLogueado }) => {
 
   const calcularTotal = () => {
     let totalPrecio = 0;
-    pedidos.forEach((pedido) => {
+    const pedidosFiltrados = pedidos.filter(pedido => {
+      if (filtroUsuario === "") return true;
+      return pedido.usuario === filtroUsuario;
+    });
+    pedidosFiltrados.forEach((pedido) => {
       totalPrecio += parseFloat(pedido.precio);
     });
     setTotal(totalPrecio);
@@ -129,7 +137,7 @@ const Pedidos = ({ usuarioLogueado }) => {
               <label htmlFor="filtroUsuario" className="form-label">Filtrar por usuario:</label>
               <select
                 id="filtroUsuario"
-                className="form-select"
+                className="form-select w-75"
                 value={filtroUsuario}
                 onChange={handleFiltroUsuarioChange}
               >
