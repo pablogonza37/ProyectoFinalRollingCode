@@ -105,7 +105,7 @@ const Inicio = ({ openLoginModal, usuarioLogueado }) => {
           className="mb-4 w-50 "
           onChange={handleCategoriaChange}
         >
-          <option value="">Categoria</option>
+          <option value="">Todas las categorías</option>
             <option value="Hamburguesas">Hamburguesas</option>
             <option value="Pastas">Pastas</option>
             <option value="Postres">Postres</option>
