@@ -92,7 +92,7 @@ const DetalleProducto = ({ usuarioLogueado }) => {
   ) : error ? (
     <div className="alert alert-danger mt-3">{error}</div>
   ) : (
-    <Card className="d-flex my-4">
+    <Card className="d-flex my-4 shadow">
       <Card.Img
         variant="top"
         src={productoSelecionado.imagen}

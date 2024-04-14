@@ -120,7 +120,7 @@ const Pedidos = ({ usuarioLogueado }) => {
           )}
         </Col>
         <Col md={3}>
-          <Card className="mt-3 mt-lg-0 mt-md-0">
+          <Card className="mt-3 mt-lg-0 mt-md-0 shadow">
             <Card.Header className="text-bg-dark">Estado de pedido</Card.Header>
             <Card.Body>
               <div>
