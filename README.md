@@ -84,9 +84,17 @@ Además este proyecto contiene la información de los desarrolladores en una pá
 
 Por último y no menos importante, cuenta con una página de error 404 a la cual se accede en el caso de que una ruta no sea encontrada o una funcionalidad no este disponible.
 
+## Deploy del proyecto
+
+https://rolling-bistro.netlify.app/
+
 ## Contribución
 
 Si deseas contribuir a este proyecto, puedes comunicarte con el dueño del repositorio.
+
+## Backend del proyecto
+
+https://github.com/pablogonza37/backendProyectoFinalRC
 
 ## Contribuyentes
 Este proyecto ha sido desarrollado por:
