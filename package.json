@@ -10,8 +10,16 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "bootstrap": "^5.3.3",
+    "bootstrap-icons": "^1.11.3",
+    "nodemailer": "^6.9.13",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-bootstrap": "^2.10.2",
+    "react-dom": "^18.2.0",
+    "react-hook-form": "^7.51.2",
+    "react-modal": "^3.16.1",
+    "react-router-dom": "^6.22.3",
+    "react-sweetalert2": "^0.6.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.66",
@@ -21,6 +29,7 @@
     "eslint-plugin-react": "^7.34.1",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.6",
-    "vite": "^5.2.0"
+    "json-server": "^1.0.0-alpha.23",
+    "vite": "^5.2.7"
   }
 }
