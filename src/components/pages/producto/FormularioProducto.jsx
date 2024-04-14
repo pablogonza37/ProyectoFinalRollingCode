@@ -166,6 +166,8 @@ const FormularioProducto = ({ titulo, editar }) => {
             <option value="Postres">Postres</option>
             <option value="Carne asada">Carne asada</option>
             <option value="Milanesas">Milanesas</option>
+            <option value="Pizzas">Pizzas</option>
+            <option value="Empanadas">Empanadas</option>
           </Form.Select>
           <Form.Text className="text-danger">
             {errors.categoria?.message}

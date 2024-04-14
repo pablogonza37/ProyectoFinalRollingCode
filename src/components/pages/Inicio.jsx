@@ -84,9 +84,9 @@ const Inicio = ({ openLoginModal, usuarioLogueado }) => {
             md={6}
             className="p-lg-5 p-md-4 text-bg-light d-flex align-items-center lead text-dark-emphasis my-4"
           >
-            Rolling bistro: Un restaurante moderno con cocina innovadora,
-            ambiente acogedor y servicio excepcional. ideal para disfrutar de
-            una experiencia gastronomica unica.
+            Rolling Bistro: Un restaurante moderno con cocina innovadora,
+            ambiente acogedor y servicio excepcional, ideal para disfrutar de
+            una experiencia gastronómica única.
           </Col>
           <Col md={6} className="p-lg-5 p-md-4">
             <img
@@ -98,7 +98,7 @@ const Inicio = ({ openLoginModal, usuarioLogueado }) => {
         </Row>
       </Container>
       <Container className="mt-5" id="menu">
-        <h2 className="display-4">Nuestros Productos</h2>
+        <h2 className="display-4">Nuestro Menú</h2>
         <hr />
         <Form.Select
           aria-label="Default select example"
@@ -106,11 +106,13 @@ const Inicio = ({ openLoginModal, usuarioLogueado }) => {
           onChange={handleCategoriaChange}
         >
           <option value="">Todas las categorías</option>
-            <option value="Hamburguesas">Hamburguesas</option>
-            <option value="Pastas">Pastas</option>
-            <option value="Postres">Postres</option>
-            <option value="Carne asada">Carne asada</option>
-            <option value="Milanesas">Milanesas</option>
+          <option value="Hamburguesas">Hamburguesas</option>
+          <option value="Pastas">Pastas</option>
+          <option value="Postres">Postres</option>
+          <option value="Carne asada">Carne asada</option>
+          <option value="Milanesas">Milanesas</option>
+          <option value="Pizzas">Pizzas</option>
+          <option value="Empanadas">Empanadas</option>
         </Form.Select>
         {spinnerInicio && (
           <div className="my-4 text-center">
