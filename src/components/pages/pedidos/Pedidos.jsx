@@ -13,6 +13,14 @@ const Pedidos = ({ usuarioLogueado }) => {
   useEffect(() => {
     if (!usuarioLogueado) {
       navegacion("/login");
+    } else if (usuarioLogueado.suspendido) {
+      Swal.fire({
+        icon: "warning",
+        title: "Cuenta suspendida",
+        text: "Su cuenta ha sido suspendida. Por favor, contacte al soporte para más información."
+      }).then(() => {
+        navegacion("/");
+      });
     } else {
       cargarDatosPedidos();
     }
@@ -23,12 +31,18 @@ const Pedidos = ({ usuarioLogueado }) => {
   }, [pedidos]);
 
   const cargarDatosPedidos = async () => {
-    try {
+    if(usuarioLogueado.rol === 'admin'){
       const respuesta = await obtenerPedidosAPI();
       setPedidos(respuesta);
+    }else{
+    try {
+      const respuesta = await obtenerPedidosAPI();
+      const pedidosFiltrados = respuesta.filter(pedido => pedido.usuario === usuarioLogueado.email);
+      setPedidos(pedidosFiltrados);
     } catch (error) {
       console.log(error);
     }
+  }
   };
 
   const calcularTotal = () => {
@@ -99,6 +113,7 @@ const Pedidos = ({ usuarioLogueado }) => {
             <Table responsive striped bordered hover className="shadow">
               <thead className="table-dark">
                 <tr>
+                {usuarioLogueado.rol === 'admin' && <th>Usuario</th>}
                   <th>Fecha</th>
                   <th>Nombre</th>
                   <th>Imagen</th>
@@ -110,6 +125,8 @@ const Pedidos = ({ usuarioLogueado }) => {
               <tbody>
                 {pedidos.map((pedido) => (
                   <ItemPedido
+                  usuarioLogueado={usuarioLogueado}
+                  usuario={pedido.usuario}
                     key={pedido._id}
                     pedido={pedido}
                     setPedidos={setPedidos}
