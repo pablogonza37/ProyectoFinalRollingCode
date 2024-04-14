@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 
 const Error404 = () => {
 return (
-    <Container className="page_404">
+    <Container className="page_404 mainSection">
         <div className="container">
             <div className="row">
                 <div className="col-sm-12 ">

@@ -6,7 +6,7 @@ import { crearUsuarioAPI } from "../../helpers/queries";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-const Registro = ({ tituloRegistro, rol }) => {
+const Registro = ({ tituloRegistro, rol, usuarioLogueado }) => {
   const [rolPorDefecto, setRolPorDefecto] = useState("usuario");
   const [rolVisible, setRolVisible] = useState(rol);
   const navegacion = useNavigate();
@@ -34,7 +34,10 @@ const Registro = ({ tituloRegistro, rol }) => {
         text: `El usuario "${usuario.nombreUsuario}" fue registrado correctamente`,
         icon: "success",
       });
-      navegacion('/login')
+      if (!usuarioLogueado) {
+        navegacion("/login");
+      }
+      reset();
     } else {
       Swal.fire({
         title: "Ocurrió un error",
