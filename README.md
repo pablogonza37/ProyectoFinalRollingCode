@@ -10,8 +10,11 @@ Este proyecto es una aplicación web llamada Rolling Bistro. El objetivo princip
 Este proyecto ha sido desarrollado utilizando las siguientes tecnologías:
 
 - React
+- Vite 5.2.7
 - JavaScript
-- Bootstrap
+- Bootstrap for React
+- HTML
+- CSS
 
 ## Dependencias
 
@@ -22,7 +25,7 @@ Este proyecto utiliza las siguientes dependencias:
 - bootstrap: 5.3.3
 - bootstrap-icons: 1.11.3
 - nodemailer: 6.9.13
-- react: ^18.2.0
+- react: 18.2.0
 - react-bootstrap: 2.10.2
 - react-dom: 18.2.0
 - react-hook-form: 7.51.2
@@ -36,15 +39,11 @@ Para instalar y ejecutar este proyecto, necesitarás tener instalado Node.js y R
 puedes instalar las dependencias necesarias con el siguiente comando:
 
 ```bash
-npm install -g create-react-app
-
-Clonar y configurar tu proyecto: Una vez que hayas instalado Node.js y Create React App, puedes clonar tu repositorio y luego instalar las dependencias del proyecto con el siguiente comando:
-
 npm install
 
 Luego, puedes iniciar la aplicación con el siguiente comando:
 
-npm start
+npm run dev
 ```
 
 ## Contribuyentes
