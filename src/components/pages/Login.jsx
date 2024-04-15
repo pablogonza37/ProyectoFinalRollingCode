@@ -24,6 +24,13 @@ const Login = ({ setUsuarioLogueado }) => {
     setLoading(false);
     if (respuesta.status === 200) {
       const datos = await respuesta.json();
+      if(datos.suspendido === true){
+        Swal.fire({
+          title: "Usuario suspendido",
+          text: "Tu cuenta está suspendida. No puedes iniciar sesion.",
+          icon: "warning",
+        });
+      }else{
       sessionStorage.setItem(
         "usuarioRollingBistro",
         JSON.stringify({ email: datos.email, token: datos.token, rol:datos.rol, suspendido:datos.suspendido })
@@ -36,6 +43,7 @@ const Login = ({ setUsuarioLogueado }) => {
         Swal.fire("¡Bienvenido!", "Has iniciado sesión correctamente", "success");
         navegacion("/");
       }
+    }
     } else {
       Swal.fire("Ocurrió un error", "Correo o contraseña incorrectos", "error");
     }
