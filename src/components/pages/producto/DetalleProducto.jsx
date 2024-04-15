@@ -1,6 +1,6 @@
 import { Container, Card, Spinner, Button } from "react-bootstrap";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { obtenerProductoAPI, crearPedidoAPI } from "../../../helpers/queries";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
@@ -109,6 +109,13 @@ const DetalleProducto = ({ usuarioLogueado }) => {
         <strong> Precio: ${productoSelecionado.precio} </strong>
       </Card.Body>
       <Card.Footer className="text-end">
+      <Link
+            variant="success"
+            className="my-2 btn btn-success me-3"
+            to='/#menu'
+          >
+            Volver al menu
+          </Link>
         <Button className="btn btn-primary" onClick={hacerPedido}>Hacer pedido</Button>
       </Card.Footer>
     </Card>
