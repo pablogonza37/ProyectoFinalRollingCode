@@ -21,8 +21,8 @@ const AcercaDe = () => {
     },
     {
       name: "Ramiro Adrián Velásquez Barrozo",
-      role: "Developer",
-      image: "url_de_la_imagen_2",
+      role: "Hola soy Ramiro, estoy en busqueda constante de nuevos conocimientos.",
+      image: "https://i.ibb.co/6b0YdY4/foto-Ramiro.jpg",
     },
   ];
 
