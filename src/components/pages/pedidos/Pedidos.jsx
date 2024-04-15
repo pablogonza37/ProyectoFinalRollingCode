@@ -176,6 +176,7 @@ const Pedidos = ({ usuarioLogueado }) => {
                       key={pedido._id}
                       pedido={pedido}
                       setPedidos={setPedidos}
+                      desactivarBotones={pedido.estado === 'realizado'} 
                     ></ItemPedido>
                   ))}
               </tbody>
