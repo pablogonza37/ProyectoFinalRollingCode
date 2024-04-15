@@ -22,7 +22,7 @@ const AcercaDe = () => {
     {
       name: "Ramiro Adrián Velásquez Barrozo",
       role: "Hola soy Ramiro, estoy en busqueda constante de nuevos conocimientos.",
-      image: "https://i.ibb.co/6b0YdY4/foto-Ramiro.jpg",
+      image: "https://i.ibb.co/6ygK90Q/foto-Ramiro.jpg",
     },
   ];
 
