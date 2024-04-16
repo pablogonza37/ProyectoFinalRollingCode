@@ -14,16 +14,6 @@ const AcercaDe = () => {
       role: "Soy José Bovi, futuro ingeniero en sistemas y progrmador web. Me gusta trabajar en equipo y pensar soluciones de manera lógica para resolver problemas.",
       image: "https://i.ibb.co/m6KSC91/imgmia.png",
     },
-    {
-      name: "Cristian Julian Aballay",
-      role: "Developer",
-      image: "url_de_la_imagen_2",
-    },
-    {
-      name: "Ramiro Adrián Velásquez Barrozo",
-      role: "Developer",
-      image: "url_de_la_imagen_2",
-    },
   ];
 
   return (
@@ -31,7 +21,7 @@ const AcercaDe = () => {
       <h2 className="text-center mb-5 fst-italic">Acerca de Nosotros</h2>
       <Row>
         {developers.map((developer, index) => (
-          <Col md={3} key={index} className="mb-3">
+          <Col md={6} key={index} className="mb-3">
             <Card className="mb-3 h-100 shadow">
               <Card.Img variant="top" src={developer.image} />
               <Card.Body className="d-flex flex-column">

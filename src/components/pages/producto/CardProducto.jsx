@@ -50,14 +50,18 @@ const CardProducto = ({ producto, usuarioLogueado }) => {
 
   const obtenerFechaDeHoy = () => {
     const fecha = new Date();
-    const dia = fecha.getDate();
-    const mes = fecha.getMonth() + 1;
     const año = fecha.getFullYear();
-
-    const fechaFormateada = `${dia}/${mes}/${año}`;
-
+    let mes = fecha.getMonth() + 1;
+    if (mes < 10) {
+        mes = "0" + mes;
+    }
+    let dia = fecha.getDate();
+    if (dia < 10) {
+        dia = "0" + dia;
+    }
+    const fechaFormateada = `${año}-${mes}-${dia}`;
     return fechaFormateada;
-  };
+};
 
   return (
     <Col md={3} lg={3} className="mb-3">
