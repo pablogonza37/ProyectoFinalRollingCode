@@ -223,7 +223,7 @@ const Pedidos = ({ usuarioLogueado }) => {
         <Card.Header className="text-bg-dark">Estado de pedido</Card.Header>
         <Card.Body>
           <div>
-            Envio: <span className="text-warning">gratis</span> <hr />
+            Envio: <span className="text-warning">Gratis</span> <hr />
             Total: ${total}
           </div>
           <Button

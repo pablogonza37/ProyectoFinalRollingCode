@@ -103,10 +103,10 @@ const ItemPedido = ({
   };
 
   return (
-    <Card className="mb-3 w-100">
+    <Card className="mb-3 w-100 shadow">
       <Card.Body>
         <div className="row">
-          <div className="col-md-2">
+          <div className="col-md-2 d-none d-md-block">
             <Card.Img
               src={pedido.imagen}
               className="img-thumbnail"
@@ -115,6 +115,7 @@ const ItemPedido = ({
           </div>
           <div className="col-md-7">
             <Card.Title>{pedido.nombreProducto}</Card.Title>
+            <hr />
             <Card.Text>
               <strong>Fecha:</strong> {pedido.fecha}
               <br />
@@ -125,6 +126,10 @@ const ItemPedido = ({
                 value={cantidad}
                 onChange={handleChangeCantidad}
                 className="form-control mb-1 selectCantidad"
+                disabled={
+                usuarioLogueado.rol === "usuario" &&
+                pedido.estado === "realizado"
+              }
                 style={{
                   width: "60px",
                   display: "inline-block",
@@ -134,7 +139,7 @@ const ItemPedido = ({
               <br />
               <strong>Precio:</strong> ${precioTotal.toFixed(2)}
               <br />
-              <strong>Estado:</strong> {pedido.estado}
+              <strong>Estado:</strong><span class="badge text-bg-primary">{pedido.estado}</span> 
             </Card.Text>
           </div>
           <div className="col-md-3 text-right">
