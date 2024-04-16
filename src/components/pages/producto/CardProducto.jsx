@@ -24,7 +24,7 @@ const CardProducto = ({ producto, usuarioLogueado }) => {
         fecha: obtenerFechaDeHoy(),
         nombreProducto: producto.nombreProducto,
         imagen: producto.imagen,
-        precio: producto.precio * cantidad, 
+        precio: producto.precio, 
         cantidad: cantidad, 
         estado: "pendiente"
       };

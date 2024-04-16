@@ -182,19 +182,7 @@ const Pedidos = ({ usuarioLogueado }) => {
           {pedidos.length === 0 ? (
             <p className="alert alert-danger">No hay pedidos disponibles.</p>
           ) : (
-            <Table responsive striped bordered hover className="shadow">
-              <thead className="table-dark">
-                <tr>
-                  {usuarioLogueado.rol === 'admin' && <th>Usuario</th>}
-                  <th>Fecha</th>
-                  <th>Nombre</th>
-                  <th>Imagen</th>
-                  <th>Precio</th>
-                  <th>Estado</th>
-                  <th>Opciones</th>
-                </tr>
-              </thead>
-              <tbody>
+            <div>
               {pedidos
   .filter((pedido) => {
     if (filtroUsuario === "") return true;
@@ -218,9 +206,9 @@ const Pedidos = ({ usuarioLogueado }) => {
       desactivarBotones={pedido.estado === 'realizado'} 
     ></ItemPedido>
   ))}
-              </tbody>
-            </Table>        
+      </div>                
           )}
+
           <Link
             variant="success"
             className="my-2 btn btn-success"
