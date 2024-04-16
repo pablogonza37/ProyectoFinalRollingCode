@@ -1,4 +1,4 @@
-import { Container, Row, Col, Table, Button, Card } from "react-bootstrap";
+import { Container, Table, Button, Card } from "react-bootstrap";
 import ItemPedido from "./ItemPedido";
 import { useEffect, useState } from "react";
 import { obtenerPedidosAPI, cambiarEstadoPedidoAPI, leerUsuariosAPI } from "../../../helpers/queries";
@@ -7,7 +7,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 const Pedidos = ({ usuarioLogueado }) => {
   const [pedidos, setPedidos] = useState([]);
-  const [total, setTotal] = useState();
+  const [total, setTotal] = useState(0);
   const [usuarios, setUsuarios] = useState([]);
   const [filtroUsuario, setFiltroUsuario] = useState("");
   const [filtroEstado, setFiltroEstado] = useState("");
@@ -35,11 +35,7 @@ const Pedidos = ({ usuarioLogueado }) => {
 
   useEffect(() => {
     calcularTotal();
-  }, [pedidos]);
-
-  useEffect(() => {
-    calcularTotal();
-  }, [filtroUsuario]);
+  }, [pedidos, filtroUsuario, filtroFecha, filtroEstado]);
 
   const cargarDatosPedidos = async () => {
     try {
@@ -67,12 +63,16 @@ const Pedidos = ({ usuarioLogueado }) => {
   const calcularTotal = () => {
     let totalPrecio = 0;
     const pedidosFiltrados = pedidos.filter(pedido => {
-      if (filtroUsuario === "") return true;
-      return pedido.usuario === filtroUsuario;
+      if (filtroUsuario !== "" && pedido.usuario !== filtroUsuario) return false;
+      if (filtroEstado !== "" && pedido.estado !== filtroEstado) return false;
+      if (filtroFecha !== "" && pedido.fecha !== filtroFecha) return false;
+      return true;
     });
+
     pedidosFiltrados.forEach((pedido) => {
       totalPrecio += parseFloat(pedido.precio);
     });
+
     setTotal(totalPrecio);
   };
 
@@ -102,7 +102,7 @@ const Pedidos = ({ usuarioLogueado }) => {
         if (pedido.estado === "pendiente") {
           await cambiarEstadoPedidoAPI(pedido._id);
           setPedidos(prevPedidos => prevPedidos.map(prevPedido => 
-            prevPedido._id === pedido._id ? {...prevPedido, estado: "realizado"} : prevPedido
+            prevPedido._id === pedido._id ? {...prevPedido, estado: "en proceso"} : prevPedido
           ));
         }
       }));
@@ -206,7 +206,6 @@ const Pedidos = ({ usuarioLogueado }) => {
   })
   .filter((pedido) => {
     if (filtroFecha === "") return true;
-    // Comparar con la fecha del pedido, puedes ajustar la lógica según sea necesario
     return pedido.fecha === filtroFecha;
   })
   .map((pedido) => (
@@ -231,7 +230,7 @@ const Pedidos = ({ usuarioLogueado }) => {
           </Link>
         </div>
         
-        {!usuarioLogueado || (usuarioLogueado.rol !== 'admin' && (
+        
       <Card className="mt-3 mt-lg-0 mt-md-0 shadow">
         <Card.Header className="text-bg-dark">Estado de pedido</Card.Header>
         <Card.Body>
@@ -247,9 +246,7 @@ const Pedidos = ({ usuarioLogueado }) => {
             Confirmar Pedido
           </Button>
         </Card.Body>
-      </Card>
-    ))}
-      
+      </Card>  
     </Container>
   );
 };
