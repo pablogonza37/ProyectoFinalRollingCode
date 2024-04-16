@@ -55,7 +55,8 @@
   object-fit: cover;
 }
 
-.nav, .footer {
+.nav,
+.footer {
   background: rgb(0, 0, 0);
 }
 
@@ -79,7 +80,7 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  right: auto; 
+  right: auto;
   bottom: auto;
   transform: translate(-50%, -50%);
   z-index: 2;
@@ -89,7 +90,7 @@
   border-radius: 10px;
 }
 
-.ReactModal__Content input{
+.ReactModal__Content input {
   width: 100%;
   padding: 10px;
   margin: 10px 0;
@@ -97,7 +98,7 @@
   border: 1px solid #ccc;
 }
 
-.ReactModal__Content button{
+.ReactModal__Content button {
   width: 100%;
   padding: 10px;
   margin: 10px 0;
@@ -112,3 +113,4 @@
   height: 450px;
   object-fit: cover;
 }
+

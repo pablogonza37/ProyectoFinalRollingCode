@@ -85,7 +85,10 @@ const ItemPedido = ({ pedido, setPedidos, usuarioLogueado, usuario, desactivarBo
         <i className="bi bi-check-square-fill"></i>
       </Button>
       )}
-        <Button variant="danger" onClick={borrarPedido} disabled={desactivarBotones}>
+        <Button 
+          variant="danger" 
+          onClick={borrarPedido} 
+          disabled={usuarioLogueado.rol === "usuario" && pedido.estado === "realizado"}>
           <i className="bi bi-trash"></i>
         </Button>
       </td>

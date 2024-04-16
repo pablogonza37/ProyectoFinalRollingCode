@@ -4,6 +4,8 @@ const URL_Pedidos = import.meta.env.VITE_API_PEDIDOS;
 const URL_Suspender=import.meta.env.VITE_API_SUSPENDER;
 const URL_Levantar=import.meta.env.VITE_API_LEVANTAR;
 const URL_Login=import.meta.env.VITE_API_LOGIN;
+const URL_cantidadPedido=import.meta.env.VITE_API_CANTIDADPEDIDO;
+
 
 export const leerProductosAPI = async () => {
   try {
@@ -161,6 +163,21 @@ export const cambiarEstadoPedidoAPI = async (id) => {
   } catch (error) {
     console.error(error);
     throw new Error("Ocurrió un error al intentar actualizar el estado del pedido");
+  }
+};
+
+export const cambiarCantidadPedidoAPI = async (pedidoActualizado, id) => {
+  try {
+    const respuesta = await fetch(`${URL_cantidadPedido}/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(pedidoActualizado),
+    });
+    return respuesta;
+  } catch (error) {
+    console.log(error);
   }
 };
 
