@@ -24,9 +24,11 @@ const CardProducto = ({ producto, usuarioLogueado }) => {
         fecha: obtenerFechaDeHoy(),
         nombreProducto: producto.nombreProducto,
         imagen: producto.imagen,
-        precio: producto.precio * cantidad, 
+        precio: producto.precio,
+        precioTotal: producto.precio * cantidad, 
         cantidad: cantidad, 
-        estado: "pendiente"
+        estado: "pendiente",
+        direccion: "no definida"
       };
 
       const resp = await crearPedidoAPI(pedido);

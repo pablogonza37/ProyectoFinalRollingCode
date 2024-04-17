@@ -143,14 +143,14 @@ export const obtenerPedidosAPI = async () => {
   }
 };
 
-export const cambiarEstadoPedidoAPI = async (id) => {
+export const cambiarEstadoPedidoAPI = async (estadoNuevo, id) => {
   try {
     const resp = await fetch(`${URL_Pedidos}/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ estado: "realizado" }),
+      body: JSON.stringify({ estado: estadoNuevo }),
     });
 
     if (!resp.ok) {
@@ -168,7 +168,7 @@ export const cambiarEstadoPedidoAPI = async (id) => {
 
 export const cambiarCantidadPedidoAPI = async (pedidoActualizado, id) => {
   try {
-    const respuesta = await fetch(`${URL_cantidadPedido}/${id}`, {
+    const respuesta = await fetch(`${URL_Pedidos}/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

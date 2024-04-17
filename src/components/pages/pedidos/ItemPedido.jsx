@@ -1,12 +1,24 @@
-import React from 'react';
-import { Button } from 'react-bootstrap';
-import { borrarPedidoAPI, obtenerPedidosAPI, cambiarEstadoPedidoAPI } from "../../../helpers/queries";
+import React, { useState, useEffect } from "react";
+import { Button, Card } from "react-bootstrap";
+import {
+  borrarPedidoAPI,
+  obtenerPedidosAPI,
+  cambiarEstadoPedidoAPI,
+  cambiarCantidadPedidoAPI,
+} from "../../../helpers/queries";
 import Swal from "sweetalert2";
 
-const ItemPedido = ({ pedido, setPedidos, usuarioLogueado, usuario, desactivarBotones }) => {
-  const borrarPedido = () => {
+const ItemPedido = ({
+  pedido,
+  setPedidos,
+  usuarioLogueado,
+  desactivarBotones,
+}) => {
+  const [cantidad, setCantidad] = useState(pedido.cantidad);
+
+  const borrarPedido = async () => {
     Swal.fire({
-      title: "¿Estas seguro de eliminar el pedido?",
+      title: "¿Estás seguro de eliminar el pedido?",
       text: "No se puede revertir este proceso",
       icon: "warning",
       showCancelButton: true,
@@ -28,7 +40,7 @@ const ItemPedido = ({ pedido, setPedidos, usuarioLogueado, usuario, desactivarBo
           setPedidos(listaPedidos);
         } else {
           Swal.fire({
-            title: "Ocurrio un error",
+            title: "Ocurrió un error",
             text: `El pedido "${pedido.nombreProducto}" no fue eliminado. Intente realizar esta operación en unos minutos`,
             icon: "error",
           });
@@ -48,51 +60,104 @@ const ItemPedido = ({ pedido, setPedidos, usuarioLogueado, usuario, desactivarBo
       confirmButtonText: "Cambiar",
       cancelButtonText: "Cancelar",
     }).then(async (result) => {
-      if (result.isConfirmed) {  
-        await cambiarEstadoPedidoAPI(pedido._id); 
-          Swal.fire({
-            title: "Estado del Pedido Actualizado",
-            text: `El estado del pedido "${pedido.nombreProducto}" ha sido actualizado correctamente`,
-            icon: "success",
-          });
-          const listaPedidos = await obtenerPedidosAPI();
-          setPedidos(listaPedidos);
+      if (result.isConfirmed) {
+        await cambiarEstadoPedidoAPI("en proceso", pedido._id);
+        Swal.fire({
+          title: "Estado del Pedido Actualizado",
+          text: `El estado del pedido "${pedido.nombreProducto}" ha sido actualizado correctamente`,
+          icon: "success",
+        });
+        const listaPedidos = await obtenerPedidosAPI();
+        setPedidos(listaPedidos);
       }
     });
   };
 
+  const handleChangeCantidad = async (e) => {
+    const nuevaCantidad = parseInt(e.target.value);
+    setCantidad(nuevaCantidad);
+    const nuevoPrecioTotal = nuevaCantidad * pedido.precio;
+    const pedidoActualizado = {
+      ...pedido,
+      cantidad: nuevaCantidad,
+      precioTotal: nuevoPrecioTotal,
+    };
+    const respuesta = await cambiarCantidadPedidoAPI(
+      pedidoActualizado,
+      pedido._id
+    );
+    if (respuesta.status === 200) {
+      const listaPedidos = await obtenerPedidosAPI();
+      setPedidos(listaPedidos);
+    } else {
+      Swal.fire({
+        title: "Error al actualizar la cantidad",
+        text: "No se pudo actualizar la cantidad del pedido. Intente nuevamente más tarde.",
+        icon: "error",
+      });
+    }
+  };
+
   return (
-    <tr>
-      {usuarioLogueado.rol === "admin" && (
-        <td>
-         {usuario}
-        </td>
-      )}
-      <td>{pedido.fecha}</td>
-      <td>{pedido.nombreProducto}</td>
-      <td className="text-center">
-        <img
-          src={pedido.imagen}
-          className="img-thumbnail"
-          alt="imagen del producto"
-        ></img>
-      </td>
-      <td>${pedido.precio}</td>
-      <td>{pedido.estado}</td>
-      <td className="text-center">
-      {usuarioLogueado.rol === "admin" && (
-        <Button variant="success" onClick={cambiarEstadoPedido} disabled={desactivarBotones}>
-        <i className="bi bi-check-square-fill"></i>
-      </Button>
-      )}
-        <Button 
-          variant="danger" 
-          onClick={borrarPedido} 
-          disabled={usuarioLogueado.rol === "usuario" && pedido.estado === "realizado"}>
-          <i className="bi bi-trash"></i>
-        </Button>
-      </td>
-    </tr>
+    <Card className="mb-3 w-100 shadow">
+      <Card.Body>
+        <div className="row">
+          <div className="col-md-2 d-none d-md-block">
+            <Card.Img
+              src={pedido.imagen}
+              className="img-thumbnail"
+              alt="imagen del producto"
+            />
+          </div>
+          <div className="col-md-7">
+            <Card.Title>{pedido.nombreProducto}</Card.Title>
+            <hr />
+            <Card.Text>
+              <strong>Fecha:</strong> {pedido.fecha}
+              <br />
+              <strong>Cantidad:</strong>
+              <input
+                type="number"
+                min="1"
+                value={cantidad}
+                onChange={handleChangeCantidad}
+                className="form-control mb-1 selectCantidad"
+                disabled={
+                  usuarioLogueado.rol === "usuario" &&
+                  pedido.estado === "realizado"
+                }
+                style={{
+                  width: "60px",
+                  display: "inline-block",
+                  marginRight: "5px",
+                }}
+              />
+              <br />
+              <strong>Precio:</strong> ${pedido.precioTotal}
+              <br />
+              <strong>Estado:</strong>
+              <span className="badge text-bg-primary">{pedido.estado}</span>
+            </Card.Text>
+          </div>
+          <div className="col-md-3 text-right">
+            {usuarioLogueado.rol === "admin" && (
+              <>
+                <Button
+                  variant="success"
+                  onClick={cambiarEstadoPedido}
+                  disabled={desactivarBotones}
+                >
+                  <i className="bi bi-check-square-fill"></i>
+                </Button>{" "}
+              </>
+            )}
+            <Button variant="danger" onClick={borrarPedido}>
+              <i className="bi bi-trash"></i>
+            </Button>
+          </div>
+        </div>
+      </Card.Body>
+    </Card>
   );
 };
 
