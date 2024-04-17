@@ -12,18 +12,9 @@ const ItemPedido = ({
   pedido,
   setPedidos,
   usuarioLogueado,
-  usuario,
   desactivarBotones,
 }) => {
   const [cantidad, setCantidad] = useState(pedido.cantidad);
-  const [precioTotal, setPrecioTotal] = useState(
-    pedido.cantidad * pedido.precio
-  );
-
-  useEffect(() => {
-    const nuevoPrecioTotal = cantidad * pedido.precio;
-    setPrecioTotal(nuevoPrecioTotal);
-  }, [cantidad, pedido.precio]);
 
   const borrarPedido = async () => {
     Swal.fire({
@@ -70,7 +61,7 @@ const ItemPedido = ({
       cancelButtonText: "Cancelar",
     }).then(async (result) => {
       if (result.isConfirmed) {
-        await cambiarEstadoPedidoAPI(pedido._id);
+        await cambiarEstadoPedidoAPI("en proceso", pedido._id);
         Swal.fire({
           title: "Estado del Pedido Actualizado",
           text: `El estado del pedido "${pedido.nombreProducto}" ha sido actualizado correctamente`,
@@ -85,7 +76,12 @@ const ItemPedido = ({
   const handleChangeCantidad = async (e) => {
     const nuevaCantidad = parseInt(e.target.value);
     setCantidad(nuevaCantidad);
-    const pedidoActualizado = { cantidad: nuevaCantidad };
+    const nuevoPrecioTotal = nuevaCantidad * pedido.precio;
+    const pedidoActualizado = {
+      ...pedido,
+      cantidad: nuevaCantidad,
+      precioTotal: nuevoPrecioTotal,
+    };
     const respuesta = await cambiarCantidadPedidoAPI(
       pedidoActualizado,
       pedido._id
@@ -127,9 +123,9 @@ const ItemPedido = ({
                 onChange={handleChangeCantidad}
                 className="form-control mb-1 selectCantidad"
                 disabled={
-                usuarioLogueado.rol === "usuario" &&
-                pedido.estado === "realizado"
-              }
+                  usuarioLogueado.rol === "usuario" &&
+                  pedido.estado === "realizado"
+                }
                 style={{
                   width: "60px",
                   display: "inline-block",
@@ -137,9 +133,10 @@ const ItemPedido = ({
                 }}
               />
               <br />
-              <strong>Precio:</strong> ${precioTotal.toFixed(2)}
+              <strong>Precio:</strong> ${pedido.precioTotal}
               <br />
-              <strong>Estado:</strong><span class="badge text-bg-primary">{pedido.estado}</span> 
+              <strong>Estado:</strong>
+              <span className="badge text-bg-primary">{pedido.estado}</span>
             </Card.Text>
           </div>
           <div className="col-md-3 text-right">
@@ -154,14 +151,7 @@ const ItemPedido = ({
                 </Button>{" "}
               </>
             )}
-            <Button
-              variant="danger"
-              onClick={borrarPedido}
-              disabled={
-                usuarioLogueado.rol === "usuario" &&
-                pedido.estado === "realizado"
-              }
-            >
+            <Button variant="danger" onClick={borrarPedido}>
               <i className="bi bi-trash"></i>
             </Button>
           </div>
