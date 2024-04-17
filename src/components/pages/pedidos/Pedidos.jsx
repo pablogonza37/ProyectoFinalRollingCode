@@ -1,4 +1,4 @@
-import { Container, Row, Col, Table, Button, Card } from "react-bootstrap";
+import { Container, Table, Button, Card } from "react-bootstrap";
 import ItemPedido from "./ItemPedido";
 import { useEffect, useState } from "react";
 import { obtenerPedidosAPI, cambiarEstadoPedidoAPI, leerUsuariosAPI } from "../../../helpers/queries";
@@ -7,9 +7,11 @@ import { Link, useNavigate } from "react-router-dom";
 
 const Pedidos = ({ usuarioLogueado }) => {
   const [pedidos, setPedidos] = useState([]);
-  const [total, setTotal] = useState();
+  const [total, setTotal] = useState(0);
   const [usuarios, setUsuarios] = useState([]);
   const [filtroUsuario, setFiltroUsuario] = useState("");
+  const [filtroEstado, setFiltroEstado] = useState("");
+  const [filtroFecha, setFiltroFecha] = useState("");
   const navegacion = useNavigate();
 
   useEffect(() => {
@@ -33,11 +35,7 @@ const Pedidos = ({ usuarioLogueado }) => {
 
   useEffect(() => {
     calcularTotal();
-  }, [pedidos]);
-
-  useEffect(() => {
-    calcularTotal();
-  }, [filtroUsuario]);
+  }, [pedidos, filtroUsuario, filtroFecha, filtroEstado]);
 
   const cargarDatosPedidos = async () => {
     try {
@@ -65,12 +63,16 @@ const Pedidos = ({ usuarioLogueado }) => {
   const calcularTotal = () => {
     let totalPrecio = 0;
     const pedidosFiltrados = pedidos.filter(pedido => {
-      if (filtroUsuario === "") return true;
-      return pedido.usuario === filtroUsuario;
+      if (filtroUsuario !== "" && pedido.usuario !== filtroUsuario) return false;
+      if (filtroEstado !== "" && pedido.estado !== filtroEstado) return false;
+      if (filtroFecha !== "" && pedido.fecha !== filtroFecha) return false;
+      return true;
     });
+
     pedidosFiltrados.forEach((pedido) => {
       totalPrecio += parseFloat(pedido.precio);
     });
+
     setTotal(totalPrecio);
   };
 
@@ -100,7 +102,7 @@ const Pedidos = ({ usuarioLogueado }) => {
         if (pedido.estado === "pendiente") {
           await cambiarEstadoPedidoAPI(pedido._id);
           setPedidos(prevPedidos => prevPedidos.map(prevPedido => 
-            prevPedido._id === pedido._id ? {...prevPedido, estado: "realizado"} : prevPedido
+            prevPedido._id === pedido._id ? {...prevPedido, estado: "en proceso"} : prevPedido
           ));
         }
       }));
@@ -122,31 +124,60 @@ const Pedidos = ({ usuarioLogueado }) => {
     }
   };
 
+
   const handleFiltroUsuarioChange = (e) => {
     setFiltroUsuario(e.target.value);
   };
 
+  const handleFiltroEstadoChange = (e) => {
+    setFiltroEstado(e.target.value);
+  };
+
+  const handleFiltroFechaChange = (e) => {
+    setFiltroFecha(e.target.value);
+  };
+
   return (
     <Container className="mainSection my-4">
-      <Row>
+      
         <h2 className="display-4">Pedidos</h2>
         <hr />
-        <Col md={9}>
+        <div>
           {usuarioLogueado.rol === 'admin' && (
             <div className="mb-3">
-              <label htmlFor="filtroUsuario" className="form-label">Filtrar por usuario:</label>
-              <select
-                id="filtroUsuario"
-                className="form-select w-75"
-                value={filtroUsuario}
-                onChange={handleFiltroUsuarioChange}
-              >
-                <option value="">Todos los usuarios</option>
-                {usuarios.map((usuario) => (
-                  <option key={usuario._id} value={usuario.email}>{usuario.email}</option>
-                ))}
-              </select>
-            </div>
+            <label htmlFor="filtroUsuario" className="form-label">Filtrar por usuario:</label>
+            <select
+              id="filtroUsuario"
+              className="form-select w-100"
+              value={filtroUsuario}
+              onChange={handleFiltroUsuarioChange}
+            >
+              <option value="">Todos los usuarios</option>
+              {usuarios.map((usuario) => (
+                <option key={usuario._id} value={usuario.email}>{usuario.email}</option>
+              ))}
+            </select>
+            <label htmlFor="filtroEstado" className="form-label mt-3">Filtrar por estado:</label>
+            <select
+              id="filtroEstado"
+              className="form-select w-100"
+              value={filtroEstado}
+              onChange={handleFiltroEstadoChange}
+            >
+              <option value="">Todos los estados</option>
+              <option value="pendiente">Pendiente</option>
+              <option value="realizado">Realizado</option>
+              <option value="en proceso">En proceso</option>
+            </select>
+            <label htmlFor="filtroFecha" className="form-label mt-3">Filtrar por fecha:</label>
+            <input
+              type="date"
+              id="filtroFecha"
+              className="form-control"
+              value={filtroFecha}
+              onChange={handleFiltroFechaChange}
+            />
+          </div>
           )}
           {pedidos.length === 0 ? (
             <p className="alert alert-danger">No hay pedidos disponibles.</p>
@@ -164,20 +195,29 @@ const Pedidos = ({ usuarioLogueado }) => {
                 </tr>
               </thead>
               <tbody>
-                {pedidos
-                  .filter((pedido) => {
-                    if (filtroUsuario === "") return true;
-                    return pedido.usuario === filtroUsuario;
-                  })
-                  .map((pedido) => (
-                    <ItemPedido
-                      usuarioLogueado={usuarioLogueado}
-                      usuario={pedido.usuario}
-                      key={pedido._id}
-                      pedido={pedido}
-                      setPedidos={setPedidos}
-                    ></ItemPedido>
-                  ))}
+              {pedidos
+  .filter((pedido) => {
+    if (filtroUsuario === "") return true;
+    return pedido.usuario === filtroUsuario;
+  })
+  .filter((pedido) => {
+    if (filtroEstado === "") return true;
+    return pedido.estado === filtroEstado;
+  })
+  .filter((pedido) => {
+    if (filtroFecha === "") return true;
+    return pedido.fecha === filtroFecha;
+  })
+  .map((pedido) => (
+    <ItemPedido
+      usuarioLogueado={usuarioLogueado}
+      usuario={pedido.usuario}
+      key={pedido._id}
+      pedido={pedido}
+      setPedidos={setPedidos}
+      desactivarBotones={pedido.estado === 'realizado'} 
+    ></ItemPedido>
+  ))}
               </tbody>
             </Table>        
           )}
@@ -186,28 +226,27 @@ const Pedidos = ({ usuarioLogueado }) => {
             className="my-2 btn btn-success"
             to='/#menu'
           >
-            Volver al menu
+            <i className="bi bi-arrow-left">Volver al menu</i>
           </Link>
-        </Col>
-        <Col md={3}>
-          <Card className="mt-3 mt-lg-0 mt-md-0 shadow">
-            <Card.Header className="text-bg-dark">Estado de pedido</Card.Header>
-            <Card.Body>
-              <div>
-                Envio: <span className="text-warning">gratis</span> <hr />
-                Total: ${total}
-              </div>
-              <Button
-                variant="success"
-                className="mt-2"
-                onClick={confirmarPedido}
-              >
-                Confirmar Pedido
-              </Button>
-            </Card.Body>
-          </Card>
-        </Col>
-      </Row>
+        </div>
+        
+        
+      <Card className="mt-3 mt-lg-0 mt-md-0 shadow">
+        <Card.Header className="text-bg-dark">Estado de pedido</Card.Header>
+        <Card.Body>
+          <div>
+            Envio: <span className="text-warning">gratis</span> <hr />
+            Total: ${total}
+          </div>
+          <Button
+            variant="success"
+            className="mt-2"
+            onClick={confirmarPedido}
+          >
+            Confirmar Pedido
+          </Button>
+        </Card.Body>
+      </Card>  
     </Container>
   );
 };

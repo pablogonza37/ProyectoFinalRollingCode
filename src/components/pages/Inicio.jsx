@@ -65,10 +65,10 @@ const Inicio = ({ openLoginModal, usuarioLogueado }) => {
           <span className="display-6">¡Sabores autenticos.!</span>
           <br />
           <Button
-            className="btn btn-success w-50 border border-light"
+            className="btn btn-success w-100 border border-light rounded-5"
             href="#menu"
           >
-            Ver Menu
+           <span className='display-6'>Ver Menu</span> 
           </Button>
         </h1>
 

@@ -1,8 +1,9 @@
-import { Button } from "react-bootstrap";
+import React from 'react';
+import { Button } from 'react-bootstrap';
 import { borrarPedidoAPI, obtenerPedidosAPI, cambiarEstadoPedidoAPI } from "../../../helpers/queries";
 import Swal from "sweetalert2";
 
-const ItemPedido = ({ pedido, setPedidos, usuarioLogueado, usuario }) => {
+const ItemPedido = ({ pedido, setPedidos, usuarioLogueado, usuario, desactivarBotones }) => {
   const borrarPedido = () => {
     Swal.fire({
       title: "¿Estas seguro de eliminar el pedido?",
@@ -35,7 +36,6 @@ const ItemPedido = ({ pedido, setPedidos, usuarioLogueado, usuario }) => {
       }
     });
   };
-
 
   const cambiarEstadoPedido = async () => {
     Swal.fire({
@@ -81,11 +81,14 @@ const ItemPedido = ({ pedido, setPedidos, usuarioLogueado, usuario }) => {
       <td>{pedido.estado}</td>
       <td className="text-center">
       {usuarioLogueado.rol === "admin" && (
-        <Button variant="success" onClick={cambiarEstadoPedido}>
+        <Button variant="success" onClick={cambiarEstadoPedido} disabled={desactivarBotones}>
         <i className="bi bi-check-square-fill"></i>
       </Button>
       )}
-        <Button variant="danger" onClick={borrarPedido}>
+        <Button 
+          variant="danger" 
+          onClick={borrarPedido} 
+          disabled={usuarioLogueado.rol === "usuario" && pedido.estado === "realizado"}>
           <i className="bi bi-trash"></i>
         </Button>
       </td>

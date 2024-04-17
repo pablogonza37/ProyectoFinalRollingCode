@@ -1,14 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
-import { crearUsuarioAPI } from "../../helpers/queries";
-import { useState, useEffect } from "react";
+import { crearUsuarioAPI, leerUsuariosAPI } from "../../helpers/queries";
 import { useNavigate } from "react-router-dom";
 
 const Registro = ({ tituloRegistro, rol, usuarioLogueado }) => {
-  const [rolPorDefecto, setRolPorDefecto] = useState("usuario");
-  const [rolVisible, setRolVisible] = useState(rol);
+  const [rolPorDefecto] = useState("usuario");
+  const [rolVisible] = useState(rol);
   const navegacion = useNavigate();
   const {
     register,
@@ -26,6 +25,18 @@ const Registro = ({ tituloRegistro, rol, usuarioLogueado }) => {
       password: data.password,
       suspendido: false,
     };
+
+    const usuarios = await leerUsuariosAPI();
+    const usuarioExistente = usuarios.find((user) => user.email === usuario.email);
+
+    if (usuarioExistente) {
+      Swal.fire({
+        title: "Error",
+        text: "Ya existe un usuario con este correo electrónico",
+        icon: "error",
+      });
+      return;
+    }
 
     const respuesta = await crearUsuarioAPI(usuario);
     if (respuesta.status === 201) {

@@ -61,7 +61,7 @@ const Menu = ({ usuarioLogueado, setUsuarioLogueado }) => {
                   variant="link"
                   onClick={logout}
                 >
-                  Logout
+                  Cerrar sesión
                 </Button>
               </>
             ) : (
@@ -74,7 +74,7 @@ const Menu = ({ usuarioLogueado, setUsuarioLogueado }) => {
                   variant="link"
                   to="/login"
                 >
-                  Login
+                  Iniciar sesión
                 </NavLink>
               </>
             )}
