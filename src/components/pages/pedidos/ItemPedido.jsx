@@ -131,7 +131,7 @@ const ItemPedido = ({
                 min="1"
                 value={cantidad}
                 onChange={handleChangeCantidad}
-                className="form-control mb-1 selectCantidad"
+                className="form-control ms-1 mb-1 selectCantidad"
                 disabled={pedido.estado !== "pendiente"}
                 style={{
                   width: "60px",
@@ -143,7 +143,7 @@ const ItemPedido = ({
               <strong>Precio:</strong> ${pedido.precioTotal}
               <br />
               <strong>Estado:</strong>
-              <span className="badge text-bg-primary">{pedido.estado}</span>
+              <span className="badge text-bg-primary ms-1">{pedido.estado}</span>
               <br />
               {usuarioLogueado.rol === "admin" && (
                 <>

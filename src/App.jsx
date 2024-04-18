@@ -14,6 +14,7 @@ import Pedidos from "./components/pages/pedidos/Pedidos";
 import AcercaDe from "./components/commons/Acercade";
 import Error404 from "./components/commons/Error404";
 import Login from "./components/pages/Login";
+import Contacto from "./components/pages/Contacto";
 
 function App() {
   const usuario = JSON.parse(sessionStorage.getItem("usuarioRollingBistro")) || "";
@@ -57,7 +58,7 @@ function App() {
             }
           ></Route>
           <Route exact path="/acercade" element={<AcercaDe></AcercaDe>}></Route>
-
+          <Route exact path="/contacto" element={<Contacto></Contacto>}></Route>
           <Route path="*" element={<Error404></Error404>}></Route>
         </Routes>
         <Footer></Footer>

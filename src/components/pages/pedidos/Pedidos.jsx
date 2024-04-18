@@ -24,11 +24,16 @@ const Pedidos = ({ usuarioLogueado }) => {
     formState: { errors },
     reset,
   } = useForm();
+  const navegacion = useNavigate();
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
   useEffect(() => {
+    if(!usuarioLogueado){
+      navegacion('/login');
+      return
+    }
     cargarDatosPedidos();
     if (usuarioLogueado.rol === "admin") {
       cargarUsuariosRegistrados();
@@ -78,7 +83,7 @@ const Pedidos = ({ usuarioLogueado }) => {
     let totalPrecio = 0;
     const pedidosFiltrados = filtrarPedidos();
     pedidosFiltrados.forEach((pedido) => {
-      if (pedido.estado !== "realizado") {
+      if (pedido.estado !== "enviado") {
         totalPrecio += parseFloat(pedido.precioTotal);
       }
     });
@@ -110,19 +115,17 @@ const Pedidos = ({ usuarioLogueado }) => {
   };
 
   const onSubmit = async (data) => {
-    const pedidosFiltrados = filtrarPedidos();
+    const pedidosFiltrados = filtrarPedidos().filter((pedido) => pedido.estado === "pendiente");
     if (pedidosFiltrados.length === 0) {
       Swal.fire({
-        icon: "error",
-        title: "No hay pedidos",
-        text: "Debe realizar un pedido.",
+        icon: "warning",
+        title: "No hay pedidos pendientes",
+        text: "No hay pedidos pendientes para confirmar.",
       });
       return;
     }
     try {
-      const datosDireccion = `${data.direccion} - ${data.ciudad} - ${
-        data.detalle || ""
-      }`;
+      const datosDireccion = `${data.direccion} - ${data.ciudad} - ${data.detalle || ""}`;
       await Promise.all(
         pedidosFiltrados.map(async (pedido) => {
           const pedidoActualizado = {
@@ -136,9 +139,9 @@ const Pedidos = ({ usuarioLogueado }) => {
       Swal.fire({
         icon: "success",
         title: "Pedidos confirmados",
-        text: "Los pedidos han sido confirmados y estan en proceso.",
+        text: "Los pedidos pendientes han sido confirmados y están en proceso.",
         showConfirmButton: false,
-        timer: 3000,
+        timer: 2000,
       });
       cargarDatosPedidos();
       handleClose();
@@ -152,6 +155,7 @@ const Pedidos = ({ usuarioLogueado }) => {
       });
     }
   };
+  
 
   const handleFiltroUsuarioChange = (e) => {
     setFiltroUsuario(e.target.value);
@@ -231,6 +235,12 @@ const Pedidos = ({ usuarioLogueado }) => {
                 if (filtroFecha === "") return true;
                 return pedido.fecha === filtroFecha;
               })
+              .filter((pedido) => {
+                if (usuarioLogueado.rol === 'usuario') {
+                  return pedido.estado !== 'enviado';
+                }
+                return true;
+              })
               .map((pedido) => (
                 <ItemPedido
                   usuarioLogueado={usuarioLogueado}
@@ -245,7 +255,7 @@ const Pedidos = ({ usuarioLogueado }) => {
           </div>
         )}
 
-        <Link variant="success" className="my-2 btn btn-success" to="/#menu">
+        <Link variant="success" className="my-2 btn btn-dark" to="/#menu">
           <i className="bi bi-arrow-left">Volver al menu</i>
         </Link>
       </div>

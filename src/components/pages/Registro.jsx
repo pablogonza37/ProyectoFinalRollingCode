@@ -62,7 +62,8 @@ const Registro = ({ tituloRegistro, rol, usuarioLogueado }) => {
 
   return (
     <div className="container my-5 mainSection">
-      <h2>{tituloRegistro}</h2>
+      <h2 className="display-6">{tituloRegistro}</h2>
+      <hr />
       <Form onSubmit={handleSubmit(onSubmit)}>
         <Form.Group className="mb-3">
           <Form.Label>Nombre de usuario*</Form.Label>
@@ -83,8 +84,8 @@ const Registro = ({ tituloRegistro, rol, usuarioLogueado }) => {
               },
             })}
           />
-          {errors.nombre && (
-            <p style={{ color: "red" }}>{errors.nombre.message}</p>
+          {errors.nombreUsuario && (
+            <p style={{ color: "red" }}>{errors.nombreUsuario.message}</p>
           )}
         </Form.Group>
 
@@ -155,6 +156,7 @@ const Registro = ({ tituloRegistro, rol, usuarioLogueado }) => {
             type="password"
             placeholder="Confirma tu contraseña"
             {...register("confirmarContraseña", {
+              required: "El password es obligatorio",
               validate: (value) =>
                 value === password || "Las contraseñas no coinciden",
             })}
@@ -164,7 +166,7 @@ const Registro = ({ tituloRegistro, rol, usuarioLogueado }) => {
           )}
         </Form.Group>
 
-        <Button variant="primary" type="submit">
+        <Button variant="success" type="submit">
           Registrarse
         </Button>
       </Form>
