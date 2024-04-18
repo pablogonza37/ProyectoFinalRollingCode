@@ -2,7 +2,7 @@ import { Routes, Route } from "react-router";
 import Administrador from "../pages/Administrador";
 import FormularioProducto from "../pages/producto/FormularioProducto";
 import Registro from "../pages/Registro";
-import Pedidos from "../pages/pedidos/Pedidos";
+import Ventas from "../pages/ventas/Ventas";
 
 
 const RutasAdmin = ({usuarioLogueado}) => {
@@ -49,6 +49,14 @@ const RutasAdmin = ({usuarioLogueado}) => {
                 tituloRegistro="Crear usuario"
                 usuarioLogueado={usuarioLogueado}
               ></Registro>
+            }
+          ></Route>
+          <Route
+            exact
+            path="/ventas"
+            element={
+              <Ventas
+              ></Ventas>
             }
           ></Route>
       </Routes>

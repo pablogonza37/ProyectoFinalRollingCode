@@ -23,7 +23,6 @@ const Pedidos = ({ usuarioLogueado }) => {
     handleSubmit,
     formState: { errors },
     reset,
-    setValue,
   } = useForm();
 
   const handleClose = () => setShow(false);
@@ -96,7 +95,9 @@ const Pedidos = ({ usuarioLogueado }) => {
       });
       return;
     }
-    const todosEnProceso = pedidosFiltrados.every(pedido => pedido.estado !== 'pendiente');
+    const todosEnProceso = pedidosFiltrados.every(
+      (pedido) => pedido.estado !== "pendiente"
+    );
     if (todosEnProceso) {
       Swal.fire({
         icon: "warning",
@@ -104,7 +105,7 @@ const Pedidos = ({ usuarioLogueado }) => {
         text: "Todos los pedidos ya han sido confirmados.",
       });
       return;
-    } 
+    }
     handleShow();
   };
 
@@ -139,8 +140,9 @@ const Pedidos = ({ usuarioLogueado }) => {
         showConfirmButton: false,
         timer: 3000,
       });
-      cargarDatosPedidos()
-      handleClose()
+      cargarDatosPedidos();
+      handleClose();
+      reset();
     } catch (error) {
       console.log(error);
       Swal.fire({
