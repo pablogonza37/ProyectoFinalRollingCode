@@ -29,6 +29,9 @@ const Menu = ({ usuarioLogueado, setUsuarioLogueado }) => {
             <NavLink end className="text-white nav-link" to="/acercade">
               Acerca de
             </NavLink>
+            <NavLink end className="text-white nav-link" to="/contacto">
+              Contacto
+            </NavLink>
             <NavLink end className="text-white nav-link" to="/pedidos">
               Pedidos
             </NavLink>
