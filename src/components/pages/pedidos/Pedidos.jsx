@@ -4,8 +4,8 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import {
   obtenerPedidosAPI,
-  cambiarEstadoPedidoAPI,
   leerUsuariosAPI,
+  cambiarPedidoAPI,
 } from "../../../helpers/queries";
 import Swal from "sweetalert2";
 import { Link, useNavigate } from "react-router-dom";
@@ -30,10 +30,10 @@ const Pedidos = ({ usuarioLogueado }) => {
   const handleShow = () => setShow(true);
 
   useEffect(() => {
-      cargarDatosPedidos();
-      if (usuarioLogueado.rol === "admin") {
-        cargarUsuariosRegistrados();
-      }
+    cargarDatosPedidos();
+    if (usuarioLogueado.rol === "admin") {
+      cargarUsuariosRegistrados();
+    }
   }, []);
 
   useEffect(() => {
@@ -65,23 +65,30 @@ const Pedidos = ({ usuarioLogueado }) => {
     }
   };
 
-  const calcularTotal = () => {
-    let totalPrecio = 0;
-    const pedidosFiltrados = pedidos.filter((pedido) => {
+  const filtrarPedidos = () => {
+    return pedidos.filter((pedido) => {
       if (filtroUsuario !== "" && pedido.usuario !== filtroUsuario)
         return false;
       if (filtroEstado !== "" && pedido.estado !== filtroEstado) return false;
       if (filtroFecha !== "" && pedido.fecha !== filtroFecha) return false;
       return true;
     });
+  };
+
+  const calcularTotal = () => {
+    let totalPrecio = 0;
+    const pedidosFiltrados = filtrarPedidos();
     pedidosFiltrados.forEach((pedido) => {
-      totalPrecio += parseFloat(pedido.precioTotal);
+      if (pedido.estado !== "realizado") {
+        totalPrecio += parseFloat(pedido.precioTotal);
+      }
     });
     setTotal(totalPrecio);
   };
 
-  const onSubmit = async (data) => {
-    if (pedidos.length === 0) {
+  const confirmarPedido = () => {
+    const pedidosFiltrados = filtrarPedidos();
+    if (pedidosFiltrados.length === 0) {
       Swal.fire({
         icon: "error",
         title: "No hay pedidos",
@@ -89,32 +96,53 @@ const Pedidos = ({ usuarioLogueado }) => {
       });
       return;
     }
+    const todosEnProceso = pedidosFiltrados.every(pedido => pedido.estado === 'en proceso');
+    if (todosEnProceso) {
+      Swal.fire({
+        icon: "warning",
+        title: "Pedidos confirmados",
+        text: "Todos los pedidos ya han sido confirmados.",
+      });
+      return;
+    } 
+    handleShow();
+  };
 
+  const onSubmit = async (data) => {
+    const pedidosFiltrados = filtrarPedidos();
+    if (pedidosFiltrados.length === 0) {
+      Swal.fire({
+        icon: "error",
+        title: "No hay pedidos",
+        text: "Debe realizar un pedido.",
+      });
+      return;
+    }
     try {
+      const datosDireccion = `${data.direccion} - ${data.ciudad} - ${
+        data.detalle || ""
+      }`;
       await Promise.all(
-        pedidos.map(async (pedido) => {
-          if (pedido.estado === "pendiente") {
-            await cambiarEstadoPedidoAPI(pedido._id);
-            setPedidos((prevPedidos) =>
-              prevPedidos.map((prevPedido) =>
-                prevPedido._id === pedido._id
-                  ? { ...prevPedido, estado: "en proceso" }
-                  : prevPedido
-              )
-            );
-          }
+        pedidosFiltrados.map(async (pedido) => {
+          const pedidoActualizado = {
+            ...pedido,
+            direccion: datosDireccion,
+            estado: "en proceso",
+          };
+          await cambiarPedidoAPI(pedidoActualizado, pedido._id);
         })
       );
-
       Swal.fire({
         icon: "success",
         title: "Pedidos confirmados",
-        text: "Los pedidos han sido confirmados y marcados como entregados.",
+        text: "Los pedidos han sido confirmados y estan en proceso.",
         showConfirmButton: false,
-        timer: 2000,
+        timer: 3000,
       });
+      cargarDatosPedidos()
+      handleClose()
     } catch (error) {
-      console.error(error);
+      console.log(error);
       Swal.fire({
         icon: "error",
         title: "Error al confirmar pedidos",
@@ -208,7 +236,7 @@ const Pedidos = ({ usuarioLogueado }) => {
                   key={pedido._id}
                   pedido={pedido}
                   setPedidos={setPedidos}
-                  desactivarBotones={pedido.estado === "realizado"}
+                  desactivarBotones={pedido.estado !== "pendiente"}
                   setTotal={setTotal}
                 ></ItemPedido>
               ))}
@@ -223,22 +251,23 @@ const Pedidos = ({ usuarioLogueado }) => {
       <Card className="mt-3 mt-lg-0 mt-md-0 shadow">
         <Card.Body>
           <div>
-          <strong>Envio:</strong><span className="text-warning">Gratis</span> <hr />
-          <strong>Total:</strong> ${total}
+            <strong>Envio:</strong>
+            <span className="text-warning">Gratis</span> <hr />
+            <strong>Total:</strong> ${total}
           </div>
-          <Button variant="success" className="mt-2" onClick={handleShow}>
+          <Button variant="success" className="mt-2" onClick={confirmarPedido}>
             Confirmar Pedido
           </Button>
         </Card.Body>
       </Card>
 
       <Modal show={show} onHide={handleClose}>
-      <Form onSubmit={handleSubmit(onSubmit)}>
-        <Modal.Header closeButton>
-          <Modal.Title>Entrega</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          {" "}
+        <Form onSubmit={handleSubmit(onSubmit)}>
+          <Modal.Header closeButton>
+            <Modal.Title>Entrega</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            {" "}
             <Form.Group controlId="formDireccion">
               <Form.Label>Dirección</Form.Label>
               <Form.Control
@@ -250,7 +279,6 @@ const Pedidos = ({ usuarioLogueado }) => {
               />
               {errors.direccion && <p>{errors.direccion.message}</p>}
             </Form.Group>
-
             <Form.Group controlId="formCiudad">
               <Form.Label>Ciudad</Form.Label>
               <Form.Control
@@ -260,7 +288,6 @@ const Pedidos = ({ usuarioLogueado }) => {
               />
               {errors.ciudad && <p>{errors.ciudad.message}</p>}
             </Form.Group>
-
             <Form.Group controlId="formDetalle">
               <Form.Label>Detalle(opcional)</Form.Label>
               <Form.Control
@@ -278,17 +305,15 @@ const Pedidos = ({ usuarioLogueado }) => {
                 <p>{errors.descripcionAmplia.message}</p>
               )}
             </Form.Group>
-          
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-          <Button variant="primary" type="submit">
-            Enviar
-          </Button>
-         
-        </Modal.Footer>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleClose}>
+              Cerrar
+            </Button>
+            <Button variant="success" type="submit">
+              Enviar dirección
+            </Button>
+          </Modal.Footer>
         </Form>
       </Modal>
     </Container>

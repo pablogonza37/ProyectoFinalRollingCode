@@ -166,7 +166,7 @@ export const cambiarEstadoPedidoAPI = async (estadoNuevo, id) => {
   }
 };
 
-export const cambiarCantidadPedidoAPI = async (pedidoActualizado, id) => {
+export const cambiarPedidoAPI = async (pedidoActualizado, id) => {
   try {
     const respuesta = await fetch(`${URL_Pedidos}/${id}`, {
       method: "PUT",

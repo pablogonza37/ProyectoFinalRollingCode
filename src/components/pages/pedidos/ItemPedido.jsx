@@ -4,7 +4,7 @@ import {
   borrarPedidoAPI,
   obtenerPedidosAPI,
   cambiarEstadoPedidoAPI,
-  cambiarCantidadPedidoAPI,
+  cambiarPedidoAPI,
 } from "../../../helpers/queries";
 import Swal from "sweetalert2";
 
@@ -82,7 +82,7 @@ const ItemPedido = ({
       cantidad: nuevaCantidad,
       precioTotal: nuevoPrecioTotal,
     };
-    const respuesta = await cambiarCantidadPedidoAPI(
+    const respuesta = await cambiarPedidoAPI(
       pedidoActualizado,
       pedido._id
     );
@@ -124,7 +124,7 @@ const ItemPedido = ({
                 className="form-control mb-1 selectCantidad"
                 disabled={
                   usuarioLogueado.rol === "usuario" &&
-                  pedido.estado === "realizado"
+                  pedido.estado !== "pendiente"
                 }
                 style={{
                   width: "60px",
@@ -151,7 +151,7 @@ const ItemPedido = ({
                 </Button>{" "}
               </>
             )}
-            <Button variant="danger" onClick={borrarPedido}>
+            <Button variant="danger" onClick={borrarPedido} disabled={desactivarBotones}>
               <i className="bi bi-trash"></i>
             </Button>
           </div>
