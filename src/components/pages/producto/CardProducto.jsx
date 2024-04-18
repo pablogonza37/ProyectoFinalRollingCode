@@ -66,7 +66,7 @@ const CardProducto = ({ producto, usuarioLogueado }) => {
 };
 
   return (
-    <Col md={3} lg={3} className="mb-3">
+    <Col md={4} lg={3} className="mb-3">
       <Card className="h-100 shadow">
         <div>
           <img

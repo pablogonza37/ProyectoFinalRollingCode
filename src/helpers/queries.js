@@ -4,8 +4,32 @@ const URL_Pedidos = import.meta.env.VITE_API_PEDIDOS;
 const URL_Suspender=import.meta.env.VITE_API_SUSPENDER;
 const URL_Levantar=import.meta.env.VITE_API_LEVANTAR;
 const URL_Login=import.meta.env.VITE_API_LOGIN;
-const URL_cantidadPedido=import.meta.env.VITE_API_CANTIDADPEDIDO;
+const URL_Ventas=import.meta.env.VITE_API_VENTA;
 
+export const crearVentaAPI = async (nuevaVenta) => {
+  try {
+    const resp = await fetch(URL_Ventas, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(nuevaVenta),
+    });
+    return resp;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const leerVentasAPI = async () => {
+  try {
+    const resp = await fetch(URL_Ventas);
+    const listaVentas = await resp.json();
+    return listaVentas;
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 export const leerProductosAPI = async () => {
   try {
@@ -166,7 +190,7 @@ export const cambiarEstadoPedidoAPI = async (estadoNuevo, id) => {
   }
 };
 
-export const cambiarCantidadPedidoAPI = async (pedidoActualizado, id) => {
+export const cambiarPedidoAPI = async (pedidoActualizado, id) => {
   try {
     const respuesta = await fetch(`${URL_Pedidos}/${id}`, {
       method: "PUT",

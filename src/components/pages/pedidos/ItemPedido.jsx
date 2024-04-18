@@ -3,8 +3,8 @@ import { Button, Card } from "react-bootstrap";
 import {
   borrarPedidoAPI,
   obtenerPedidosAPI,
-  cambiarEstadoPedidoAPI,
-  cambiarCantidadPedidoAPI,
+  cambiarPedidoAPI,
+  crearVentaAPI,
 } from "../../../helpers/queries";
 import Swal from "sweetalert2";
 
@@ -61,7 +61,11 @@ const ItemPedido = ({
       cancelButtonText: "Cancelar",
     }).then(async (result) => {
       if (result.isConfirmed) {
-        await cambiarEstadoPedidoAPI("en proceso", pedido._id);
+        const pedidoActualizado = {
+          ...pedido,
+          estado: "enviado",
+        };
+        await cambiarPedidoAPI(pedidoActualizado, pedido._id);
         Swal.fire({
           title: "Estado del Pedido Actualizado",
           text: `El estado del pedido "${pedido.nombreProducto}" ha sido actualizado correctamente`,
@@ -69,6 +73,15 @@ const ItemPedido = ({
         });
         const listaPedidos = await obtenerPedidosAPI();
         setPedidos(listaPedidos);
+        const venta = {
+          nombreProducto: pedido.nombreProducto,
+          fecha: pedido.fecha,
+          usuario: usuarioLogueado.email,
+          cantidad: pedido.cantidad,
+          precioTotal: pedido.precioTotal,
+        };
+        console.log(venta)
+        await crearVentaAPI(venta);
       }
     });
   };
@@ -82,10 +95,7 @@ const ItemPedido = ({
       cantidad: nuevaCantidad,
       precioTotal: nuevoPrecioTotal,
     };
-    const respuesta = await cambiarCantidadPedidoAPI(
-      pedidoActualizado,
-      pedido._id
-    );
+    const respuesta = await cambiarPedidoAPI(pedidoActualizado, pedido._id);
     if (respuesta.status === 200) {
       const listaPedidos = await obtenerPedidosAPI();
       setPedidos(listaPedidos);
@@ -122,10 +132,7 @@ const ItemPedido = ({
                 value={cantidad}
                 onChange={handleChangeCantidad}
                 className="form-control mb-1 selectCantidad"
-                disabled={
-                  usuarioLogueado.rol === "usuario" &&
-                  pedido.estado === "realizado"
-                }
+                disabled={pedido.estado !== "pendiente"}
                 style={{
                   width: "60px",
                   display: "inline-block",
@@ -137,6 +144,12 @@ const ItemPedido = ({
               <br />
               <strong>Estado:</strong>
               <span className="badge text-bg-primary">{pedido.estado}</span>
+              <br />
+              {usuarioLogueado.rol === "admin" && (
+                <>
+                  <strong>Direccion:</strong> {pedido.direccion}
+                </>
+              )}
             </Card.Text>
           </div>
           <div className="col-md-3 text-right">
@@ -145,13 +158,17 @@ const ItemPedido = ({
                 <Button
                   variant="success"
                   onClick={cambiarEstadoPedido}
-                  disabled={desactivarBotones}
+                  disabled={pedido.estado === "enviado"}
                 >
                   <i className="bi bi-check-square-fill"></i>
                 </Button>{" "}
               </>
             )}
-            <Button variant="danger" onClick={borrarPedido}>
+            <Button
+              variant="danger"
+              onClick={borrarPedido}
+              disabled={desactivarBotones}
+            >
               <i className="bi bi-trash"></i>
             </Button>
           </div>
