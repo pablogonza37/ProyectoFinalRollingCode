@@ -85,7 +85,7 @@ const CardProducto = ({ producto, usuarioLogueado }) => {
         </Card.Body>
         <Card.Footer className="d-flex flex-column">
           <div>
-          <Button className="btn btn-primary me-2 mb-1" onClick={hacerPedido}>Hacer pedido</Button>
+          <Button className="btn btn-dark me-2 mb-1" onClick={hacerPedido}>Hacer pedido</Button>
           <input
             type="number"
             min="1"

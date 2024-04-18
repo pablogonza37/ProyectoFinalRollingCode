@@ -114,3 +114,10 @@
   object-fit: cover;
 }
 
+.nav-link:hover {
+  text-decoration: underline;
+}
+
+.bg-login {
+  background-image: url("https://images.pexels.com/photos/1653877/pexels-photo-1653877.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1");
+}

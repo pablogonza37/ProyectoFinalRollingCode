@@ -21,8 +21,8 @@ const Menu = ({ usuarioLogueado, setUsuarioLogueado }) => {
           aria-controls="responsive-navbar-nav"
           className="custom-toggler"
         />
-        <Navbar.Collapse id="responsive-navbar-nav" className="text-white">
-          <Nav className="m-auto ">
+        <Navbar.Collapse id="responsive-navbar-nav bg-dark" className="text-white">
+          <Nav className="m-auto">
             <NavLink end className="text-white nav-link" to="/">
               Inicio
             </NavLink>
@@ -34,7 +34,7 @@ const Menu = ({ usuarioLogueado, setUsuarioLogueado }) => {
             </NavLink>
             {usuarioLogueado !== "" ? (
               <>
-                {usuarioLogueado.rol === "admin" && ( 
+                {usuarioLogueado.rol === "admin" && (
                   <NavDropdown
                     title="Administrador"
                     id="collapsible-nav-dropdown"
@@ -62,27 +62,30 @@ const Menu = ({ usuarioLogueado, setUsuarioLogueado }) => {
                     </NavLink>
                   </NavDropdown>
                 )}
-
-                <Button
-                  className="nav-link text-start text-white"
-                  variant="link"
-                  onClick={logout}
-                >
-                  Cerrar sesión
-                </Button>
+                <div className="ms-lg-5 d-flex flex-column flex-lg-row border border-light">
+                  <Button
+                    className="nav-link text-white "
+                    variant="link"
+                    onClick={logout}
+                  >
+                    Cerrar sesión
+                  </Button>
+                </div>
               </>
             ) : (
               <>
-                <NavLink end className="text-white nav-link" to="/registro">
-                  Registro
-                </NavLink>
-                <NavLink
-                  className="text-white nav-link text-start"
-                  variant="link"
-                  to="/login"
-                >
-                  Iniciar sesión
-                </NavLink>
+                <div className="ms-lg-5 d-flex flex-column flex-lg-row">
+                  <NavLink end className="text-white nav-link" to="/registro">
+                    Registro
+                  </NavLink>
+                  <NavLink
+                    className="text-white text-center nav-link border border-light"
+                    variant="link"
+                    to="/login"
+                  >
+                    Iniciar sesión
+                  </NavLink>
+                </div>
               </>
             )}
           </Nav>
