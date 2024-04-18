@@ -3,8 +3,8 @@ import { Button, Card } from "react-bootstrap";
 import {
   borrarPedidoAPI,
   obtenerPedidosAPI,
-  cambiarEstadoPedidoAPI,
   cambiarPedidoAPI,
+  crearVentaAPI,
 } from "../../../helpers/queries";
 import Swal from "sweetalert2";
 
@@ -73,6 +73,15 @@ const ItemPedido = ({
         });
         const listaPedidos = await obtenerPedidosAPI();
         setPedidos(listaPedidos);
+        const venta = {
+          nombreProducto: pedido.nombreProducto,
+          fecha: pedido.fecha,
+          usuario: usuarioLogueado.email,
+          cantidad: pedido.cantidad,
+          precioTotal: pedido.precioTotal,
+        };
+        console.log(venta)
+        await crearVentaAPI(venta);
       }
     });
   };
@@ -86,10 +95,7 @@ const ItemPedido = ({
       cantidad: nuevaCantidad,
       precioTotal: nuevoPrecioTotal,
     };
-    const respuesta = await cambiarPedidoAPI(
-      pedidoActualizado,
-      pedido._id
-    );
+    const respuesta = await cambiarPedidoAPI(pedidoActualizado, pedido._id);
     if (respuesta.status === 200) {
       const listaPedidos = await obtenerPedidosAPI();
       setPedidos(listaPedidos);
@@ -126,9 +132,7 @@ const ItemPedido = ({
                 value={cantidad}
                 onChange={handleChangeCantidad}
                 className="form-control mb-1 selectCantidad"
-                disabled={
-                  pedido.estado !== "pendiente"
-                }
+                disabled={pedido.estado !== "pendiente"}
                 style={{
                   width: "60px",
                   display: "inline-block",
@@ -142,10 +146,10 @@ const ItemPedido = ({
               <span className="badge text-bg-primary">{pedido.estado}</span>
               <br />
               {usuarioLogueado.rol === "admin" && (
-              <>
-                <strong>Direccion:</strong> {pedido.direccion}
-              </>
-            )}
+                <>
+                  <strong>Direccion:</strong> {pedido.direccion}
+                </>
+              )}
             </Card.Text>
           </div>
           <div className="col-md-3 text-right">
@@ -154,15 +158,17 @@ const ItemPedido = ({
                 <Button
                   variant="success"
                   onClick={cambiarEstadoPedido}
-                  disabled={
-                    pedido.estado === "enviado"
-                  }
+                  disabled={pedido.estado === "enviado"}
                 >
                   <i className="bi bi-check-square-fill"></i>
                 </Button>{" "}
               </>
             )}
-            <Button variant="danger" onClick={borrarPedido} disabled={desactivarBotones}>
+            <Button
+              variant="danger"
+              onClick={borrarPedido}
+              disabled={desactivarBotones}
+            >
               <i className="bi bi-trash"></i>
             </Button>
           </div>
