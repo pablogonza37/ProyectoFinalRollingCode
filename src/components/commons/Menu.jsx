@@ -34,7 +34,7 @@ const Menu = ({ usuarioLogueado, setUsuarioLogueado }) => {
             </NavLink>
             {usuarioLogueado !== "" ? (
               <>
-                {usuarioLogueado.rol === "admin" && ( // Verificar si el rol es admin
+                {usuarioLogueado.rol === "admin" && ( 
                   <NavDropdown
                     title="Administrador"
                     id="collapsible-nav-dropdown"
@@ -52,6 +52,13 @@ const Menu = ({ usuarioLogueado, setUsuarioLogueado }) => {
                       to="/administrador/usuarios"
                     >
                       Usuarios
+                    </NavLink>
+                    <NavLink
+                      end
+                      className="nav-link"
+                      to="/administrador/ventas"
+                    >
+                      Ventas
                     </NavLink>
                   </NavDropdown>
                 )}
