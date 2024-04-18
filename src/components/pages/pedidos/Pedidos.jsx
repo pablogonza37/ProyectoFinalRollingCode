@@ -96,7 +96,7 @@ const Pedidos = ({ usuarioLogueado }) => {
       });
       return;
     }
-    const todosEnProceso = pedidosFiltrados.every(pedido => pedido.estado === 'en proceso');
+    const todosEnProceso = pedidosFiltrados.every(pedido => pedido.estado !== 'pendiente');
     if (todosEnProceso) {
       Swal.fire({
         icon: "warning",
@@ -197,7 +197,7 @@ const Pedidos = ({ usuarioLogueado }) => {
             >
               <option value="">Todos los estados</option>
               <option value="pendiente">Pendiente</option>
-              <option value="realizado">Realizado</option>
+              <option value="enviado">Enviado</option>
               <option value="en proceso">En proceso</option>
             </select>
             <label htmlFor="filtroFecha" className="form-label mt-3">

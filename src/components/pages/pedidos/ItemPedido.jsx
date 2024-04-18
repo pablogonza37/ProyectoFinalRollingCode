@@ -61,7 +61,11 @@ const ItemPedido = ({
       cancelButtonText: "Cancelar",
     }).then(async (result) => {
       if (result.isConfirmed) {
-        await cambiarEstadoPedidoAPI("en proceso", pedido._id);
+        const pedidoActualizado = {
+          ...pedido,
+          estado: "enviado",
+        };
+        await cambiarPedidoAPI(pedidoActualizado, pedido._id);
         Swal.fire({
           title: "Estado del Pedido Actualizado",
           text: `El estado del pedido "${pedido.nombreProducto}" ha sido actualizado correctamente`,
@@ -123,7 +127,6 @@ const ItemPedido = ({
                 onChange={handleChangeCantidad}
                 className="form-control mb-1 selectCantidad"
                 disabled={
-                  usuarioLogueado.rol === "usuario" &&
                   pedido.estado !== "pendiente"
                 }
                 style={{
@@ -137,6 +140,12 @@ const ItemPedido = ({
               <br />
               <strong>Estado:</strong>
               <span className="badge text-bg-primary">{pedido.estado}</span>
+              <br />
+              {usuarioLogueado.rol === "admin" && (
+              <>
+                <strong>Direccion:</strong> {pedido.direccion}
+              </>
+            )}
             </Card.Text>
           </div>
           <div className="col-md-3 text-right">
@@ -145,7 +154,9 @@ const ItemPedido = ({
                 <Button
                   variant="success"
                   onClick={cambiarEstadoPedido}
-                  disabled={desactivarBotones}
+                  disabled={
+                    pedido.estado === "enviado"
+                  }
                 >
                   <i className="bi bi-check-square-fill"></i>
                 </Button>{" "}
