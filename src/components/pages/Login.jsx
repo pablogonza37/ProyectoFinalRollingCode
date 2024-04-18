@@ -53,7 +53,7 @@ const Login = ({ setUsuarioLogueado }) => {
     <section className="bg-login">
     <Container className="mainSection my-4 d-flex justify-content-center">
       <Card style={{ width: "25rem" }} className="p-3 shadow bg-card">
-        <h2 className="m-1">Iniciar sesión</h2>
+        <h2 className="m-1 display-6">Iniciar sesión</h2>
         <hr />
         <Card.Body>
           <Form onSubmit={handleSubmit(onSubmit)}>

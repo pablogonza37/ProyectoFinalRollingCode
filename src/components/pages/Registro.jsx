@@ -62,7 +62,8 @@ const Registro = ({ tituloRegistro, rol, usuarioLogueado }) => {
 
   return (
     <div className="container my-5 mainSection">
-      <h2>{tituloRegistro}</h2>
+      <h2 className="display-6">{tituloRegistro}</h2>
+      <hr />
       <Form onSubmit={handleSubmit(onSubmit)}>
         <Form.Group className="mb-3">
           <Form.Label>Nombre de usuario*</Form.Label>
