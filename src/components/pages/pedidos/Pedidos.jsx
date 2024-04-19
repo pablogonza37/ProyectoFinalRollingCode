@@ -289,6 +289,16 @@ const Pedidos = ({ usuarioLogueado, actualizarIndicePedidos }) => {
                 placeholder="Ingresa tu dirección de entrega"
                 {...register("direccion", {
                   required: "La dirección es requerida",
+                  minLength: {
+                    value: 3,
+                    message:
+                      "El nombre debe tener como minimo 2 caracteres",
+                  },
+                  maxLength: {
+                    value: 100,
+                    message:
+                      "El nombre debe tener como maximo 25 caracteres",
+                  },
                 })}
               />
               {errors.direccion && <p>{errors.direccion.message}</p>}
@@ -298,7 +308,16 @@ const Pedidos = ({ usuarioLogueado, actualizarIndicePedidos }) => {
               <Form.Control
                 type="text"
                 placeholder="Ingresa tu ciudad"
-                {...register("ciudad", { required: "La ciudad es requerida" })}
+                {...register("ciudad", { required: "La ciudad es requerida",  minLength: {
+                  value: 2,
+                  message:
+                    "El nombre debe tener como minimo 2 caracteres",
+                },
+                maxLength: {
+                  value: 50,
+                  message:
+                    "El nombre debe tener como maximo 25 caracteres",
+                }, })}
               />
               {errors.ciudad && <p>{errors.ciudad.message}</p>}
             </Form.Group>

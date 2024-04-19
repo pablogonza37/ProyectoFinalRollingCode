@@ -152,8 +152,12 @@ background-color: #198754;
 
 .carousel-background {
   background-image: url('https://images.pexels.com/photos/1537635/pexels-photo-1537635.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');
-  background-size: cover; /* Ajusta la imagen para que cubra todo el Carousel */
-  background-position: center; /* Centra la imagen */
+  background-size: cover; 
+  background-position: center; 
+}
+
+.carousel-indicators{
+  display: none !important;
 }
 
 
