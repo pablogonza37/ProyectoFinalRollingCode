@@ -3,8 +3,6 @@ import { Link, NavLink, useNavigate } from "react-router-dom";
 import logo from "../../assets/logoRollingBistro.png";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import Swal from "sweetalert2";
-import { obtenerPedidosAPI } from "../../helpers/queries";
-import { useState } from "react";
 
 const Menu = ({ usuarioLogueado, setUsuarioLogueado, pedidosPendientes }) => {
   const navegacion = useNavigate();
