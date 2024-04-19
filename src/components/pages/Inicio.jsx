@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Container, Row, Col, Form, Button, Spinner } from "react-bootstrap";
+import { Container, Row, Col, Form, Button, Spinner, Card, Carousel } from "react-bootstrap";
 import CardProducto from "./producto/CardProducto";
 import { leerProductosAPI } from "../../helpers/queries";
 import Banner from "../../assets/banner.jpeg";
 import muestra1 from "../../assets/muestra1.webp";
+import Resenas from "../Resenas";
 
 const Inicio = ({ openLoginModal, usuarioLogueado, actualizarIndicePedidos }) => {
   const [productosInicio, setProductosInicio] = useState([]);
@@ -17,7 +18,7 @@ const Inicio = ({ openLoginModal, usuarioLogueado, actualizarIndicePedidos }) =>
   useEffect(() => {
     consultarAPI();
   }, []);
-
+  
   useEffect(() => {
     if (categoriaSeleccionada) {
       const productosFiltrados = productosInicio.filter(
@@ -99,6 +100,9 @@ const Inicio = ({ openLoginModal, usuarioLogueado, actualizarIndicePedidos }) =>
           </Col>
         </Row>
       </Container>
+    
+      <Resenas></Resenas>
+
       <Container className="mt-5" id="menu">
         <h2 className="display-4 btnMenu">Nuestro Menú</h2>
         <hr />
