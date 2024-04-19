@@ -10,7 +10,7 @@ import {
 import Swal from "sweetalert2";
 import { Link, useNavigate } from "react-router-dom";
 
-const Pedidos = ({ usuarioLogueado }) => {
+const Pedidos = ({ usuarioLogueado, actualizarIndicePedidos }) => {
   const [pedidos, setPedidos] = useState([]);
   const [total, setTotal] = useState(0);
   const [usuarios, setUsuarios] = useState([]);
@@ -111,7 +111,7 @@ const Pedidos = ({ usuarioLogueado }) => {
       });
       return;
     }
-    handleShow();
+    handleShow();  
   };
 
   const onSubmit = async (data) => {
@@ -146,6 +146,7 @@ const Pedidos = ({ usuarioLogueado }) => {
       cargarDatosPedidos();
       handleClose();
       reset();
+      actualizarIndicePedidos()
     } catch (error) {
       console.log(error);
       Swal.fire({
@@ -250,6 +251,7 @@ const Pedidos = ({ usuarioLogueado }) => {
                   setPedidos={setPedidos}
                   desactivarBotones={pedido.estado !== "pendiente"}
                   setTotal={setTotal}
+                  actualizarIndicePedidos={actualizarIndicePedidos}
                 ></ItemPedido>
               ))}
           </div>
@@ -260,7 +262,7 @@ const Pedidos = ({ usuarioLogueado }) => {
         </Link>
       </div>
 
-      <Card className="mt-3 mt-lg-0 mt-md-0 shadow">
+      <Card className="my-3 mt-lg-0 mt-md-0 shadow">
         <Card.Body>
           <div>
             <strong>Envio:</strong>

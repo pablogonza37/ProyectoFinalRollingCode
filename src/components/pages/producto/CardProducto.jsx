@@ -5,7 +5,7 @@ import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
-const CardProducto = ({ producto, usuarioLogueado }) => {
+const CardProducto = ({ producto, usuarioLogueado, actualizarIndicePedidos }) => {
   const navegacion = useNavigate();
   const [cantidad, setCantidad] = useState(1);
 
@@ -35,9 +35,10 @@ const CardProducto = ({ producto, usuarioLogueado }) => {
       if (resp.status === 201) {
         Swal.fire({
           title: "Pedido realizado",
-          text: `El pedido de "${producto.nombreProducto}" fue realizado correctamente`,
+          text: `El pedido de ${cantidad} "${producto.nombreProducto}" fue realizado correctamente`,
           icon: "success",
         });
+        actualizarIndicePedidos()
       } else {
         Swal.fire({
           title: "Ocurrió un error",
