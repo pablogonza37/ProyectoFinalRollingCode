@@ -65,10 +65,10 @@ const Inicio = ({ openLoginModal, usuarioLogueado }) => {
           <span className="display-6">¡Sabores autenticos.!</span>
           <br />
           <Button
-            className="btn btn-success w-100 border border-light rounded-5"
+            className="btn btn-success w-100 border border-light rounded-5 growAnimation"
             href="#menu"
           >
-           <span className='display-6'>Ver Menu</span> 
+           <span className='display-6'>Ver Menú</span> 
           </Button>
         </h1>
 
@@ -88,7 +88,7 @@ const Inicio = ({ openLoginModal, usuarioLogueado }) => {
             ambiente acogedor y servicio excepcional, ideal para disfrutar de
             una experiencia gastronómica única.
           </Col>
-          <Col md={6} className="p-lg-5 p-md-4" data-aos="fade-left">
+          <Col md={6} className="p-lg-5 p-md-4">
             <img
               src="https://static.wixstatic.com/media/46dc18_3487b934a84548e090e13f5ce1bf08ad~mv2.jpg/v1/fill/w_555,h_800,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/46dc18_3487b934a84548e090e13f5ce1bf08ad~mv2.jpg"
               alt=""
@@ -157,6 +157,9 @@ const Inicio = ({ openLoginModal, usuarioLogueado }) => {
           </ul>
         )}
       </Container>
+      <script>
+  AOS.init();
+</script>
     </section>
   );
 };

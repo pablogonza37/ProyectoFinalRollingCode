@@ -2,17 +2,24 @@ import { Nav, Navbar, Container, Button } from "react-bootstrap";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import logo from "../../assets/logoRollingBistro.png";
 import NavDropdown from "react-bootstrap/NavDropdown";
+import Swal from "sweetalert2";
 
 const Menu = ({ usuarioLogueado, setUsuarioLogueado }) => {
   const navegacion = useNavigate();
   const logout = () => {
     sessionStorage.removeItem("usuarioRollingBistro");
     setUsuarioLogueado("");
+    Swal.fire({
+      title: "¡Sesión cerrada!",
+      text: "Has cerrado sesión correctamente.",
+      icon: "success",
+      button: "Aceptar"
+    });
     navegacion("/");
   };
 
   return (
-    <Navbar collapseOnSelect expand="lg" className="nav text-white">
+    <Navbar collapseOnSelect expand="lg" className="nav text-white py-3">
       <Container>
         <Navbar.Brand as={Link} to="/">
           <img src={logo} alt="logo" className="img-fluid" width={200} />
@@ -65,7 +72,7 @@ const Menu = ({ usuarioLogueado, setUsuarioLogueado }) => {
                     </NavLink>
                   </NavDropdown>
                 )}
-                <div className="ms-lg-5 d-flex flex-column flex-lg-row border border-light">
+                <div className="ms-lg-5 d-flex flex-column flex-lg-row border border-light rounded navLogin">
                   <Button
                     className="nav-link text-white "
                     variant="link"
@@ -82,7 +89,7 @@ const Menu = ({ usuarioLogueado, setUsuarioLogueado }) => {
                     Registro
                   </NavLink>
                   <NavLink
-                    className="text-white text-center nav-link border border-light"
+                    className="text-white text-center nav-link border border-light rounded navLogin"
                     variant="link"
                     to="/login"
                   >
