@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Container, Row, Col, Form, Button, Spinner } from "react-bootstrap";
 import CardProducto from "./producto/CardProducto";
 import { leerProductosAPI } from "../../helpers/queries";
-import { Link } from "react-router-dom";
+import Banner from "../../assets/banner.jpeg";
+import muestra1 from "../../assets/muestra1.webp";
 
 const Inicio = ({ openLoginModal, usuarioLogueado, actualizarIndicePedidos }) => {
   const [productosInicio, setProductosInicio] = useState([]);
@@ -65,17 +66,17 @@ const Inicio = ({ openLoginModal, usuarioLogueado, actualizarIndicePedidos }) =>
           <h1 className="display-1  lead">Rolling Bistro</h1> 
           <p className="display-6">¡Sabores autenticos.!</p>
           <br />
-          <Link
+          <Button
             className="btn btn-success w-100 border border-light rounded-5 growAnimation"
-            to='/#menu'
+            href='/#menu'
           >
            <span className='display-6 lead btnMenu mt-3'>Ver Menú</span> 
-          </Link>
+          </Button>
           </div>
 
         <img
           className="banner shadow"
-          src="https://images.pexels.com/photos/1639557/pexels-photo-1639557.jpeg"
+          src={Banner}
           alt="imagen banner"
         />
       </div>
@@ -91,7 +92,7 @@ const Inicio = ({ openLoginModal, usuarioLogueado, actualizarIndicePedidos }) =>
           </Col>
           <Col md={6} className="p-lg-5 p-md-4">
             <img
-              src="https://static.wixstatic.com/media/46dc18_3487b934a84548e090e13f5ce1bf08ad~mv2.jpg/v1/fill/w_555,h_800,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/46dc18_3487b934a84548e090e13f5ce1bf08ad~mv2.jpg"
+              src={muestra1}
               alt=""
               className="img-fluid"
             />
