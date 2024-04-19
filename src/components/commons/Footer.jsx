@@ -42,6 +42,11 @@ const Footer = () => {
         </Row>
         <hr />
         <p>&copy; Todos los derechos reservados</p>
+        <a href="*" target="_blank" className="text-white"><i className="bi bi-facebook me-2"></i></a>
+        <a href="*" target="_blank" className="text-white"><i className="bi bi-whatsapp me-2"></i></a>
+        <a href="*" target="_blank" className="text-white"><i className="bi bi-twitter-x me-2"></i></a>
+        <a href="*" target="_blank" className="text-white"><i className="bi bi-pinterest me-2"></i></a>
+        <a href="*" target="_blank" className="text-white"><i className="bi bi-instagram"></i></a>
       </Container>
     </section>
   );

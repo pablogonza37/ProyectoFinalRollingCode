@@ -2,14 +2,11 @@ import { Container, Card, Spinner, Button } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { obtenerProductoAPI, crearPedidoAPI } from "../../../helpers/queries";
-import Swal from "sweetalert2";
-import { useNavigate } from "react-router-dom";
 
-const DetalleProducto = ({ usuarioLogueado }) => {
+const DetalleProducto = () => {
   const [productoSelecionado, setProductoSelecionado] = useState([]);
   const [spinnerDetalle, setSpinnerDetalle] = useState(true);
   const [error, setError] = useState(null);
-  const navegacion = useNavigate();
 
   const { id } = useParams();
   useEffect(() => {
@@ -58,15 +55,14 @@ const DetalleProducto = ({ usuarioLogueado }) => {
       <Card.Footer className="text-start">
       <Link
             variant="success"
-            className="my-2 btn btn-success me-3"
+            className="my-2 btn btn-dark me-3"
             to='/#menu'
           >
-            <i className="bi bi-arrow-left">Volver al menu</i>
+            <i className="bi bi-arrow-left">Volver al menú</i>
           </Link>
       </Card.Footer>
     </Card>
   );
-
   return (
     <section className="mainSection">
       <Container>{mostrarComponente}</Container>

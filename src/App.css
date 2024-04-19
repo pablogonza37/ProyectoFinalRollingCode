@@ -114,16 +114,55 @@
   object-fit: cover;
 }
 
+
+
+.navLogin:hover{
+background-color: #198754;
+}
+
 .nav-link:hover {
   text-decoration: underline;
 }
 
 .bg-login {
   background-image: url("https://images.pexels.com/photos/1653877/pexels-photo-1653877.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1");
+  background-size: cover;
 }
 .bg-contacto {
   background-image: url("https://images.pexels.com/photos/70497/pexels-photo-70497.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1");
+  background-size: cover;
 }
 .bg-acerceDe{
   background-image: url("https://images.pexels.com/photos/6424583/pexels-photo-6424583.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1");
+  background-size: cover;
+}
+
+.slideInLeft {
+  animation: slideInLeftAnimation 0.5s ease-in-out forwards;
+}
+
+@keyframes slideInLeftAnimation {
+  0% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.growAnimation {
+  animation: growAnimation 0.5s ease-in-out forwards;
+}
+
+@keyframes growAnimation {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
