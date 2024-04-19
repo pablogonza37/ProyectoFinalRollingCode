@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Container, Row, Col, Form, Button, Spinner } from "react-bootstrap";
 import CardProducto from "./producto/CardProducto";
 import { leerProductosAPI } from "../../helpers/queries";
+import { Link } from "react-router-dom";
 
 const Inicio = ({ openLoginModal, usuarioLogueado, actualizarIndicePedidos }) => {
   const [productosInicio, setProductosInicio] = useState([]);
@@ -60,17 +61,17 @@ const Inicio = ({ openLoginModal, usuarioLogueado, actualizarIndicePedidos }) =>
   return (
     <section className="mainSection">
       <div className="relativeContainer w-100">
-        <h1 className="slogan text-white display-1 text-center lead">
-          Rolling Bistro <br />
-          <span className="display-6">¡Sabores autenticos.!</span>
+        <div className="slogan text-center text-white">
+          <h1 className="display-1  lead">Rolling Bistro</h1> 
+          <p className="display-6">¡Sabores autenticos.!</p>
           <br />
-          <Button
+          <Link
             className="btn btn-success w-100 border border-light rounded-5 growAnimation"
-            href="#menu"
+            to='/#menu'
           >
-           <span className='display-6'>Ver Menú</span> 
-          </Button>
-        </h1>
+           <span className='display-6 lead btnMenu mt-3'>Ver Menú</span> 
+          </Link>
+          </div>
 
         <img
           className="banner shadow"
@@ -98,7 +99,7 @@ const Inicio = ({ openLoginModal, usuarioLogueado, actualizarIndicePedidos }) =>
         </Row>
       </Container>
       <Container className="mt-5" id="menu">
-        <h2 className="display-4">Nuestro Menú</h2>
+        <h2 className="display-4 btnMenu">Nuestro Menú</h2>
         <hr />
         <Form.Select
           aria-label="Default select example"

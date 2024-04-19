@@ -2,6 +2,8 @@
 .unstyle {
   all: unset;
 }
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+
 
 #root {
   display: flex;
@@ -37,6 +39,12 @@
   text-shadow: 1px 1px 2px black;
   font-family: "Edu NSW ACT Foundation", cursive;
   font-optical-sizing: auto;
+  font-style: normal;
+}
+
+.btnMenu{
+  font-family: "Pacifico", cursive;
+  font-weight: 400;
   font-style: normal;
 }
 
