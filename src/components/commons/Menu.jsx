@@ -1,10 +1,12 @@
-import { Nav, Navbar, Container, Button } from "react-bootstrap";
+import { Nav, Navbar, Container, Button, Badge } from "react-bootstrap";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import logo from "../../assets/logoRollingBistro.png";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import Swal from "sweetalert2";
+import { obtenerPedidosAPI } from "../../helpers/queries";
+import { useState } from "react";
 
-const Menu = ({ usuarioLogueado, setUsuarioLogueado }) => {
+const Menu = ({ usuarioLogueado, setUsuarioLogueado, pedidosPendientes }) => {
   const navegacion = useNavigate();
   const logout = () => {
     sessionStorage.removeItem("usuarioRollingBistro");
@@ -40,8 +42,10 @@ const Menu = ({ usuarioLogueado, setUsuarioLogueado }) => {
               Contacto
             </NavLink>
             <NavLink end className="text-white nav-link" to="/pedidos">
-              Pedidos
-            </NavLink>
+  {pedidosPendientes.length > 0 && usuarioLogueado && (
+    <Badge bg="success" className='mb-1'>{pedidosPendientes.length}</Badge>
+  )} Pedidos
+</NavLink>
             {usuarioLogueado !== "" ? (
               <>
                 {usuarioLogueado.rol === "admin" && (

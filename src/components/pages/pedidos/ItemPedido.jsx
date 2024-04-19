@@ -13,6 +13,7 @@ const ItemPedido = ({
   setPedidos,
   usuarioLogueado,
   desactivarBotones,
+  actualizarIndicePedidos
 }) => {
   const [cantidad, setCantidad] = useState(pedido.cantidad);
 
@@ -57,7 +58,7 @@ const ItemPedido = ({
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Cambiar",
+      confirmButtonText: "Aceptar",
       cancelButtonText: "Cancelar",
     }).then(async (result) => {
       if (result.isConfirmed) {
@@ -67,7 +68,7 @@ const ItemPedido = ({
         };
         await cambiarPedidoAPI(pedidoActualizado, pedido._id);
         Swal.fire({
-          title: "Estado del Pedido Actualizado",
+          title: "Pedido enviado",
           text: `El estado del pedido "${pedido.nombreProducto}" ha sido actualizado correctamente`,
           icon: "success",
         });
@@ -80,8 +81,8 @@ const ItemPedido = ({
           cantidad: pedido.cantidad,
           precioTotal: pedido.precioTotal,
         };
-        console.log(venta)
         await crearVentaAPI(venta);
+        actualizarIndicePedidos()
       }
     });
   };
@@ -143,7 +144,9 @@ const ItemPedido = ({
               <strong>Precio:</strong> ${pedido.precioTotal}
               <br />
               <strong>Estado:</strong>
-              <span className="badge text-bg-primary ms-1">{pedido.estado}</span>
+              <span className="badge text-bg-primary ms-1">
+                {pedido.estado}
+              </span>
               <br />
               {usuarioLogueado.rol === "admin" && (
                 <>
@@ -158,9 +161,12 @@ const ItemPedido = ({
                 <Button
                   variant="success"
                   onClick={cambiarEstadoPedido}
-                  disabled={pedido.estado === "enviado"}
+                  disabled={
+                    pedido.estado === "enviado" || pedido.estado === "pendiente"
+                  }
+                  className='mb-1'
                 >
-                  <i className="bi bi-check-square-fill"></i>
+                  <i className="bi bi-check-square-fill"> Enviado</i>
                 </Button>{" "}
               </>
             )}
@@ -168,6 +174,7 @@ const ItemPedido = ({
               variant="danger"
               onClick={borrarPedido}
               disabled={desactivarBotones}
+              className='mb-1'
             >
               <i className="bi bi-trash"></i>
             </Button>

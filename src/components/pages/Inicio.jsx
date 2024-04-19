@@ -3,7 +3,7 @@ import { Container, Row, Col, Form, Button, Spinner } from "react-bootstrap";
 import CardProducto from "./producto/CardProducto";
 import { leerProductosAPI } from "../../helpers/queries";
 
-const Inicio = ({ openLoginModal, usuarioLogueado }) => {
+const Inicio = ({ openLoginModal, usuarioLogueado, actualizarIndicePedidos }) => {
   const [productosInicio, setProductosInicio] = useState([]);
   const [productosFiltrados, setProductosFiltrados] = useState([]);
   const [spinnerInicio, setSpinnerInicio] = useState(true);
@@ -131,6 +131,7 @@ const Inicio = ({ openLoginModal, usuarioLogueado }) => {
                 producto={producto}
                 openLoginModal={openLoginModal}
                 usuarioLogueado={usuarioLogueado}
+                actualizarIndicePedidos={actualizarIndicePedidos}
               />
             ))}
           </Row>
