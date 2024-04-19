@@ -11,7 +11,7 @@ const Menu = ({ usuarioLogueado, setUsuarioLogueado }) => {
     setUsuarioLogueado("");
     Swal.fire({
       title: "¡Sesión cerrada!",
-      text: "Has cerrado sesión exitosamente.",
+      text: "Has cerrado sesión correctamente.",
       icon: "success",
       button: "Aceptar"
     });

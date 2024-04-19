@@ -170,7 +170,7 @@ const Pedidos = ({ usuarioLogueado }) => {
   };
 
   return (
-    <Container className="mainSection my-4">
+    <Container className="mainSection mt-4">
       <h2 className="display-4">Pedidos</h2>
       <hr />
       <div>
@@ -255,8 +255,8 @@ const Pedidos = ({ usuarioLogueado }) => {
           </div>
         )}
 
-        <Link variant="success" className="my-2 btn btn-dark" to="/#menu">
-          <i className="bi bi-arrow-left">Volver al menu</i>
+        <Link variant="success" className="mb-3 btn btn-dark" to="/#menu">
+          <i className="bi bi-arrow-left">Volver al menú</i>
         </Link>
       </div>
 

@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
-    <section className="text-white footer py-5 text-center">
+    <section className="text-white footer py-5 text-center shadow">
       <Container>
         <Row>
           <Col md={4} className="mb-3">
@@ -15,7 +15,8 @@ const Footer = () => {
                 <i className="bi bi-geo-alt-fill"></i>
                 <a
                   href="https://www.google.com/maps/dir//Gral.+Paz+576,+T4000+San+Miguel+de+Tucum%C3%A1n,+Tucum%C3%A1n/@-26.8365594,-65.2895685,12z/data=!3m1!4b1!4m8!4m7!1m0!1m5!1m1!1s0x94225d3ad7f30f1d:0xf8606cd659b8e3e4!2m2!1d-65.207167!2d-26.8365833?entry=ttu"
-                  className="text-white" target="_blank"
+                  className="text-white"
+                  target="_blank"
                 >
                   Gral. Paz 576, T4000 San Miguel
                 </a>
@@ -35,18 +36,32 @@ const Footer = () => {
             {" "}
             <div>
               <h3>Contáctanos</h3>
-              <p><Link className="text-white" to='*'>info@rollingbistro.com</Link></p>
+              <p>
+                <Link className="text-white" to="*">
+                  info@rollingbistro.com
+                </Link>
+              </p>
               <p>+54-0381-12345678</p>
             </div>
           </Col>
         </Row>
         <hr />
         <p>&copy; Todos los derechos reservados</p>
-        <a href="*" target="_blank" className="text-white"><i className="bi bi-facebook me-2"></i></a>
-        <a href="*" target="_blank" className="text-white"><i className="bi bi-whatsapp me-2"></i></a>
-        <a href="*" target="_blank" className="text-white"><i className="bi bi-twitter-x me-2"></i></a>
-        <a href="*" target="_blank" className="text-white"><i className="bi bi-pinterest me-2"></i></a>
-        <a href="*" target="_blank" className="text-white"><i className="bi bi-instagram"></i></a>
+        <a href="*" target="_blank" className="text-white">
+          <i className="bi bi-facebook me-2"></i>
+        </a>
+        <a href="*" target="_blank" className="text-white">
+          <i className="bi bi-whatsapp me-2"></i>
+        </a>
+        <a href="*" target="_blank" className="text-white">
+          <i className="bi bi-twitter-x me-2"></i>
+        </a>
+        <a href="*" target="_blank" className="text-white">
+          <i className="bi bi-pinterest me-2"></i>
+        </a>
+        <a href="*" target="_blank" className="text-white">
+          <i className="bi bi-instagram"></i>
+        </a>
       </Container>
     </section>
   );
