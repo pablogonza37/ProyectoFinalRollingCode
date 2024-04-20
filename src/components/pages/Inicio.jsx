@@ -101,7 +101,7 @@ const Inicio = ({ openLoginModal, usuarioLogueado, actualizarIndicePedidos }) =>
         </Row>
       </Container>
     
-      <Resenas></Resenas>
+      <Resenas usuarioLogueado={usuarioLogueado}></Resenas>
 
       <Container className="mt-5" id="menu">
         <h2 className="display-4 btnMenu">Nuestro Menú</h2>
@@ -164,9 +164,6 @@ const Inicio = ({ openLoginModal, usuarioLogueado, actualizarIndicePedidos }) =>
           </ul>
         )}
       </Container>
-      <script>
-  AOS.init();
-</script>
     </section>
   );
 };

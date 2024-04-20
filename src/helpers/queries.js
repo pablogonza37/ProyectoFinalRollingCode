@@ -5,7 +5,7 @@ const URL_Suspender=import.meta.env.VITE_API_SUSPENDER;
 const URL_Levantar=import.meta.env.VITE_API_LEVANTAR;
 const URL_Login=import.meta.env.VITE_API_LOGIN;
 const URL_Ventas=import.meta.env.VITE_API_VENTA;
-const URL_Resenas=import.meta.env.VITE_API_RESENA;
+const URL_Resenias=import.meta.env.VITE_API_RESENIA;
 
 export const crearVentaAPI = async (nuevaVenta) => {
   try {
@@ -246,9 +246,9 @@ export const levantarSuspensionUsuarioAPI = async (id) => {
   }
 };
 
-export const crearResenaAPI = async (resenaNueva) => {
+export const crearReseniaAPI = async (resenaNueva) => {
   try {
-    const resp = await fetch(URL_Resenas, {
+    const resp = await fetch(URL_Resenias, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -261,11 +261,22 @@ export const crearResenaAPI = async (resenaNueva) => {
   }
 };
 
-export const leerResenasAPI = async () => {
+export const leerReseniasAPI = async () => {
   try {
-    const resp = await fetch(URL_Resenas);
+    const resp = await fetch(URL_Resenias);
     const listaResenas = await resp.json();
     return listaResenas;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const borrarReseniaAPI = async (id) => {
+  try {
+    const resp = await fetch(`${URL_Resenias}/${id}`, {
+      method: "DELETE",
+    });
+    return resp;
   } catch (error) {
     console.log(error);
   }

@@ -40,9 +40,9 @@ const Menu = ({ usuarioLogueado, setUsuarioLogueado, pedidosPendientes }) => {
               Contacto
             </NavLink>
             <NavLink end className="text-white nav-link" to="/pedidos">
-  {pedidosPendientes.length > 0 && usuarioLogueado && (
+   Pedidos {pedidosPendientes.length > 0 && usuarioLogueado && (
     <Badge bg="success" className='mb-1'>{pedidosPendientes.length}</Badge>
-  )} Pedidos
+  )}
 </NavLink>
             {usuarioLogueado !== "" ? (
               <>
