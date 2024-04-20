@@ -114,7 +114,7 @@ const Resenas = ({ usuarioLogueado }) => {
         {resenias.map((resenia) => (
           <Carousel.Item interval={4000} key={resenia._id}>
             <div className="d-flex justify-content-center my-5 text-center">
-              <Card style={{ width: "30rem" }} className="shadow text-bg-dark card-resenia py-4">
+              <Card style={{ width: "30rem" }} className="shadow card-resenia py-4">
                 <Card.Body>
                   <Card.Title>{resenia.nombre}</Card.Title>
                   <Card.Text>{resenia.resenia}</Card.Text>
