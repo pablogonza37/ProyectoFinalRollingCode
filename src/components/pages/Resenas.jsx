@@ -119,6 +119,7 @@ const Resenas = ({ usuarioLogueado }) => {
         </>
       ) : null}
     </div>
+    {resenias.length > 0 && (  
       <Carousel
         className="carousel-background my-4 p-5 d-flex justify-content-center position-relative shadow"
         wrap={true}
@@ -155,6 +156,7 @@ const Resenas = ({ usuarioLogueado }) => {
           </div>
         )}
       </Carousel>
+    )}
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
