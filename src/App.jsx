@@ -8,23 +8,45 @@ import DetalleProducto from "./components/pages/producto/DetalleProducto";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import RutasProtegidas from "./components/routes/RutasProtegidas";
 import RutasAdmin from "./components/routes/RutasAdmin";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Registro from "./components/pages/Registro";
 import Pedidos from "./components/pages/pedidos/Pedidos";
-import AcercaDe from "./components/commons/Acercade";
-import Error404 from "./components/commons/Error404";
+import AcercaDe from "./components/pages/Acercade";
+import Error404 from "./components/pages/Error404";
 import Login from "./components/pages/Login";
+import Contacto from "./components/pages/Contacto";
+import { obtenerPedidosAPI } from "./helpers/queries";
 
 function App() {
   const usuario = JSON.parse(sessionStorage.getItem("usuarioRollingBistro")) || "";
   const [usuarioLogueado, setUsuarioLogueado] = useState(usuario);
+  const [pedidosPendientes, setPedidosPendientes] = useState([]);
+
+  useEffect(() => {
+    actualizarIndicePedidos()
+  }, []);
+
+  const actualizarIndicePedidos = async () => {
+    try {
+      const pedidos = await obtenerPedidosAPI();
+      let pedidosFiltrados = [];
+      if (usuarioLogueado.rol === 'admin') {
+        pedidosFiltrados = pedidos.filter(pedido => pedido.estado !== 'enviado');
+      } else {
+        pedidosFiltrados = pedidos.filter(pedido => pedido.usuario === usuarioLogueado.email && pedido.estado !== 'enviado');
+      }
+      setPedidosPendientes(pedidosFiltrados);
+    } catch (error) {
+      console.error("Error al obtener pedidos:", error);
+    }
+  };
 
   return (
     <>
       <BrowserRouter>
-        <Menu usuarioLogueado={usuarioLogueado} setUsuarioLogueado={setUsuarioLogueado}/>
+        <Menu usuarioLogueado={usuarioLogueado} setUsuarioLogueado={setUsuarioLogueado} pedidosPendientes={pedidosPendientes}/>
         <Routes>
-          <Route exact path="/" element={<Inicio usuarioLogueado={usuarioLogueado}></Inicio>}></Route>
+          <Route exact path="/" element={<Inicio usuarioLogueado={usuarioLogueado} actualizarIndicePedidos={actualizarIndicePedidos}></Inicio>}></Route>
           <Route
             exact
             path="/detalle/:id"
@@ -47,7 +69,7 @@ function App() {
           <Route
             exact
             path="/pedidos"
-            element={<Pedidos usuarioLogueado={usuarioLogueado}></Pedidos>}
+            element={<Pedidos usuarioLogueado={usuarioLogueado} actualizarIndicePedidos={actualizarIndicePedidos}></Pedidos>}
           ></Route>
           <Route
             exact
@@ -57,7 +79,7 @@ function App() {
             }
           ></Route>
           <Route exact path="/acercade" element={<AcercaDe></AcercaDe>}></Route>
-
+          <Route exact path="/contacto" element={<Contacto></Contacto>}></Route>
           <Route path="*" element={<Error404></Error404>}></Route>
         </Routes>
         <Footer></Footer>

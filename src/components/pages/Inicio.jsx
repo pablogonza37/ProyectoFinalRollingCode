@@ -1,9 +1,23 @@
 import React, { useEffect, useState } from "react";
-import { Container, Row, Col, Form, Button, Spinner } from "react-bootstrap";
+import {
+  Container,
+  Row,
+  Col,
+  Form,
+  Button,
+  Spinner,
+} from "react-bootstrap";
 import CardProducto from "./producto/CardProducto";
 import { leerProductosAPI } from "../../helpers/queries";
+import Banner from "../../assets/banner.jpeg";
+import muestra1 from "../../assets/muestra1.webp";
+import Resenas from "./Resenas";
 
-const Inicio = ({ openLoginModal, usuarioLogueado }) => {
+const Inicio = ({
+  openLoginModal,
+  usuarioLogueado,
+  actualizarIndicePedidos,
+}) => {
   const [productosInicio, setProductosInicio] = useState([]);
   const [productosFiltrados, setProductosFiltrados] = useState([]);
   const [spinnerInicio, setSpinnerInicio] = useState(true);
@@ -60,45 +74,46 @@ const Inicio = ({ openLoginModal, usuarioLogueado }) => {
   return (
     <section className="mainSection">
       <div className="relativeContainer w-100">
-        <h1 className="slogan text-white display-1 text-center lead">
-          Rolling Bistro <br />
-          <span className="display-6">¡Sabores autenticos.!</span>
+        <div className="slogan text-center text-white">
+          <h1 className="display-1  lead">Rolling Bistro</h1>
+          <p className="display-6">¡Sabores autenticos.!</p>
           <br />
           <Button
-            className="btn btn-success w-50 border border-light"
-            href="#menu"
+            className="btn btn-success w-100 border border-light rounded-5 growAnimation shadow"
+            href="/#menu"
           >
-            Ver Menu
+            <span className="display-6 lead btnMenu mt-3">Ver Menú</span>
           </Button>
-        </h1>
+        </div>
 
-        <img
-          className="banner shadow"
-          src="https://images.pexels.com/photos/1639557/pexels-photo-1639557.jpeg"
-          alt="imagen banner"
-        />
+        <img className="banner shadow" src={Banner} alt="imagen banner" />
       </div>
       <Container className="container">
         <Row>
           <Col
             md={6}
-            className="p-lg-5 p-md-4 text-bg-light d-flex align-items-center lead text-dark-emphasis my-4"
+            className="p-lg-5 p-md-4 text-bg-light d-flex align-items-center lead text-dark-emphasis my-4 shadow"
           >
-            Rolling Bistro: Un restaurante moderno con cocina innovadora,
-            ambiente acogedor y servicio excepcional, ideal para disfrutar de
-            una experiencia gastronómica única.
+            "Rolling Bistro es mucho más que un simple restaurante; es una
+            experiencia culinaria excepcionalmente moderna y única. Nuestro
+            concepto innovador fusiona lo mejor de la cocina contemporánea con
+            un ambiente acogedor y un servicio excepcional, creando así un
+            espacio donde los comensales pueden deleitarse con sabores audaces y
+            emocionantes mientras se sumergen en una atmósfera acogedora y
+            sofisticada. Nuestro equipo de chefs apasionados y creativos se
+            esfuerza por ofrecer platos que desafían las expectativas y deleitan
+            los sentidos."
           </Col>
           <Col md={6} className="p-lg-5 p-md-4">
-            <img
-              src="https://static.wixstatic.com/media/46dc18_3487b934a84548e090e13f5ce1bf08ad~mv2.jpg/v1/fill/w_555,h_800,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/46dc18_3487b934a84548e090e13f5ce1bf08ad~mv2.jpg"
-              alt=""
-              className="img-fluid"
-            />
+            <img src={muestra1} alt="" className="img-fluid" />
           </Col>
         </Row>
       </Container>
+
+      <Resenas usuarioLogueado={usuarioLogueado} className="mt-3"></Resenas>
+
       <Container className="mt-5" id="menu">
-        <h2 className="display-4">Nuestro Menú</h2>
+        <h2 className="display-4 btnMenu">Nuestro Menú</h2>
         <hr />
         <Form.Select
           aria-label="Default select example"
@@ -106,13 +121,13 @@ const Inicio = ({ openLoginModal, usuarioLogueado }) => {
           onChange={handleCategoriaChange}
         >
           <option value="">Todas las categorías</option>
-          <option value="Hamburguesas">Hamburguesas</option>
-          <option value="Pastas">Pastas</option>
-          <option value="Postres">Postres</option>
           <option value="Carne asada">Carne asada</option>
-          <option value="Milanesas">Milanesas</option>
-          <option value="Pizzas">Pizzas</option>
           <option value="Empanadas">Empanadas</option>
+          <option value="Hamburguesas">Hamburguesas</option>
+          <option value="Milanesas">Milanesas</option>
+          <option value="Pastas">Pastas</option>
+          <option value="Pizzas">Pizzas</option>
+          <option value="Postres">Postres</option>
         </Form.Select>
         {spinnerInicio && (
           <div className="my-4 text-center">
@@ -131,6 +146,7 @@ const Inicio = ({ openLoginModal, usuarioLogueado }) => {
                 producto={producto}
                 openLoginModal={openLoginModal}
                 usuarioLogueado={usuarioLogueado}
+                actualizarIndicePedidos={actualizarIndicePedidos}
               />
             ))}
           </Row>

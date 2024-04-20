@@ -1,14 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
-import { crearUsuarioAPI } from "../../helpers/queries";
-import { useState, useEffect } from "react";
+import { crearUsuarioAPI, leerUsuariosAPI } from "../../helpers/queries";
 import { useNavigate } from "react-router-dom";
 
 const Registro = ({ tituloRegistro, rol, usuarioLogueado }) => {
-  const [rolPorDefecto, setRolPorDefecto] = useState("usuario");
-  const [rolVisible, setRolVisible] = useState(rol);
+  const [rolPorDefecto] = useState("usuario");
+  const [rolVisible] = useState(rol);
   const navegacion = useNavigate();
   const {
     register,
@@ -26,6 +25,18 @@ const Registro = ({ tituloRegistro, rol, usuarioLogueado }) => {
       password: data.password,
       suspendido: false,
     };
+
+    const usuarios = await leerUsuariosAPI();
+    const usuarioExistente = usuarios.find((user) => user.email === usuario.email);
+
+    if (usuarioExistente) {
+      Swal.fire({
+        title: "Error",
+        text: "Ya existe un usuario con este correo electrónico",
+        icon: "error",
+      });
+      return;
+    }
 
     const respuesta = await crearUsuarioAPI(usuario);
     if (respuesta.status === 201) {
@@ -51,7 +62,8 @@ const Registro = ({ tituloRegistro, rol, usuarioLogueado }) => {
 
   return (
     <div className="container my-5 mainSection">
-      <h2>{tituloRegistro}</h2>
+      <h2 className="display-6">{tituloRegistro}</h2>
+      <hr />
       <Form onSubmit={handleSubmit(onSubmit)}>
         <Form.Group className="mb-3">
           <Form.Label>Nombre de usuario*</Form.Label>
@@ -72,8 +84,8 @@ const Registro = ({ tituloRegistro, rol, usuarioLogueado }) => {
               },
             })}
           />
-          {errors.nombre && (
-            <p style={{ color: "red" }}>{errors.nombre.message}</p>
+          {errors.nombreUsuario && (
+            <p style={{ color: "red" }}>{errors.nombreUsuario.message}</p>
           )}
         </Form.Group>
 
@@ -144,6 +156,7 @@ const Registro = ({ tituloRegistro, rol, usuarioLogueado }) => {
             type="password"
             placeholder="Confirma tu contraseña"
             {...register("confirmarContraseña", {
+              required: "El password es obligatorio",
               validate: (value) =>
                 value === password || "Las contraseñas no coinciden",
             })}
@@ -153,7 +166,7 @@ const Registro = ({ tituloRegistro, rol, usuarioLogueado }) => {
           )}
         </Form.Group>
 
-        <Button variant="primary" type="submit">
+        <Button variant="success" type="submit">
           Registrarse
         </Button>
       </Form>

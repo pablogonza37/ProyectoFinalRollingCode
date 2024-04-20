@@ -24,6 +24,13 @@ const Login = ({ setUsuarioLogueado }) => {
     setLoading(false);
     if (respuesta.status === 200) {
       const datos = await respuesta.json();
+      if(datos.suspendido === true){
+        Swal.fire({
+          title: "Usuario suspendido",
+          text: "Tu cuenta está suspendida. No puedes iniciar sesion.",
+          icon: "warning",
+        });
+      }else{
       sessionStorage.setItem(
         "usuarioRollingBistro",
         JSON.stringify({ email: datos.email, token: datos.token, rol:datos.rol, suspendido:datos.suspendido })
@@ -36,15 +43,17 @@ const Login = ({ setUsuarioLogueado }) => {
         Swal.fire("¡Bienvenido!", "Has iniciado sesión correctamente", "success");
         navegacion("/");
       }
+    }
     } else {
       Swal.fire("Ocurrió un error", "Correo o contraseña incorrectos", "error");
     }
   };
 
   return (
+    <section className="bg-login">
     <Container className="mainSection my-4 d-flex justify-content-center">
-      <Card style={{ width: "25rem" }} className="p-3 shadow">
-        <h2 className="m-1">Iniciar sesión</h2>
+      <Card style={{ width: "25rem" }} className="p-3 shadow bg-card slideInLeft">
+        <h2 className="m-1 display-6">Iniciar sesión</h2>
         <hr />
         <Card.Body>
           <Form onSubmit={handleSubmit(onSubmit)}>
@@ -67,12 +76,12 @@ const Login = ({ setUsuarioLogueado }) => {
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formBasicPassword">
-              <Form.Label>Password:</Form.Label>
+              <Form.Label>Contraseña:</Form.Label>
               <Form.Control
                 type="password"
-                placeholder="Password"
+                placeholder="Contraseña"
                 {...register("password", {
-                  required: "El password es obligatorio",
+                  required: "La contraseña es requerida",
                   minLength: {
                     value: 8,
                     message: "el minimo es de 8 caracteres",
@@ -84,7 +93,7 @@ const Login = ({ setUsuarioLogueado }) => {
                   pattern: {
                     value: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/,
                     message:
-                      "El password debe contener al menos una letra mayúscula, una letra minúscula y un número",
+                      "La contraseña debe contener al menos una letra mayúscula, una letra minúscula y un número",
                   },
                 })}
               />
@@ -95,7 +104,7 @@ const Login = ({ setUsuarioLogueado }) => {
 
             {errors.message && <p style={{ color: "red" }}>{errors.message}</p>}
             <hr />
-            <Button variant="primary" type="submit" >
+            <Button variant="success" type="submit" >
               Iniciar sesión
             </Button>
           </Form>
@@ -103,6 +112,7 @@ const Login = ({ setUsuarioLogueado }) => {
         </Card.Body>
       </Card>
     </Container>
+    </section>
   );
 };
 

@@ -1,18 +1,25 @@
-import { Nav, Navbar, Container, Button } from "react-bootstrap";
+import { Nav, Navbar, Container, Button, Badge } from "react-bootstrap";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import logo from "../../assets/logoRollingBistro.png";
 import NavDropdown from "react-bootstrap/NavDropdown";
+import Swal from "sweetalert2";
 
-const Menu = ({ usuarioLogueado, setUsuarioLogueado }) => {
+const Menu = ({ usuarioLogueado, setUsuarioLogueado, pedidosPendientes }) => {
   const navegacion = useNavigate();
   const logout = () => {
     sessionStorage.removeItem("usuarioRollingBistro");
     setUsuarioLogueado("");
+    Swal.fire({
+      title: "¡Sesión cerrada!",
+      text: "Has cerrado sesión correctamente.",
+      icon: "success",
+      button: "Aceptar"
+    });
     navegacion("/");
   };
 
   return (
-    <Navbar collapseOnSelect expand="lg" className="nav text-white">
+    <Navbar collapseOnSelect expand="lg" className="nav text-white py-3">
       <Container>
         <Navbar.Brand as={Link} to="/">
           <img src={logo} alt="logo" className="img-fluid" width={200} />
@@ -21,20 +28,25 @@ const Menu = ({ usuarioLogueado, setUsuarioLogueado }) => {
           aria-controls="responsive-navbar-nav"
           className="custom-toggler"
         />
-        <Navbar.Collapse id="responsive-navbar-nav" className="text-white">
-          <Nav className="m-auto ">
+        <Navbar.Collapse id="responsive-navbar-nav bg-dark" className="text-white">
+          <Nav className="m-auto">
             <NavLink end className="text-white nav-link" to="/">
               Inicio
             </NavLink>
             <NavLink end className="text-white nav-link" to="/acercade">
               Acerca de
             </NavLink>
-            <NavLink end className="text-white nav-link" to="/pedidos">
-              Pedidos
+            <NavLink end className="text-white nav-link" to="/contacto">
+              Contacto
             </NavLink>
+            <NavLink end className="text-white nav-link" to="/pedidos">
+   Pedidos {pedidosPendientes.length > 0 && usuarioLogueado && (
+    <Badge bg="success" className='mb-1'>{pedidosPendientes.length}</Badge>
+  )}
+</NavLink>
             {usuarioLogueado !== "" ? (
               <>
-                {usuarioLogueado.rol === "admin" && ( // Verificar si el rol es admin
+                {usuarioLogueado.rol === "admin" && (
                   <NavDropdown
                     title="Administrador"
                     id="collapsible-nav-dropdown"
@@ -53,29 +65,39 @@ const Menu = ({ usuarioLogueado, setUsuarioLogueado }) => {
                     >
                       Usuarios
                     </NavLink>
+                    <NavLink
+                      end
+                      className="nav-link"
+                      to="/administrador/ventas"
+                    >
+                      Ventas
+                    </NavLink>
                   </NavDropdown>
                 )}
-
-                <Button
-                  className="nav-link text-start text-white"
-                  variant="link"
-                  onClick={logout}
-                >
-                  Logout
-                </Button>
+                <div className="ms-lg-5 d-flex flex-column flex-lg-row border border-light rounded navLogin">
+                  <Button
+                    className="nav-link text-white "
+                    variant="link"
+                    onClick={logout}
+                  >
+                    Cerrar sesión
+                  </Button>
+                </div>
               </>
             ) : (
               <>
-                <NavLink end className="text-white nav-link" to="/registro">
-                  Registro
-                </NavLink>
-                <NavLink
-                  className="text-white nav-link text-start"
-                  variant="link"
-                  to="/login"
-                >
-                  Login
-                </NavLink>
+                <div className="ms-lg-5 d-flex flex-column flex-lg-row">
+                  <NavLink end className="text-white nav-link" to="/registro">
+                    Registro
+                  </NavLink>
+                  <NavLink
+                    className="text-white text-center nav-link border border-light rounded navLogin"
+                    variant="link"
+                    to="/login"
+                  >
+                    Iniciar sesión
+                  </NavLink>
+                </div>
               </>
             )}
           </Nav>

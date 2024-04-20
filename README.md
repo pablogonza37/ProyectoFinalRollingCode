@@ -100,5 +100,3 @@ https://github.com/pablogonza37/backendProyectoFinalRC
 Este proyecto ha sido desarrollado por:
 - Pablo Gaston González
 - José Eugenio Navarro Bovi
-- Ramiro Adrián Velásquez Barrozo
-- Cristian Julian Aballay

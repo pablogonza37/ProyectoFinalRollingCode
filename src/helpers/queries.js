@@ -4,6 +4,33 @@ const URL_Pedidos = import.meta.env.VITE_API_PEDIDOS;
 const URL_Suspender=import.meta.env.VITE_API_SUSPENDER;
 const URL_Levantar=import.meta.env.VITE_API_LEVANTAR;
 const URL_Login=import.meta.env.VITE_API_LOGIN;
+const URL_Ventas=import.meta.env.VITE_API_VENTA;
+const URL_Resenias=import.meta.env.VITE_API_RESENIA;
+
+export const crearVentaAPI = async (nuevaVenta) => {
+  try {
+    const resp = await fetch(URL_Ventas, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(nuevaVenta),
+    });
+    return resp;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const leerVentasAPI = async () => {
+  try {
+    const resp = await fetch(URL_Ventas);
+    const listaVentas = await resp.json();
+    return listaVentas;
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 export const leerProductosAPI = async () => {
   try {
@@ -141,14 +168,14 @@ export const obtenerPedidosAPI = async () => {
   }
 };
 
-export const cambiarEstadoPedidoAPI = async (id) => {
+export const cambiarEstadoPedidoAPI = async (estadoNuevo, id) => {
   try {
     const resp = await fetch(`${URL_Pedidos}/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ estado: "realizado" }),
+      body: JSON.stringify({ estado: estadoNuevo }),
     });
 
     if (!resp.ok) {
@@ -161,6 +188,21 @@ export const cambiarEstadoPedidoAPI = async (id) => {
   } catch (error) {
     console.error(error);
     throw new Error("Ocurrió un error al intentar actualizar el estado del pedido");
+  }
+};
+
+export const cambiarPedidoAPI = async (pedidoActualizado, id) => {
+  try {
+    const respuesta = await fetch(`${URL_Pedidos}/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(pedidoActualizado),
+    });
+    return respuesta;
+  } catch (error) {
+    console.log(error);
   }
 };
 
@@ -204,7 +246,41 @@ export const levantarSuspensionUsuarioAPI = async (id) => {
   }
 };
 
+export const crearReseniaAPI = async (resenaNueva) => {
+  try {
+    const resp = await fetch(URL_Resenias, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(resenaNueva),
+    });
+    return resp;
+  } catch (error) {
+    console.log(error);
+  }
+};
 
+export const leerReseniasAPI = async () => {
+  try {
+    const resp = await fetch(URL_Resenias);
+    const listaResenas = await resp.json();
+    return listaResenas;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const borrarReseniaAPI = async (id) => {
+  try {
+    const resp = await fetch(`${URL_Resenias}/${id}`, {
+      method: "DELETE",
+    });
+    return resp;
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 export const login = async (usuario) =>{
   try {

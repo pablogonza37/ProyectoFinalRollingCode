@@ -8,7 +8,7 @@ import {
   levantarSuspensionUsuarioAPI,
 } from "../../../helpers/queries";
 
-const ItemUsuario = ({ usuario, setData }) => {
+const ItemUsuario = ({ usuario, setData, desactivarBotonesAdmin }) => {
   const borrarUsuario = () => {
     Swal.fire({
       title: "¿Estás seguro de eliminar el usuario?",
@@ -89,10 +89,10 @@ const ItemUsuario = ({ usuario, setData }) => {
       <td>{usuario.rol}</td>
       <td>{`${usuario.suspendido}`}</td>
       <td className="text-center">
-        <Button className="btn btn-secondary" onClick={suspenderUsuario}>
+        <Button className="btn btn-secondary" onClick={suspenderUsuario} disabled={usuario.rol === 'admin'}>
           <i className={usuario.suspendido ? "bi bi-plus-circle" : "bi bi-dash-circle"}></i>
         </Button>
-        <Button variant="danger" onClick={borrarUsuario} className='ms-lg-1 mt-lg-0'>
+        <Button variant="danger" onClick={borrarUsuario} className='ms-lg-1 mt-lg-0' disabled={usuario.rol === 'admin'}>
           <i className="bi bi-trash"></i>
         </Button>
       </td>
