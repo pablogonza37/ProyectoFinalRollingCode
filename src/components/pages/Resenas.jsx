@@ -5,7 +5,7 @@ import {
   borrarReseniaAPI,
   crearReseniaAPI,
   leerReseniasAPI,
-} from "../helpers/queries";
+} from "../../helpers/queries";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 
@@ -108,7 +108,7 @@ const Resenas = ({ usuarioLogueado }) => {
   return (
     <section>
       <Carousel
-        className="carousel-background my-4 p-5 d-flex justify-content-center position-relative"
+        className="carousel-background my-4 p-5 d-flex justify-content-center position-relative shadow"
         wrap={true}
       >
         {resenias.map((resenia) => (

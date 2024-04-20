@@ -1,8 +1,7 @@
 import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
-import "./Footer";
-import "./Menu";
-import "./style404.css";
+import "../commons/Footer";
+import "../commons/Menu";
 import { Link } from "react-router-dom";
 
 const Error404 = () => {
