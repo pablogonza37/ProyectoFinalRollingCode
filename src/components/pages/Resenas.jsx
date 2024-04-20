@@ -71,8 +71,8 @@ const Resenas = ({ usuarioLogueado }) => {
             text: `La reseña eliminada correctamente`,
             icon: "success",
           });
-
           setResenias(resenias.filter((resenia) => resenia.id !== id));
+          listarResenias();
         } else {
           Swal.fire({
             title: "Ocurrió un error",
