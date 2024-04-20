@@ -112,9 +112,9 @@ const Resenas = ({ usuarioLogueado }) => {
         wrap={true}
       >
         {resenias.map((resenia) => (
-          <Carousel.Item key={resenia.id}>
+          <Carousel.Item interval={4000} key={resenia._id}>
             <div className="d-flex justify-content-center my-5 text-center">
-              <Card style={{ width: "30rem" }} className="shadow">
+              <Card style={{ width: "30rem" }} className="shadow text-bg-dark card-resenia py-4">
                 <Card.Body>
                   <Card.Title>{resenia.nombre}</Card.Title>
                   <Card.Text>{resenia.resenia}</Card.Text>
@@ -123,7 +123,7 @@ const Resenas = ({ usuarioLogueado }) => {
                 {usuarioLogueado && usuarioLogueado.rol === "admin" && (
                   <div className="d-flex justify-content-center">
                     <Button
-                      onClick={() => borrarResenia(resenia.id)}
+                      onClick={() => borrarResenia(resenia._id)}
                       variant="danger"
                       className="w-25 mb-2"
                     >

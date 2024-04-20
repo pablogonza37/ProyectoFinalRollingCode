@@ -2,8 +2,7 @@
 .unstyle {
   all: unset;
 }
-@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
-
+@import url("https://fonts.googleapis.com/css2?family=Pacifico&display=swap");
 
 #root {
   display: flex;
@@ -42,7 +41,7 @@
   font-style: normal;
 }
 
-.btnMenu{
+.btnMenu {
   font-family: "Pacifico", cursive;
   font-weight: 400;
   font-style: normal;
@@ -123,10 +122,8 @@
   object-fit: cover;
 }
 
-
-
-.navLogin:hover{
-background-color: #198754;
+.navLogin:hover {
+  background-color: #198754;
 }
 
 .nav-link:hover {
@@ -141,7 +138,7 @@ background-color: #198754;
   background-image: url("https://images.pexels.com/photos/70497/pexels-photo-70497.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1");
   background-size: cover;
 }
-.bg-acerceDe{
+.bg-acerceDe {
   background-image: url("https://images.pexels.com/photos/6424583/pexels-photo-6424583.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1");
   background-size: cover;
 }
@@ -151,15 +148,14 @@ background-color: #198754;
 }
 
 .carousel-background {
-  background-image: url('https://images.pexels.com/photos/941861/pexels-photo-941861.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');
-  background-size: cover; 
-  background-position: center; 
+  background-image: url("https://images.pexels.com/photos/941861/pexels-photo-941861.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1");
+  background-size: cover;
+  background-position: center;
 }
 
-.carousel-indicators{
+.carousel-indicators {
   display: none !important;
 }
-
 
 @keyframes slideInLeftAnimation {
   0% {
