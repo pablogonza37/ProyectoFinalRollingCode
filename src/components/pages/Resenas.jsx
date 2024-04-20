@@ -107,6 +107,19 @@ const Resenas = ({ usuarioLogueado }) => {
 
   return (
     <section>
+      <div className="text-center my-4">
+      {resenias.length === 0 ? (
+        <>
+        <h3>No hay reseñas disponibles.</h3>
+       {usuarioLogueado && (
+          <Button onClick={handleShow} variant="dark">
+            <i className="bi bi-plus-circle"></i>
+          </Button>
+        )}
+        </>
+      ) : null}
+    </div>
+    {resenias.length > 0 && (  
       <Carousel
         className="carousel-background my-4 p-5 d-flex justify-content-center position-relative shadow"
         wrap={true}
@@ -143,6 +156,7 @@ const Resenas = ({ usuarioLogueado }) => {
           </div>
         )}
       </Carousel>
+    )}
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
