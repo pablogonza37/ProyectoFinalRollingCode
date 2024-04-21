@@ -21,8 +21,8 @@ const Contacto = () => {
   };
 
   return (
-    <section className="bg-contacto">
-      <Container className="mainSection my-4 d-flex justify-content-center">
+    <section className="bg-contacto mainSection">
+      <Container className="my-4 d-flex justify-content-center">
         <Card className="p-3 shadow bg-card slideInLeft" style={{ width: "30rem" }}>
           <Card.Body>
             <Card.Title className="display-6">Contacto</Card.Title>
