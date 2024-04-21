@@ -19,8 +19,8 @@ const AcercaDe = () => {
   ];
 
   return (
-    <section className="bg-acerceDe">
-    <Container className="mt-5 mainSection">
+    <section className="bg-acerceDe mainSection">
+    <Container className="mt-5 ">
       <h2 className="text-center mb-5 fst-italic text-white bg-black py-3">Acerca de Nosotros</h2>
       <Row>
         {developers.map((developer, index) => (
