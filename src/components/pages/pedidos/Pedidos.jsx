@@ -83,7 +83,7 @@ const Pedidos = ({ usuarioLogueado, actualizarIndicePedidos }) => {
     let totalPrecio = 0;
     const pedidosFiltrados = filtrarPedidos();
     pedidosFiltrados.forEach((pedido) => {
-      if (pedido.estado !== "enviado") {
+      if (pedido.estado === "pendiente") {
         totalPrecio += parseFloat(pedido.precioTotal);
       }
     });

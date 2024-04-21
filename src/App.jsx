@@ -24,7 +24,7 @@ function App() {
 
   useEffect(() => {
     actualizarIndicePedidos()
-  }, []);
+  }, [usuarioLogueado]);
 
   const actualizarIndicePedidos = async () => {
     try {
