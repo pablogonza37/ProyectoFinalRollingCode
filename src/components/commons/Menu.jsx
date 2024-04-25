@@ -13,7 +13,7 @@ const Menu = ({ usuarioLogueado, setUsuarioLogueado, pedidosPendientes }) => {
       title: "¡Sesión cerrada!",
       text: "Has cerrado sesión correctamente.",
       icon: "success",
-      button: "Aceptar"
+      button: "Aceptar",
     });
     navegacion("/");
   };
@@ -28,7 +28,10 @@ const Menu = ({ usuarioLogueado, setUsuarioLogueado, pedidosPendientes }) => {
           aria-controls="responsive-navbar-nav"
           className="custom-toggler"
         />
-        <Navbar.Collapse id="responsive-navbar-nav bg-dark" className="text-white">
+        <Navbar.Collapse
+          id="responsive-navbar-nav bg-dark"
+          className="text-white"
+        >
           <Nav className="m-auto">
             <NavLink end className="text-white nav-link" to="/">
               Inicio
@@ -39,13 +42,16 @@ const Menu = ({ usuarioLogueado, setUsuarioLogueado, pedidosPendientes }) => {
             <NavLink end className="text-white nav-link" to="/contacto">
               Contacto
             </NavLink>
-            <NavLink end className="text-white nav-link" to="/pedidos">
-   Pedidos {pedidosPendientes.length > 0 && usuarioLogueado && (
-    <Badge bg="success" className='mb-1'>{pedidosPendientes.length}</Badge>
-  )}
-</NavLink>
             {usuarioLogueado !== "" ? (
               <>
+                <NavLink end className="text-white nav-link" to="/pedidos">
+                  Pedidos{" "}
+                  {pedidosPendientes.length > 0 && usuarioLogueado && (
+                    <Badge bg="success" className="mb-1">
+                      {pedidosPendientes.length}
+                    </Badge>
+                  )}
+                </NavLink>
                 {usuarioLogueado.rol === "admin" && (
                   <NavDropdown
                     title="Administrador"
