@@ -46,7 +46,7 @@ function App() {
       <BrowserRouter>
         <Menu usuarioLogueado={usuarioLogueado} setUsuarioLogueado={setUsuarioLogueado} pedidosPendientes={pedidosPendientes}/>
         <Routes>
-          <Route exact path="/" element={<Inicio usuarioLogueado={usuarioLogueado} actualizarIndicePedidos={actualizarIndicePedidos}></Inicio>}></Route>
+          <Route exact path="/" element={<Inicio usuarioLogueado={usuarioLogueado} actualizarIndicePedidos={actualizarIndicePedidos} pedidosPendientes={pedidosPendientes}></Inicio>}></Route>
           <Route
             exact
             path="/detalle/:id"
