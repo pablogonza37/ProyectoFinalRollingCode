@@ -6,17 +6,20 @@ import {
   Form,
   Button,
   Spinner,
+  Badge,
 } from "react-bootstrap";
 import CardProducto from "./producto/CardProducto";
 import { leerProductosAPI } from "../../helpers/queries";
 import Banner from "../../assets/banner.jpeg";
 import muestra1 from "../../assets/muestra1.webp";
 import Resenas from "./Resenas";
+import { Link } from "react-router-dom";
 
 const Inicio = ({
   openLoginModal,
   usuarioLogueado,
   actualizarIndicePedidos,
+  pedidosPendientes,
 }) => {
   const [productosInicio, setProductosInicio] = useState([]);
   const [productosFiltrados, setProductosFiltrados] = useState([]);
@@ -173,6 +176,23 @@ const Inicio = ({
           </ul>
         )}
       </Container>
+      {usuarioLogueado && (
+        <Link
+          className="carritoFlotante btn btn-dark rounded-5 d-flex justify-content-center border-success"
+          to="/pedidos"
+        >
+          <i className="bi bi-cart4 m-auto">
+            {pedidosPendientes.length > 0 && usuarioLogueado && (
+              <Badge
+                bg="success"
+                className="position-absolute top-0 end-0 translate-middle-y"
+              >
+                {pedidosPendientes.length}
+              </Badge>
+            )}
+          </i>
+        </Link>
+      )}
     </section>
   );
 };

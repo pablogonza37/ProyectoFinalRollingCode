@@ -113,7 +113,7 @@ const Registro = ({ tituloRegistro, rol, usuarioLogueado }) => {
             <Form.Label>Rol*</Form.Label>
             <Form.Select
               {...register("rol", {
-                required: " es obligatorio",
+                required: "El rol es obligatorio",
               })}
             >
               <option value="usuario">Usuario</option>
@@ -129,7 +129,7 @@ const Registro = ({ tituloRegistro, rol, usuarioLogueado }) => {
             type="password"
             placeholder="Ingresa tu contraseña"
             {...register("password", {
-              required: "El password es obligatorio",
+              required: "La contraseña es obligatoria",
               minLength: {
                 value: 8,
                 message: "el minimo es de 8 caracteres",
@@ -141,7 +141,7 @@ const Registro = ({ tituloRegistro, rol, usuarioLogueado }) => {
               pattern: {
                 value: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/,
                 message:
-                  "El password debe contener al menos una letra mayúscula, una letra minúscula y un número",
+                  "La contraseña debe contener al menos una letra mayúscula, una letra minúscula y un número",
               },
             })}
           />
@@ -156,7 +156,7 @@ const Registro = ({ tituloRegistro, rol, usuarioLogueado }) => {
             type="password"
             placeholder="Confirma tu contraseña"
             {...register("confirmarContraseña", {
-              required: "El password es obligatorio",
+              required: "Confirmar la contraseña es obligatorio",
               validate: (value) =>
                 value === password || "Las contraseñas no coinciden",
             })}

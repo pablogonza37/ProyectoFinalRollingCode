@@ -239,3 +239,17 @@
     opacity: 1;
   }
 }
+
+.carritoFlotante{
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  color: white;
+  cursor: pointer;
+  width: 50px;
+  height: 50px;
+}
+
+
+
+
