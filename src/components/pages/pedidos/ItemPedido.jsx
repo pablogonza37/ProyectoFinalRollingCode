@@ -36,9 +36,9 @@ const ItemPedido = ({
             text: `El Pedido "${pedido.nombreProducto}" fue eliminado correctamente`,
             icon: "success",
           });
-
           const listaPedidos = await obtenerPedidosAPI();
           setPedidos(listaPedidos);
+          actualizarIndicePedidos()
         } else {
           Swal.fire({
             title: "Ocurrió un error",
