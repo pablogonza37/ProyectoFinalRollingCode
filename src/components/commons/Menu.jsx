@@ -1,11 +1,19 @@
+import { useState } from 'react';
 import { Nav, Navbar, Container, Button, Badge } from "react-bootstrap";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import logo from "../../assets/logoRollingBistro.png";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import Swal from "sweetalert2";
+import { BiX } from "react-icons/bi"; // Importa el icono de Bootstrap
 
 const Menu = ({ usuarioLogueado, setUsuarioLogueado, pedidosPendientes }) => {
   const navegacion = useNavigate();
+  const [menuDesplegado, setMenuDesplegado] = useState(false); // Estado para controlar si el menú está desplegado
+
+  const toggleMenu = () => {
+    setMenuDesplegado(!menuDesplegado);
+  };
+
   const logout = () => {
     sessionStorage.removeItem("usuarioRollingBistro");
     setUsuarioLogueado("");
@@ -26,11 +34,18 @@ const Menu = ({ usuarioLogueado, setUsuarioLogueado, pedidosPendientes }) => {
         </Navbar.Brand>
         <Navbar.Toggle
           aria-controls="responsive-navbar-nav"
-          className="custom-toggler"
-        />
+          className="custom-toggler border-0"
+          onClick={toggleMenu} 
+        >
+          {menuDesplegado ? ( 
+            <i className="text-white bi bi-x-lg"></i>
+          ) : (
+            <span className="navbar-toggler-icon"></span> 
+          )}
+        </Navbar.Toggle>
         <Navbar.Collapse
           id="responsive-navbar-nav bg-dark"
-          className="text-white"
+          className={`text-white ${menuDesplegado ? "show" : ""}`} 
         >
           <Nav className="m-auto">
             <NavLink end className="text-white nav-link" to="/">
@@ -42,7 +57,7 @@ const Menu = ({ usuarioLogueado, setUsuarioLogueado, pedidosPendientes }) => {
             <NavLink end className="text-white nav-link" to="/contacto">
               Contacto
             </NavLink>
-            {usuarioLogueado !== "" ? (
+            {usuarioLogueado !== "" && (
               <>
                 <NavLink end className="text-white nav-link" to="/pedidos">
                   Pedidos{" "}
@@ -80,33 +95,36 @@ const Menu = ({ usuarioLogueado, setUsuarioLogueado, pedidosPendientes }) => {
                     </NavLink>
                   </NavDropdown>
                 )}
-                <div className="ms-lg-5 d-flex flex-column flex-lg-row border border-light rounded navLogin">
-                  <Button
-                    className="nav-link text-white "
-                    variant="link"
-                    onClick={logout}
-                  >
-                    Cerrar sesión
-                  </Button>
-                </div>
-              </>
-            ) : (
-              <>
-                <div className="ms-lg-5 d-flex flex-column flex-lg-row">
-                  <NavLink end className="text-white nav-link" to="/registro">
-                    Registro
-                  </NavLink>
-                  <NavLink
-                    className="text-white text-center nav-link border border-light rounded navLogin"
-                    variant="link"
-                    to="/login"
-                  >
-                    Iniciar sesión
-                  </NavLink>
-                </div>
-              </>
+                
+              </> 
             )}
+           
           </Nav>
+          {usuarioLogueado === "" && (
+              <Nav className="d-flex flex-column flex-lg-row">
+                <NavLink end className="text-white nav-link" to="/registro">
+                  Registro
+                </NavLink>
+                <NavLink
+                  className="text-white text-center nav-link border border-light rounded navLogin"
+                  variant="link"
+                  to="/login"
+                >
+                  Iniciar sesión
+                </NavLink>
+              </Nav>
+          )}
+          {usuarioLogueado !== "" && (
+            <Nav className="d-flex flex-column flex-lg-row border border-light rounded navLogin">
+              <Button
+                className="nav-link text-white "
+                variant="link"
+                onClick={logout}
+              >
+                Cerrar sesión
+              </Button>
+            </Nav>
+          )}
         </Navbar.Collapse>
       </Container>
     </Navbar>
