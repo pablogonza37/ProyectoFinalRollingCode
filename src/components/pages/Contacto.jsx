@@ -23,7 +23,10 @@ const Contacto = () => {
   return (
     <section className="bg-contacto mainSection">
       <Container className="my-4 d-flex justify-content-center">
-        <Card className="p-3 shadow bg-card slideInLeft" style={{ width: "30rem" }}>
+        <Card
+          className="p-3 shadow bg-card slideInLeft"
+          style={{ width: "30rem" }}
+        >
           <Card.Body>
             <Card.Title className="display-6">Contacto</Card.Title>
             <hr />
@@ -34,6 +37,11 @@ const Contacto = () => {
                   placeholder="Ingresa tu nombre"
                   {...register("name", {
                     required: "El nombre es obligatorio",
+                    pattern: {
+                      value: /^[A-Za-z\s]+$/,
+                      message:
+                        "El nombre de usuario solo puede contener letras y espacios",
+                    },
                     minLength: {
                       value: 3,
                       message: "El nombre debe tener al menos 3 caracteres",
