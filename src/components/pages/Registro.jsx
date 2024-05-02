@@ -27,7 +27,9 @@ const Registro = ({ tituloRegistro, rol, usuarioLogueado }) => {
     };
 
     const usuarios = await leerUsuariosAPI();
-    const usuarioExistente = usuarios.find((user) => user.email === usuario.email);
+    const usuarioExistente = usuarios.find(
+      (user) => user.email === usuario.email
+    );
 
     if (usuarioExistente) {
       Swal.fire({
@@ -72,6 +74,11 @@ const Registro = ({ tituloRegistro, rol, usuarioLogueado }) => {
             placeholder="Ingresa tu nombre de usuario"
             {...register("nombreUsuario", {
               required: "El nombre de usuario es obligatorio",
+              pattern: {
+                value: /^[A-Za-z\s]+$/,
+                message:
+                  "El nombre de usuario solo puede contener letras y espacios",
+              },
               minLength: {
                 value: 3,
                 message:
